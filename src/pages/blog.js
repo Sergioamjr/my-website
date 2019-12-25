@@ -15,7 +15,7 @@ import {
   linkStyle,
 } from "../design"
 
-const IndexPage = () => (
+const Blog = () => (
   <Template>
     <Container small>
       <h2 css={pageTitle}>Articles</h2>
@@ -26,4 +26,4 @@ const IndexPage = () => (
   </Template>
 )
 
-export default IndexPage
+export default Blog

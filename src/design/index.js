@@ -44,6 +44,10 @@ export const largeMgBottom = css`
   margin-bottom: 20px;
 `
 
+export const xLargeMgBottom = css`
+  margin-bottom: 40px;
+`
+
 export const text = css`
   color: ${colors.black};
   line-height: 1.8;

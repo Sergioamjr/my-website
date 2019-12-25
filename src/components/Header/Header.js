@@ -1,7 +1,8 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-import { colors, fontSize } from "../../design/theme";
-import { Container } from "../../design";
+import { css, jsx } from "@emotion/core"
+import { Link } from "gatsby"
+import { colors, fontSize } from "../../design/theme"
+import { Container } from "../../design"
 
 const headerStyle = css`
   background: ${colors.dark};
@@ -9,30 +10,30 @@ const headerStyle = css`
   display: flex;
   align-items: center;
   margin-bottom: 40px;
-`;
+`
 
 const alignCenter = css`
   display: flex;
   align-items: center;
-`;
+`
 
 const justifyContent = css`
   display: flex;
   justify-content: space-between;
-`;
+`
 
 const liStyle = css`
   margin-left: 15px;
-`;
+`
 
 const lightColor = css`
   color: #fff;
-`;
+`
 
 const titleStyle = css`
   ${lightColor}
   font-size: ${fontSize.medium};
-`;
+`
 
 const Header = () => {
   return (
@@ -42,30 +43,30 @@ const Header = () => {
         <nav css={alignCenter}>
           <ul css={justifyContent}>
             <li css={liStyle}>
-              <a css={lightColor} href="/#">
+              <Link to="/" css={lightColor}>
                 Home
-              </a>
+              </Link>
             </li>
             <li css={liStyle}>
-              <a css={lightColor} href="/#">
+              <Link to="/blog" css={lightColor}>
                 Blog
-              </a>
+              </Link>
             </li>
             <li css={liStyle}>
-              <a css={lightColor} href="/#">
+              <Link to="/projects" css={lightColor}>
                 Projects
-              </a>
+              </Link>
             </li>
             <li css={liStyle}>
-              <a css={lightColor} href="/#">
+              <Link to="/resume" css={lightColor}>
                 Resume
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
       </Container>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
