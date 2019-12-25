@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
+import PropTypes from "prop-types";
 import { colors, fontSize } from "./../../design/theme";
 
 const tags = css`
@@ -14,6 +15,10 @@ const tags = css`
 
 const Tags = ({ name }) => {
   return <span css={tags}>{name}</span>;
+};
+
+Tags.propTypes = {
+  name: PropTypes.string.isRequired
 };
 
 export default Tags;

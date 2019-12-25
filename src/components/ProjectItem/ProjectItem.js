@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-import { colors, fontSize } from "./../../design/theme";
+import { jsx } from "@emotion/core";
 import Tags from "../Tags";
 import { text, secondTitle, xLargeMgBottom, mgBottom } from "../../design";
 
