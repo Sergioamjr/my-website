@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core"
-import { colors, fontSize } from "./../../design/theme"
-import Tags from "../Tags"
-import { text, secondTitle, xLargeMgBottom, mgBottom } from "../../design"
+import { css, jsx } from "@emotion/core";
+import { colors, fontSize } from "./../../design/theme";
+import Tags from "../Tags";
+import { text, secondTitle, xLargeMgBottom, mgBottom } from "../../design";
 
 const ProjectItem = () => {
   return (
@@ -16,7 +16,7 @@ const ProjectItem = () => {
       </div>
       <a href="/#">Githubs Link</a>
     </div>
-  )
-}
+  );
+};
 
-export default ProjectItem
+export default ProjectItem;

@@ -5,41 +5,41 @@ export const colors = {
   primary: "#3498db",
   darkPrimary: "#2980b9",
   gray: "#e6e6e6",
-  black: "#333"
-};
+  black: "#333",
+}
 
 export const fontSize = {
   large: "36px",
   medium: "24px",
   small: "16px",
   xsmall: "12px",
-  xxsmall: "10px"
-};
+  xxsmall: "10px",
+}
 
 export const breakpoints = {
   xsmall: "320px",
   small: "768px",
   medium: "992px",
   large: "1024px",
-  xlarge: "1200px"
-};
+  xlarge: "1200px",
+}
 
 export const typograph = {
   Quattrocento: "Quattrocento Sans",
-  OpenSans: "Open Sans"
-};
+  OpenSans: "Open Sans",
+}
 
 export const fontWeight = {
   fontWeightLighter: "600",
   fontWeightNormal: "normal",
   fontWeightBold: "900",
-  fontWeightSemiBold: "600"
-};
+  fontWeightSemiBold: "600",
+}
 
 export const spaces = {
   xsmall: "4px",
   small: "8px",
   medium: "16px",
   large: "24px",
-  xlarge: "32px"
-};
+  xlarge: "32px",
+}

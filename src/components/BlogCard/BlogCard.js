@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core"
-import { colors, fontSize } from "./../../design/theme"
-import Tags from "../Tags"
-import { text, xLargeMgBottom, mgBottom, secondTitle } from "../../design"
+import { css, jsx } from "@emotion/core";
+import { colors, fontSize } from "./../../design/theme";
+import Tags from "../Tags";
+import { text, xLargeMgBottom, mgBottom, secondTitle } from "../../design";
 
 const BlogCard = () => {
   return (
@@ -17,7 +17,7 @@ const BlogCard = () => {
       </p>
       <Tags name="React" />
     </div>
-  )
-}
+  );
+};
 
-export default BlogCard
+export default BlogCard;
