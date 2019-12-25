@@ -6,7 +6,7 @@ export const colors = {
   darkPrimary: "#2980b9",
   gray: "#e6e6e6",
   black: "#333",
-}
+};
 
 export const fontSize = {
   large: "36px",
@@ -14,7 +14,7 @@ export const fontSize = {
   small: "16px",
   xsmall: "12px",
   xxsmall: "10px",
-}
+};
 
 export const breakpoints = {
   xsmall: "320px",
@@ -22,19 +22,19 @@ export const breakpoints = {
   medium: "992px",
   large: "1024px",
   xlarge: "1200px",
-}
+};
 
 export const typograph = {
   Quattrocento: "Quattrocento Sans",
   OpenSans: "Open Sans",
-}
+};
 
 export const fontWeight = {
   fontWeightLighter: "600",
   fontWeightNormal: "normal",
   fontWeightBold: "900",
   fontWeightSemiBold: "600",
-}
+};
 
 export const spaces = {
   xsmall: "4px",
@@ -42,4 +42,4 @@ export const spaces = {
   medium: "16px",
   large: "24px",
   xlarge: "32px",
-}
+};

@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core"
-import Template from "../components/Template"
-import ProfessionalExperienceItem from "../components/ProfessionalExperienceItem"
-import Tags from "../components/Tags"
+import { jsx } from "@emotion/core";
+import Template from "../components/Template";
+import ProfessionalExperienceItem from "../components/ProfessionalExperienceItem";
+import Tags from "../components/Tags";
 import {
   Container,
   pageTitle,
@@ -11,8 +11,8 @@ import {
   text,
   liStyle,
   wrapStyle,
-  linkStyle,
-} from "../design"
+  linkStyle
+} from "../design";
 
 const IndexPage = () => (
   <Template>
@@ -114,7 +114,7 @@ const IndexPage = () => (
             "Kanban",
             "TDD",
             "E2E",
-            "Accessibility",
+            "Accessibility"
           ].map((text, index) => (
             <Tags key={index} name={text} />
           ))}
@@ -129,6 +129,6 @@ const IndexPage = () => (
       </div>
     </Container>
   </Template>
-)
+);
 
-export default IndexPage
+export default IndexPage;

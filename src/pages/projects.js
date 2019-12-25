@@ -1,19 +1,8 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core"
-import Template from "../components/Template"
-import ProfessionalExperienceItem from "../components/ProfessionalExperienceItem"
-import Tags from "../components/Tags"
-import ProjectItem from "../components/ProjectItem"
-import {
-  Container,
-  pageTitle,
-  secondTitle,
-  largeMgBottom,
-  text,
-  liStyle,
-  wrapStyle,
-  linkStyle,
-} from "../design"
+import { jsx } from "@emotion/core";
+import Template from "../components/Template";
+import ProjectItem from "../components/ProjectItem";
+import { Container, pageTitle } from "../design";
 
 const Projects = () => (
   <Template>
@@ -24,6 +13,6 @@ const Projects = () => (
       ))}
     </Container>
   </Template>
-)
+);
 
-export default Projects
+export default Projects;

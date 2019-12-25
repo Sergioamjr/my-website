@@ -1,7 +1,7 @@
-import React from "react"
-import PropTypes from "prop-types"
-import Header from "../Header"
-import "./../../design/app.css"
+import React from "react";
+import PropTypes from "prop-types";
+import Header from "../Header";
+import "./../../design/app.css";
 
 const Template = ({ children }) => {
   return (
@@ -9,11 +9,11 @@ const Template = ({ children }) => {
       <Header />
       {children}
     </div>
-  )
-}
+  );
+};
 
 Template.propTypes = {
   children: PropTypes.node.isRequired,
-}
+};
 
-export default Template
+export default Template;

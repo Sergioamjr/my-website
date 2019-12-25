@@ -1,19 +1,8 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core"
-import Template from "../components/Template"
-import ProfessionalExperienceItem from "../components/ProfessionalExperienceItem"
-import Tags from "../components/Tags"
-import BlogCard from "../components/BlogCard"
-import {
-  Container,
-  pageTitle,
-  secondTitle,
-  largeMgBottom,
-  text,
-  liStyle,
-  wrapStyle,
-  linkStyle,
-} from "../design"
+import { jsx } from "@emotion/core";
+import Template from "../components/Template";
+import BlogCard from "../components/BlogCard";
+import { Container, pageTitle } from "../design";
 
 const Blog = () => (
   <Template>
@@ -24,6 +13,6 @@ const Blog = () => (
       ))}
     </Container>
   </Template>
-)
+);
 
-export default Blog
+export default Blog;

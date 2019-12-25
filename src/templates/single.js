@@ -3,7 +3,6 @@ import { graphql } from "gatsby";
 import PropTypes from "prop-types";
 import Template from "../components/Template";
 import { Container } from "../design";
-import { colors } from "../design/theme";
 
 const Single = props => {
   const post = props.data.wordpressPost;

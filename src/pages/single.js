@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import Template from "../components/Template";
-
 import Tags from "../components/Tags";
 import { Container, secondTitle, largeMgBottom, text } from "../design";
 
