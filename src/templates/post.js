@@ -16,7 +16,11 @@ const Post = props => {
           dangerouslySetInnerHTML={{ __html: post.title }}
         />
 
-        <div css={text} dangerouslySetInnerHTML={{ __html: post.content }} />
+        <div
+          className="post-content"
+          css={text}
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
       </Container>
     </Template>
   );

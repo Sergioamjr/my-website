@@ -35,11 +35,23 @@ module.exports = {
           "**/media",
           "**/taxonomies",
           "**/menus",
-          "**/participantes"
+          "**/participantes",
+          "**/projetos"
         ],
         normalizer: function({ entities }) {
           return entities;
         }
+      }
+    },
+    {
+      resolve: "gatsby-plugin-prefetch-google-fonts",
+      options: {
+        fonts: [
+          {
+            family: "Merriweather",
+            variants: ["300", "400", "700"]
+          }
+        ]
       }
     }
     // this (optional) plugin enables Progressive Web App + Offline functionality

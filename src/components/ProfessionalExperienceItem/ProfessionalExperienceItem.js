@@ -1,16 +1,12 @@
 /** @jsx jsx */
-import { jsx, css } from "@emotion/core";
-import { secondTitle, largeMgBottom, text } from "./../../design";
-
-const liStyle = css`
-  margin-left: 20px;
-  list-style-type: disc;
-`;
-
-const fontWeight = css`
-  font-weight: bold;
-  margin-bottom: 8px;
-`;
+import { jsx } from "@emotion/core";
+import {
+  secondTitle,
+  largeMgBottom,
+  text,
+  liStyle,
+  fontWeight
+} from "./../../design";
 
 const ProfessionalExperienceItem = () => {
   return (

@@ -2,14 +2,12 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/core";
 import { colors, fontSize } from "./theme";
 
-export const globalStyle = css`
-  * {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+export const primaryFont = css`
+  font-family: "Open Sans", sans-serif;
+`;
+
+export const secondaryFont = css`
+  font-family: "Merriweather", serif;
 `;
 
 export const Container = styled.div`
@@ -27,6 +25,7 @@ export const pageTitle = css`
   position: relative;
   z-index: -1;
   color: ${colors.gray};
+  ${primaryFont};
 `;
 
 export const mgBottom = css`
@@ -38,6 +37,7 @@ export const secondTitle = css`
   color: ${colors.dark};
   font-size: ${fontSize.medium};
   font-weight: bold;
+  ${primaryFont};
 `;
 
 export const largeMgBottom = css`
@@ -53,19 +53,22 @@ export const text = css`
   line-height: 1.8;
   font-size: 16px;
   text-align: justify;
-  font-family: "Helvetica Neue";
-  ${mgBottom}
+  ${secondaryFont};
+  ${mgBottom};
 `;
 
 export const thirdTitle = css`
   ${mgBottom};
+  ${primaryFont};
   color: ${colors.dark};
   font-size: 20px;
   font-weight: bold;
 `;
 
 export const liStyle = css`
-  margin-left: 15px;
+  margin-left: 20px;
+  list-style-type: disc;
+  margin-bottom: 8px;
 `;
 
 export const wrapStyle = css`
@@ -75,4 +78,38 @@ export const wrapStyle = css`
 
 export const linkStyle = css`
   line-height: 1.8;
+  ${primaryFont};
+  color: ${colors.primary};
+  border-bottom: 2px solid;
+  &:hover {
+    color: ${colors.darkPrimary};
+  }
+`;
+
+export const tags = css`
+  color: #fff;
+  margin-right: 10px;
+  padding: 5px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: ${fontSize.small};
+  background: ${colors.danger};
+  ${primaryFont};
+`;
+
+export const fontWeight = css`
+  font-weight: bold;
+  margin-bottom: 8px;
+  ${primaryFont};
+`;
+
+export const alignCenter = css`
+  display: flex;
+  align-items: center;
+`;
+
+export const justifyContent = css`
+  display: flex;
+  justify-content: space-between;
 `;

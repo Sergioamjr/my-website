@@ -3,7 +3,13 @@ import { jsx } from "@emotion/core";
 import { Link } from "gatsby";
 import PropTypes from "prop-types";
 import Tags from "../Tags";
-import { text, xLargeMgBottom, secondTitle, mgBottom } from "../../design";
+import {
+  text,
+  xLargeMgBottom,
+  secondTitle,
+  mgBottom,
+  linkStyle
+} from "../../design";
 
 const BlogCard = ({ title, excerpt, slug, categories }) => {
   return (
@@ -17,7 +23,9 @@ const BlogCard = ({ title, excerpt, slug, categories }) => {
           ))}
         </div>
       )}
-      <Link to={`/${slug}`}>Read more</Link>
+      <Link css={linkStyle} to={`/${slug}`}>
+        Read more
+      </Link>
     </div>
   );
 };
