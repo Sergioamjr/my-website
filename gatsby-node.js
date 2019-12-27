@@ -34,21 +34,22 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const { allWordpressPage, allWordpressPost } = result.data;
 
-  const singleTemplate = path.resolve("./src/templates/single.js");
+  const pageTemplate = path.resolve("./src/templates/page.js");
   allWordpressPage.edges.forEach(edge => {
     createPage({
       path: edge.node.path,
-      component: slash(singleTemplate),
+      component: slash(pageTemplate),
       context: {
         id: edge.node.id
       }
     });
   });
 
+  const postTemplate = path.resolve("./src/templates/post.js");
   allWordpressPost.edges.forEach(edge => {
     createPage({
       path: edge.node.path,
-      component: slash(singleTemplate),
+      component: slash(postTemplate),
       context: {
         id: edge.node.id
       }

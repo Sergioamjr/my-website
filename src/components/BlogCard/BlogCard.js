@@ -1,22 +1,36 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
+import { Link } from "gatsby";
+import PropTypes from "prop-types";
 import Tags from "../Tags";
-import { text, xLargeMgBottom, secondTitle } from "../../design";
+import { text, xLargeMgBottom, secondTitle, mgBottom } from "../../design";
 
-const BlogCard = () => {
+const BlogCard = ({ title, excerpt, slug, categories }) => {
   return (
     <div css={xLargeMgBottom}>
-      <p css={secondTitle}>Introdução React Hooks</p>
-      <p css={text}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit
-        nec ipsum ac tristique. Nunc erat orci, scelerisque eget nisi quis,
-        efficitur consequat magna. Maecenas pulvinar felis id purus congue
-        maximus. Sed scelerisque pulvinar massa non dictum. Donec mauris neque,
-        luctus sed sodales ut, rutrum ac dui...
-      </p>
-      <Tags name="React" />
+      <p css={secondTitle}>{title}</p>
+      <p css={text} dangerouslySetInnerHTML={{ __html: excerpt }} />
+      {categories.length > 0 && (
+        <div css={mgBottom}>
+          {categories.map(({ category }, index) => (
+            <Tags key={index} name={category} />
+          ))}
+        </div>
+      )}
+      <Link to={`/${slug}`}>Read more</Link>
     </div>
   );
+};
+
+BlogCard.propTypes = {
+  title: PropTypes.string,
+  excerpt: PropTypes.string,
+  slug: PropTypes.string,
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      category: PropTypes.string
+    })
+  )
 };
 
 export default BlogCard;

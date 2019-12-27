@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import Template from "../components/Template";
 import { Container } from "../design";
 
-const Single = props => {
-  const post = props.data.wordpressPost;
+const Page = props => {
+  const post = props.data.wordpressPage;
 
   return (
     <Template>
@@ -24,18 +24,19 @@ const Single = props => {
   );
 };
 
-Single.propTypes = {
+Page.propTypes = {
   data: PropTypes.object.isRequired,
   edges: PropTypes.array
 };
 
-export default Single;
+export default Page;
 
 export const pageQuery = graphql`
   query($id: String!) {
-    wordpressPost(id: { eq: $id }) {
+    wordpressPage(id: { eq: $id }) {
       title
       content
+      date(formatString: "MMMM DD, YYYY")
     }
   }
 `;
