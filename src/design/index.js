@@ -34,33 +34,39 @@ export const mgBottom = css`
 
 export const secondTitle = css`
   ${mgBottom};
-  color: ${colors.dark};
+  color: var(--title);
   font-size: ${fontSize.medium};
   font-weight: bold;
   ${primaryFont};
 `;
 
 export const largeMgBottom = css`
-  margin-bottom: 20px;
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
 `;
 
 export const xLargeMgBottom = css`
-  margin-bottom: 40px;
+  &:not(:last-child) {
+    margin-bottom: 40px;
+  }
 `;
 
 export const text = css`
-  color: ${colors.black};
+  color: var(--text);
   line-height: 1.8;
   font-size: 16px;
   text-align: justify;
   ${secondaryFont};
   ${mgBottom};
+  transition: color 0.3s ease;
+  will-change: color;
 `;
 
 export const thirdTitle = css`
   ${mgBottom};
   ${primaryFont};
-  color: ${colors.dark};
+  color: var(--title);
   font-size: 20px;
   font-weight: bold;
 `;
@@ -69,6 +75,7 @@ export const liStyle = css`
   margin-left: 20px;
   list-style-type: disc;
   margin-bottom: 8px;
+  color: var(--text);
 `;
 
 export const wrapStyle = css`
@@ -112,4 +119,12 @@ export const alignCenter = css`
 export const justifyContent = css`
   display: flex;
   justify-content: space-between;
+`;
+
+export const backgroundStyle = css`
+  background: var(--background);
+  height: 100vh;
+  overflow: scroll;
+  transition: background 0.3s ease;
+  will-change: background;
 `;

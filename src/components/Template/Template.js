@@ -1,11 +1,13 @@
-import React from "react";
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import Header from "../Header";
 import "./../../design/app.css";
+import { backgroundStyle } from "../../design";
 
 const Template = ({ children }) => {
   return (
-    <div>
+    <div css={backgroundStyle}>
       <Header />
       {children}
     </div>
@@ -13,7 +15,7 @@ const Template = ({ children }) => {
 };
 
 Template.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default Template;

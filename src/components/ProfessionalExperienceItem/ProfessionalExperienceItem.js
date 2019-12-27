@@ -1,18 +1,25 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx, css } from "@emotion/core";
 import {
   secondTitle,
   largeMgBottom,
   text,
   liStyle,
-  fontWeight
+  fontWeight,
+  primaryFont
 } from "./../../design";
+
+const role = css`
+  ${fontWeight};
+  ${text};
+  ${primaryFont};
+`;
 
 const ProfessionalExperienceItem = () => {
   return (
     <div css={largeMgBottom}>
       <p css={secondTitle}>Ferreri</p>
-      <p css={fontWeight}>MOBILE & FRONT END DEVELOPER</p>
+      <p css={role}>MOBILE & FRONT END DEVELOPER</p>
       <p css={text}>Ago/2019 - Currently</p>
       <p css={text}>
         Ferreri is my currently job, they are an agency with different clients
