@@ -22,11 +22,5 @@
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "double"],
     "semi": ["error", "always"]
-  },
-  "overrides": [
-    {
-      "files": "src/**",
-      "excludedFiles": "src/images"
-    }
-  ]
+  }
 }
