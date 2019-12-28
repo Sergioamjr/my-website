@@ -8,6 +8,7 @@ import {
   justifyContent,
   primaryFont
 } from "../../design";
+import Toggle from "../Toggle";
 
 const headerStyle = css`
   background: ${colors.dark};
@@ -69,7 +70,7 @@ const Header = () => {
               </Link>
             </li>
             <li css={liStyle}>
-              <button onClick={updateThemeHandler}>Update</button>
+              <Toggle onChange={updateThemeHandler} />
             </li>
           </ul>
         </nav>
