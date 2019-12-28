@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx, css } from "@emotion/core";
 import { Link } from "gatsby";
 import PropTypes from "prop-types";
 import Tags from "../Tags";
@@ -11,9 +11,15 @@ import {
   linkStyle
 } from "../../design";
 
+const zIndex = css`
+  position: relative;
+  z-index: 1;
+  ${xLargeMgBottom};
+`;
+
 const BlogCard = ({ title, excerpt, slug, categories }) => {
   return (
-    <div css={xLargeMgBottom}>
+    <div css={zIndex}>
       <p css={secondTitle}>{title}</p>
       <p css={text} dangerouslySetInnerHTML={{ __html: excerpt }} />
       {categories.length > 0 && (

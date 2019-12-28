@@ -23,9 +23,9 @@ export const pageTitle = css`
   margin-bottom: -45px;
   left: -15px;
   position: relative;
-  z-index: -1;
-  color: ${colors.gray};
+  color: var(--text);
   ${primaryFont};
+  opacity: 0.15;
 `;
 
 export const mgBottom = css`
@@ -56,7 +56,6 @@ export const text = css`
   color: var(--text);
   line-height: 1.8;
   font-size: 16px;
-  text-align: justify;
   ${secondaryFont};
   ${mgBottom};
   transition: color 0.3s ease;
@@ -127,4 +126,20 @@ export const backgroundStyle = css`
   overflow: scroll;
   transition: background 0.3s ease;
   will-change: background;
+`;
+
+export const hideSm = css`
+  @media screen and (min-width: 720px) {
+    display: none;
+  }
+`;
+
+export const showSm = css`
+  @media screen and (min-width: 720px) {
+    display: block;
+  }
+`;
+
+export const displayNone = css`
+  display: none;
 `;

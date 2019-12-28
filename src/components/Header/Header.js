@@ -1,12 +1,16 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { Link } from "gatsby";
+import PropTypes from "prop-types";
 import { colors, fontSize } from "../../design/theme";
 import {
   Container,
   alignCenter,
   justifyContent,
-  primaryFont
+  primaryFont,
+  displayNone,
+  showSm,
+  hideSm
 } from "../../design";
 import Toggle from "../Toggle";
 
@@ -33,7 +37,7 @@ const linkStyle = css`
   color: var(--light)
 `;
 
-const Header = () => {
+const Header = ({ closeHandler }) => {
   const updateThemeHandler = () => {
     const documentRef = document.documentElement.style;
     const isDarkMode =
@@ -49,22 +53,46 @@ const Header = () => {
         <h1 css={titleStyle}>Sérgio Júnior</h1>
         <nav css={alignCenter}>
           <ul css={justifyContent}>
-            <li css={liStyle}>
+            <li
+              css={css`
+                ${liStyle}
+                ${displayNone}
+                ${showSm}
+              `}
+            >
               <Link to="/" css={linkStyle}>
                 Home
               </Link>
             </li>
-            <li css={liStyle}>
+            <li
+              css={css`
+                ${liStyle}
+                ${displayNone}
+                ${showSm}
+              `}
+            >
               <Link to="/blog" css={linkStyle}>
                 Blog
               </Link>
             </li>
-            <li css={liStyle}>
+            <li
+              css={css`
+                ${liStyle}
+                ${displayNone}
+                ${showSm}
+              `}
+            >
               <Link to="/projects" css={linkStyle}>
                 Projects
               </Link>
             </li>
-            <li css={liStyle}>
+            <li
+              css={css`
+                ${liStyle}
+                ${displayNone}
+                ${showSm}
+              `}
+            >
               <Link to="/resume" css={linkStyle}>
                 Resume
               </Link>
@@ -72,11 +100,23 @@ const Header = () => {
             <li css={liStyle}>
               <Toggle onChange={updateThemeHandler} />
             </li>
+            <li
+              css={css`
+                ${liStyle}
+                ${hideSm}
+              `}
+            >
+              <button onClick={closeHandler}>Menu</button>
+            </li>
           </ul>
         </nav>
       </Container>
     </header>
   );
+};
+
+Header.propTypes = {
+  closeHandler: PropTypes.func.isRequired
 };
 
 export default Header;
