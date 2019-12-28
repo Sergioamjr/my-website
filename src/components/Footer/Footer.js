@@ -1,7 +1,35 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import { Link } from "gatsby";
 import { justifyContent, primaryFont } from "../../design";
+import {
+  IconMedium,
+  IconCodepen,
+  IconGithub,
+  IconLinkedin
+} from "../../design/icons";
+
+export const links = [
+  {
+    Icon: IconMedium,
+    name: "Medium",
+    url: "https://medium.com/@sergioamjr91"
+  },
+  {
+    Icon: IconCodepen,
+    name: "CodePen",
+    url: "https://codepen.io/sergioamjr"
+  },
+  {
+    Icon: IconGithub,
+    name: "Medium",
+    url: "https://github.com/Sergioamjr/"
+  },
+  {
+    Icon: IconLinkedin,
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/sergioamjr/"
+  }
+];
 
 const footerStyle = css`
   background: var(--theme);
@@ -13,7 +41,7 @@ const footerStyle = css`
 `;
 
 const liStyle = css`
-  margin-left: 15px;
+  margin: 0 15px;
 `;
 
 const linkStyle = css`
@@ -25,42 +53,23 @@ const Footer = () => {
   return (
     <footer css={footerStyle}>
       <ul css={justifyContent}>
-        <li
-          css={css`
-            ${liStyle}
-          `}
-        >
-          <Link to="/" css={linkStyle}>
-            LinkedIn
-          </Link>
-        </li>
-        <li
-          css={css`
-            ${liStyle}
-          `}
-        >
-          <Link to="/blog" css={linkStyle}>
-            Github
-          </Link>
-        </li>
-        <li
-          css={css`
-            ${liStyle}
-          `}
-        >
-          <Link to="/projects" css={linkStyle}>
-            Medium
-          </Link>
-        </li>
-        <li
-          css={css`
-            ${liStyle}
-          `}
-        >
-          <Link to="/resume" css={linkStyle}>
-            CodePen
-          </Link>
-        </li>
+        {links.map(({ Icon, url, name }) => (
+          <li
+            key={name}
+            css={css`
+              ${liStyle}
+            `}
+          >
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={url}
+              css={linkStyle}
+            >
+              <Icon />
+            </a>
+          </li>
+        ))}
       </ul>
     </footer>
   );

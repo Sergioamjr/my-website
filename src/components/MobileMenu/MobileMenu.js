@@ -36,7 +36,7 @@ const linkStyle = css`
 const btnStyle = css`
   position: absolute;
   right: 15px;
-  top: 20px;
+  top: 22px;
 `;
 
 const MobileMenu = ({ isOpen, closeHandler }) => {

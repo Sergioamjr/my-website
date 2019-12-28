@@ -13,6 +13,7 @@ import {
   wrapStyle,
   linkStyle
 } from "../design";
+import { links } from "../components/Footer/Footer";
 
 const IndexPage = () => (
   <Template>
@@ -60,26 +61,18 @@ const IndexPage = () => (
       <div css={largeMgBottom}>
         <p css={secondTitle}>Links</p>
         <ul>
-          <li css={liStyle}>
-            <a css={linkStyle} href="/#">
-              Github
-            </a>
-          </li>
-          <li css={liStyle}>
-            <a css={linkStyle} href="/#">
-              LinkedIn
-            </a>
-          </li>
-          <li css={liStyle}>
-            <a css={linkStyle} href="/#">
-              CodePen
-            </a>
-          </li>
-          <li css={liStyle}>
-            <a css={linkStyle} href="/#">
-              Medium
-            </a>
-          </li>
+          {links.map(({ url, name }) => (
+            <li key={name} css={liStyle}>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                css={linkStyle}
+                href={url}
+              >
+                {name}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
 
