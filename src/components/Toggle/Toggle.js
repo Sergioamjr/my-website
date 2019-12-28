@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import PropTypes from "prop-types";
 
 const toggleWrapper = css`
   background: #eca723;
@@ -52,17 +51,13 @@ const inputStyle = css`
   }
 `;
 
-const Toggle = ({ onChange }) => {
+const Toggle = props => {
   return (
     <div>
-      <input css={inputStyle} id="toggle" onChange={onChange} type="checkbox" />
+      <input css={inputStyle} id="toggle" type="checkbox" {...props} />
       <label htmlFor="toggle" css={toggleWrapper}></label>
     </div>
   );
-};
-
-Toggle.propTypes = {
-  onChange: PropTypes.func.isRequired
 };
 
 export default Toggle;

@@ -7,6 +7,7 @@ import { primaryFont, mgBottom, hideSm } from "../../design";
 
 const Wrapper = styled.div`
   ${hideSm};
+  z-index: 9;
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -46,23 +47,23 @@ const MobileMenu = ({ isOpen, closeHandler }) => {
       </button>
       <ul css={ulStyle}>
         <li>
-          <Link css={linkStyle} to="/#">
+          <Link css={linkStyle} to="/">
             Home
           </Link>
         </li>
         <li>
-          <Link css={linkStyle} to="/#">
-            Home
+          <Link css={linkStyle} to="/blog">
+            Blog
           </Link>
         </li>
         <li>
-          <Link css={linkStyle} to="/#">
-            Home
+          <Link css={linkStyle} to="/projects">
+            Projects
           </Link>
         </li>
         <li>
-          <Link css={linkStyle} to="/#">
-            Home
+          <Link css={linkStyle} to="/resume">
+            Resume
           </Link>
         </li>
       </ul>

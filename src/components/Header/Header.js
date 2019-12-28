@@ -2,7 +2,7 @@
 import { css, jsx } from "@emotion/core";
 import { Link } from "gatsby";
 import PropTypes from "prop-types";
-import { colors, fontSize } from "../../design/theme";
+import { fontSize } from "../../design/theme";
 import {
   Container,
   alignCenter,
@@ -15,7 +15,7 @@ import {
 import Toggle from "../Toggle";
 
 const headerStyle = css`
-  background: ${colors.dark};
+  background: var(--theme);
   height: 60px;
   display: flex;
   align-items: center;
@@ -37,22 +37,18 @@ const linkStyle = css`
   color: var(--light)
 `;
 
-const Header = ({ closeHandler }) => {
-  const updateThemeHandler = () => {
-    const documentRef = document.documentElement.style;
-    const isDarkMode =
-      documentRef.getPropertyValue("--background") === "#1d1d1d";
-    documentRef.setProperty("--background", isDarkMode ? "#fff" : "#1d1d1d");
-    documentRef.setProperty("--text", !isDarkMode ? "#e0e0e0" : "#333");
-    documentRef.setProperty("--title", !isDarkMode ? "#fff" : "#2c3e50");
-  };
-
+const Header = ({ closeHandler, updateThemeMode, themeMode }) => {
   return (
     <header css={headerStyle}>
       <Container css={justifyContent}>
         <h1 css={titleStyle}>Sérgio Júnior</h1>
         <nav css={alignCenter}>
-          <ul css={justifyContent}>
+          <ul
+            css={css`
+              ${justifyContent};
+              align-items: center;
+            `}
+          >
             <li
               css={css`
                 ${liStyle}
@@ -98,7 +94,10 @@ const Header = ({ closeHandler }) => {
               </Link>
             </li>
             <li css={liStyle}>
-              <Toggle onChange={updateThemeHandler} />
+              <Toggle
+                checked={themeMode === "dark"}
+                onChange={updateThemeMode}
+              />
             </li>
             <li
               css={css`
@@ -116,6 +115,8 @@ const Header = ({ closeHandler }) => {
 };
 
 Header.propTypes = {
+  themeMode: PropTypes.string.isRequired,
+  updateThemeMode: PropTypes.func.isRequired,
   closeHandler: PropTypes.func.isRequired
 };
 
