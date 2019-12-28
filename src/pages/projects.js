@@ -20,6 +20,7 @@ const Projects = props => {
           } = node;
           return (
             <BlogCard
+              externalLink
               categories={categories || []}
               excerpt={content}
               slug={link}

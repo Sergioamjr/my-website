@@ -3,6 +3,7 @@ import { css, jsx } from "@emotion/core";
 import { Link } from "gatsby";
 import PropTypes from "prop-types";
 import { fontSize } from "../../design/theme";
+
 import {
   Container,
   alignCenter,
@@ -13,6 +14,7 @@ import {
   hideSm
 } from "../../design";
 import Toggle from "../Toggle";
+import { IconMenu } from "../../design/icons";
 
 const headerStyle = css`
   background: var(--theme);
@@ -35,6 +37,12 @@ const titleStyle = css`
 const linkStyle = css`
   ${primaryFont}
   color: var(--light)
+`;
+
+const btnStyle = css`
+  background: none;
+  border: 0;
+  cursor: pointer;
 `;
 
 const Header = ({ closeHandler, updateThemeMode, themeMode }) => {
@@ -82,17 +90,7 @@ const Header = ({ closeHandler, updateThemeMode, themeMode }) => {
                 Projects
               </Link>
             </li>
-            <li
-              css={css`
-                ${liStyle}
-                ${displayNone}
-                ${showSm}
-              `}
-            >
-              <Link to="/resume" css={linkStyle}>
-                Resume
-              </Link>
-            </li>
+
             <li css={liStyle}>
               <Toggle
                 checked={themeMode === "dark"}
@@ -105,7 +103,9 @@ const Header = ({ closeHandler, updateThemeMode, themeMode }) => {
                 ${hideSm}
               `}
             >
-              <button onClick={closeHandler}>Menu</button>
+              <button css={btnStyle} onClick={closeHandler}>
+                <IconMenu />
+              </button>
             </li>
           </ul>
         </nav>

@@ -17,7 +17,7 @@ const zIndex = css`
   ${xLargeMgBottom};
 `;
 
-const BlogCard = ({ title, excerpt, slug, categories }) => {
+const BlogCard = ({ title, excerpt, slug, categories, externalLink }) => {
   return (
     <div css={zIndex}>
       <p css={secondTitle}>{title}</p>
@@ -29,14 +29,27 @@ const BlogCard = ({ title, excerpt, slug, categories }) => {
           ))}
         </div>
       )}
-      <Link css={linkStyle} to={`/${slug}`}>
-        Read more
-      </Link>
+      {externalLink && slug && (
+        <a
+          rel="noopener noreferrer"
+          target="_blank"
+          css={linkStyle}
+          href={slug}
+        >
+          Read more
+        </a>
+      )}
+      {!externalLink && slug && (
+        <Link css={linkStyle} to={`/${slug}`}>
+          Read more
+        </Link>
+      )}
     </div>
   );
 };
 
 BlogCard.propTypes = {
+  externalLink: PropTypes.bool,
   title: PropTypes.string,
   excerpt: PropTypes.string,
   slug: PropTypes.string,

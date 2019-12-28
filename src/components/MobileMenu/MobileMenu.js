@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import PropTypes from "prop-types";
 import { Link } from "gatsby";
 import { primaryFont, mgBottom, hideSm } from "../../design";
+import { IconClose } from "../../design/icons";
 
 const Wrapper = styled.div`
   ${hideSm};
@@ -37,13 +38,16 @@ const btnStyle = css`
   position: absolute;
   right: 15px;
   top: 22px;
+  background: none;
+  border: 0;
+  cursor: pointer;
 `;
 
 const MobileMenu = ({ isOpen, closeHandler }) => {
   return (
     <Wrapper isOpen={isOpen}>
       <button onClick={closeHandler} css={btnStyle}>
-        Close
+        <IconClose />
       </button>
       <ul css={ulStyle}>
         <li>
@@ -59,11 +63,6 @@ const MobileMenu = ({ isOpen, closeHandler }) => {
         <li>
           <Link css={linkStyle} to="/projects">
             Projects
-          </Link>
-        </li>
-        <li>
-          <Link css={linkStyle} to="/resume">
-            Resume
           </Link>
         </li>
       </ul>

@@ -11,12 +11,17 @@ import Footer from "../Footer";
 const key = "sj";
 
 const setLocalStorage = value => {
-  window.localStorage.setItem(key, JSON.stringify(value));
+  if (typeof localStorage !== "undefined") {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
 };
 
 const getLocalStorage = (item = key) => {
-  const value = window.localStorage.getItem(item) || "{}";
-  return JSON.parse(value);
+  if (typeof localStorage !== "undefined") {
+    const value = localStorage.getItem(item) || "{}";
+    return JSON.parse(value);
+  }
+  return {};
 };
 
 const getThemeMode = () => {
