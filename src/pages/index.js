@@ -16,7 +16,7 @@ import {
 import { links } from "../components/Footer/Footer";
 
 const IndexPage = () => (
-  <Template>
+  <Template title="Início">
     <Container small>
       <h2 css={pageTitle}>Resume</h2>
       <div css={largeMgBottom}>

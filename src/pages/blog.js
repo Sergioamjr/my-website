@@ -9,7 +9,7 @@ import { Container, pageTitle } from "../design";
 const Blog = props => {
   const data = props.data.allWordpressPost.edges;
   return (
-    <Template>
+    <Template title="Blog">
       <Container small>
         <h2 css={pageTitle}>Articles</h2>
         {data.map(({ node }, i) => {

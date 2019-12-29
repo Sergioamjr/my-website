@@ -7,6 +7,7 @@ import "./../../design/app.css";
 import { backgroundStyle } from "../../design";
 import MobileMenu from "../MobileMenu";
 import Footer from "../Footer";
+import SEO from "../seo";
 
 const key = "sj";
 
@@ -33,7 +34,7 @@ const childrenStyle = css`
   min-height: calc(100vh - 200px);
 `;
 
-const Template = ({ children }) => {
+const Template = ({ children, ...props }) => {
   const [isMobileMenuOpended, setIsMobileMenuOpended] = useState(false);
   const [themeMode, setThemeMode] = useState(getThemeMode);
 
@@ -56,6 +57,7 @@ const Template = ({ children }) => {
 
   return (
     <div css={backgroundStyle}>
+      <SEO {...props} />
       <Header
         updateThemeMode={updateThemeMode}
         themeMode={themeMode}
@@ -72,7 +74,9 @@ const Template = ({ children }) => {
 };
 
 Template.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string
 };
 
 export default Template;

@@ -9,7 +9,7 @@ const Post = props => {
   const post = props.data.wordpressPost;
 
   return (
-    <Template>
+    <Template title={post.title} description={post.excerpt}>
       <Container small>
         <h1
           css={secondTitle}
@@ -27,8 +27,13 @@ const Post = props => {
 };
 
 Post.propTypes = {
-  data: PropTypes.object.isRequired,
-  edges: PropTypes.array
+  data: PropTypes.shape({
+    wordpressPost: PropTypes.shape({
+      title: PropTypes.string,
+      content: PropTypes.string,
+      excerpt: PropTypes.string
+    })
+  }).isRequired
 };
 
 export default Post;
@@ -38,6 +43,7 @@ export const pageQuery = graphql`
     wordpressPost(id: { eq: $id }) {
       title
       content
+      excerpt
     }
   }
 `;

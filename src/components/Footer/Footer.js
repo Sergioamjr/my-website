@@ -21,7 +21,7 @@ export const links = [
   },
   {
     Icon: IconGithub,
-    name: "Medium",
+    name: "Github",
     url: "https://github.com/Sergioamjr/"
   },
   {

@@ -9,7 +9,7 @@ import BlogCard from "../components/BlogCard";
 const Projects = props => {
   const data = props.data.allWordpressWpProjetos.edges;
   return (
-    <Template>
+    <Template title="Projects">
       <Container small>
         <h2 css={pageTitle}>Projects</h2>
         {data.map(({ node }, i) => {
