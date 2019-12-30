@@ -24,6 +24,7 @@
 }
 
 :root {
+  --gray: #ababab;
   --theme: #2c3e50;
   --black: #333;
   --light: #ecf0f1;

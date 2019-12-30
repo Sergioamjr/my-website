@@ -35,10 +35,14 @@ exports.createPages = async ({ graphql, actions }) => {
   const { allWordpressPage, allWordpressPost } = result.data;
 
   const pageTemplate = path.resolve("./src/templates/page.js");
+  const resumeTemplate = path.resolve("./src/templates/resume.js");
   allWordpressPage.edges.forEach(edge => {
+    const pageModel = edge.node.path.includes("resume")
+      ? resumeTemplate
+      : pageTemplate;
     createPage({
       path: edge.node.path,
-      component: slash(pageTemplate),
+      component: slash(pageModel),
       context: {
         id: edge.node.id
       }

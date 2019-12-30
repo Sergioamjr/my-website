@@ -3,8 +3,9 @@ import { jsx, css } from "@emotion/core";
 import styled from "@emotion/styled";
 import PropTypes from "prop-types";
 import { Link } from "gatsby";
-import { primaryFont, mgBottom, hideSm } from "../../design";
+import { primaryFont, hideSm } from "../../design";
 import { IconClose } from "../../design/icons";
+import { menuOptions } from "../../utils";
 
 const Wrapper = styled.div`
   ${hideSm};
@@ -29,7 +30,7 @@ const ulStyle = css`
 
 const linkStyle = css`
   ${primaryFont}
-  ${mgBottom}
+  margin-bottom: 32px;
   color: var(--light);
   display: block;
 `;
@@ -50,21 +51,13 @@ const MobileMenu = ({ isOpen, closeHandler }) => {
         <IconClose />
       </button>
       <ul css={ulStyle}>
-        <li>
-          <Link css={linkStyle} to="/">
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link css={linkStyle} to="/blog">
-            Blog
-          </Link>
-        </li>
-        <li>
-          <Link css={linkStyle} to="/projects">
-            Projects
-          </Link>
-        </li>
+        {menuOptions.map(({ name, url }) => (
+          <li key={url}>
+            <Link css={linkStyle} to={url}>
+              {name}
+            </Link>
+          </li>
+        ))}
       </ul>
     </Wrapper>
   );

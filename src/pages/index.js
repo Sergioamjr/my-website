@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import Template from "../components/Template";
-import ProfessionalExperienceItem from "../components/ProfessionalExperienceItem";
 import Tags from "../components/Tags";
 import {
   Container,
@@ -64,6 +63,8 @@ const IndexPage = () => (
           {links.map(({ url, name }) => (
             <li key={name} css={liStyle}>
               <a
+                aria-label={`Minha conta no ${name}`}
+                title={`Minha conta no ${name}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 css={linkStyle}
@@ -112,13 +113,6 @@ const IndexPage = () => (
             <Tags key={index} name={text} />
           ))}
         </div>
-      </div>
-
-      <div css={largeMgBottom}>
-        <p css={secondTitle}>Professional Experience</p>
-        <ProfessionalExperienceItem />
-        <ProfessionalExperienceItem />
-        <ProfessionalExperienceItem />
       </div>
     </Container>
   </Template>

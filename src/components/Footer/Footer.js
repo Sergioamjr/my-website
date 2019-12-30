@@ -61,6 +61,8 @@ const Footer = () => {
             `}
           >
             <a
+              aria-label={`Minha conta no ${name}`}
+              title={`Minha conta no ${name}`}
               target="_blank"
               rel="noopener noreferrer"
               href={url}

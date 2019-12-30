@@ -15,6 +15,7 @@ import {
 } from "../../design";
 import Toggle from "../Toggle";
 import { IconMenu } from "../../design/icons";
+import { menuOptions } from "../../utils";
 
 const headerStyle = css`
   background: var(--theme);
@@ -57,39 +58,20 @@ const Header = ({ closeHandler, updateThemeMode, themeMode }) => {
               align-items: center;
             `}
           >
-            <li
-              css={css`
-                ${liStyle}
-                ${displayNone}
-                ${showSm}
+            {menuOptions.map(({ url, name }) => (
+              <li
+                key={url}
+                css={css`
+              ${liStyle}
+              ${displayNone}
+              ${showSm}
               `}
-            >
-              <Link to="/" css={linkStyle}>
-                Home
-              </Link>
-            </li>
-            <li
-              css={css`
-                ${liStyle}
-                ${displayNone}
-                ${showSm}
-              `}
-            >
-              <Link to="/blog" css={linkStyle}>
-                Blog
-              </Link>
-            </li>
-            <li
-              css={css`
-                ${liStyle}
-                ${displayNone}
-                ${showSm}
-              `}
-            >
-              <Link to="/projects" css={linkStyle}>
-                Projects
-              </Link>
-            </li>
+              >
+                <Link to={url} css={linkStyle}>
+                  {name}
+                </Link>
+              </li>
+            ))}
 
             <li css={liStyle}>
               <Toggle
