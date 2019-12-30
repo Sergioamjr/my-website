@@ -53,6 +53,12 @@ module.exports = {
           }
         ]
       }
+    },
+    {
+      resolve: "gatsby-plugin-load-script",
+      options: {
+        src: "https://sergiojunior-netlify.disqus.com/count.js"
+      }
     }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
