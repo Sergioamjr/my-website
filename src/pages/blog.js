@@ -62,7 +62,7 @@ Blog.propTypes = {
 
 export const pageQuery = graphql`
   query {
-    allWordpressPost {
+    allWordpressPost(sort: { fields: [date], order: DESC }) {
       edges {
         node {
           title
