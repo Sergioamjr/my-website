@@ -5960,6 +5960,13 @@ gatsby-plugin-firebase@^0.1.7:
   resolved "https://registry.yarnpkg.com/gatsby-plugin-firebase/-/gatsby-plugin-firebase-0.1.7.tgz#8e6ca874f0238e614c0c39ae65f301ab7ac2d7e1"
   integrity sha512-M/C+r+1sTEUgpZlAMafl6PuQi0n3Lh/pN7+fBRAakW5CQ2k8vXuz4GzLLJ49DFOaYKtZxPXeRUm6dAjoMjTIhg==
 
+gatsby-plugin-google-analytics@^2.1.31:
+  version "2.1.31"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-2.1.31.tgz#d53d20aa26321f43fa8320c169db0316320f98f8"
+  integrity sha512-vwx2eB703Yatp1ZQ0lQDiAG3k9gyvDEENRmtp+myfadI8Sgtq+LA+3OYGLeT0MYdifUTW0Lhcp3qoIrng/41zg==
+  dependencies:
+    "@babel/runtime" "^7.7.6"
+
 gatsby-plugin-load-script@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-load-script/-/gatsby-plugin-load-script-1.0.6.tgz#bf844581be1362973f23282ff8430a264b1c56ca"
