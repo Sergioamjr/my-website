@@ -84,6 +84,24 @@ module.exports = {
           appId: process.env.GATSBY_FIREBASE_APP_ID
         }
       }
+    },
+    {
+      resolve: "gatsby-plugin-google-analytics",
+      options: {
+        // The property ID; the tracking code won't be generated without it
+        trackingId: "UA-64953806-6",
+        // Defines where to place the tracking script - `true` in the head and `false` in the body
+        head: false,
+        // Avoids sending pageview hits from custom paths
+        exclude: [],
+        // Delays sending pageview hits on route update (in milliseconds)
+        pageTransitionDelay: 0,
+        // Enables Google Optimize using your container Id
+        optimizeId: "UA-64953806-6",
+        sampleRate: 5,
+        siteSpeedSampleRate: 10,
+        cookieDomain: "sergiojunior.netlify.com/"
+      }
     }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
