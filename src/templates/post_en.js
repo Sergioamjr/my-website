@@ -23,7 +23,6 @@ const highFiveStyle = css`
 `;
 
 const Post = props => {
-  console.log(props);
   const post = props.data.wordpressWpPostsEn;
   const id = post.id;
   const title = post.title;

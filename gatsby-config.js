@@ -39,7 +39,8 @@ module.exports = {
           "**/menus",
           "**/participantes",
           "**/projetos",
-          "**/posts_en"
+          "**/posts_en",
+          "**/projects_en"
         ],
         normalizer: function({ entities }) {
           return entities;

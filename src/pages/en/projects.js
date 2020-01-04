@@ -2,16 +2,16 @@
 import { jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
-import Template from "../components/Template";
-import { Container, pageTitle } from "../design";
-import BlogCard from "../components/BlogCard";
+import Template from "../../components/Template";
+import BlogCard from "../../components/BlogCard";
+import { Container, pageTitle } from "../../design";
 
 const Projects = props => {
-  const data = props.data.allWordpressWpProjetos.edges;
+  const data = props.data.allWordpressWpProjectsEn.edges;
   return (
     <Template title="Projects">
       <Container small>
-        <h2 css={pageTitle}>Projetos</h2>
+        <h2 css={pageTitle}>Projects</h2>
         {data.map(({ node }, i) => {
           const {
             title,
@@ -37,7 +37,7 @@ export default Projects;
 
 Projects.propTypes = {
   data: PropTypes.shape({
-    allWordpressWpProjetos: PropTypes.shape({
+    allWordpressWpProjectsEn: PropTypes.shape({
       edges: PropTypes.arrayOf(
         PropTypes.shape({
           node: PropTypes.shape({
@@ -60,7 +60,7 @@ Projects.propTypes = {
 
 export const pageQuery = graphql`
   query {
-    allWordpressWpProjetos {
+    allWordpressWpProjectsEn(sort: { fields: [date], order: DESC }) {
       edges {
         node {
           title
