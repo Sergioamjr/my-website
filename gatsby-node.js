@@ -25,6 +25,16 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      allWordpressWpPostsEn {
+        edges {
+          node {
+            id
+            path
+            status
+            template
+          }
+        }
+      }
     }
   `);
 
@@ -32,30 +42,46 @@ exports.createPages = async ({ graphql, actions }) => {
     throw new Error(result.errors);
   }
 
-  const { allWordpressPage, allWordpressPost } = result.data;
+  const {
+    allWordpressPage,
+    allWordpressPost,
+    allWordpressWpPostsEn
+  } = result.data;
 
   const pageTemplate = path.resolve("./src/templates/page.js");
   const resumeTemplate = path.resolve("./src/templates/resume.js");
+  const postTemplate = path.resolve("./src/templates/post.js");
+  const postEnTemplate = path.resolve("./src/templates/post_en.js");
+
   allWordpressPage.edges.forEach(edge => {
-    const pageModel = edge.node.path.includes("resume")
-      ? resumeTemplate
-      : pageTemplate;
     createPage({
       path: edge.node.path,
-      component: slash(pageModel),
+      component: slash(
+        edge.node.path.includes("resume") ? resumeTemplate : pageTemplate
+      ),
       context: {
         id: edge.node.id
       }
     });
   });
 
-  const postTemplate = path.resolve("./src/templates/post.js");
   allWordpressPost.edges.forEach(edge => {
     createPage({
       path: edge.node.path,
       component: slash(postTemplate),
       context: {
         id: edge.node.id
+      }
+    });
+  });
+
+  allWordpressWpPostsEn.edges.forEach(edge => {
+    createPage({
+      path: edge.node.path,
+      component: slash(postEnTemplate),
+      context: {
+        id: edge.node.id,
+        ola: true
       }
     });
   });

@@ -23,7 +23,8 @@ const highFiveStyle = css`
 `;
 
 const Post = props => {
-  const post = props.data.wordpressPost;
+  console.log(props);
+  const post = props.data.wordpressWpPostsEn;
   const id = post.id;
   const title = post.title;
   const url = props.location.href;
@@ -70,7 +71,7 @@ export default Post;
 
 export const pageQuery = graphql`
   query($id: String!) {
-    wordpressPost(id: { eq: $id }) {
+    wordpressWpPostsEn(id: { eq: $id }) {
       id
       title
       content

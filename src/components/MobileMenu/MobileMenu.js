@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { Link } from "gatsby";
 import { primaryFont, hideSm } from "../../design";
 import { IconClose } from "../../design/icons";
-import { menuOptions } from "../../utils";
+import { menuOptionsPT } from "../../utils";
 
 const Wrapper = styled.div`
   ${hideSm};
@@ -51,7 +51,7 @@ const MobileMenu = ({ isOpen, closeHandler }) => {
         <IconClose />
       </button>
       <ul css={ulStyle}>
-        {menuOptions.map(({ name, url }) => (
+        {menuOptionsPT.map(({ name, url }) => (
           <li key={url}>
             <Link css={linkStyle} to={url}>
               {name}

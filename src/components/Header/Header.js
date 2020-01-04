@@ -15,7 +15,7 @@ import {
 } from "../../design";
 import Toggle from "../Toggle";
 import { IconMenu } from "../../design/icons";
-import { menuOptions } from "../../utils";
+import { menuOptionsPT } from "../../utils";
 
 const headerStyle = css`
   background: var(--theme);
@@ -58,7 +58,7 @@ const Header = ({ closeHandler, updateThemeMode, themeMode }) => {
               align-items: center;
             `}
           >
-            {menuOptions.map(({ url, name }) => (
+            {menuOptionsPT.map(({ url, name }) => (
               <li
                 key={url}
                 css={css`
