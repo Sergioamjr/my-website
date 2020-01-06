@@ -1,5 +1,6 @@
 import { useFirebase } from "gatsby-plugin-firebase";
 import { useState, useEffect } from "react";
+import { getLocalStorage, setLocalStorage } from "../utils/localStorage";
 
 export const useGetFirebase = ({ id }) => {
   const [state, setState] = useState({ qnty: 0 });
@@ -45,4 +46,36 @@ export const useFirebaseCounter = ({ id, title }) => {
   );
 
   return [high5, submitHigh5];
+};
+
+export const useGetLang = location => {
+  const [lang, setLang] = useState("PT");
+  useEffect(() => {
+    setLang("PT");
+  }, [location]);
+  return lang;
+};
+
+const getThemeMode = () => {
+  const { themeMode } = getLocalStorage();
+  return themeMode || "light";
+};
+
+export const useThemeMode = () => {
+  const [themeMode, setThemeMode] = useState(getThemeMode);
+
+  const updateThemeMode = () => {
+    setThemeMode(v => (v === "light" ? "dark" : "light"));
+  };
+
+  useEffect(() => {
+    const documentRef = document.documentElement.style;
+    const isDarkMode = themeMode === "dark";
+    documentRef.setProperty("--background", !isDarkMode ? "#fff" : "#1d1d1d");
+    documentRef.setProperty("--text", isDarkMode ? "#e0e0e0" : "#333");
+    documentRef.setProperty("--title", isDarkMode ? "#fff" : "#2c3e50");
+    setLocalStorage({ themeMode });
+  }, [themeMode]);
+
+  return [themeMode, updateThemeMode];
 };
