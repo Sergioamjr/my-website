@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { useState } from "react";
+import { Location } from "@reach/router";
 import PropTypes from "prop-types";
 import Header from "../Header";
 import { backgroundStyle } from "../../design";
@@ -15,7 +16,6 @@ const childrenStyle = css`
 `;
 
 const Template = ({ children, ...props }) => {
-  console.log(props);
   const [isMobileMenuOpended, setIsMobileMenuOpended] = useState(false);
   const [themeMode, updateThemeMode] = useThemeMode();
 
@@ -24,20 +24,28 @@ const Template = ({ children, ...props }) => {
   };
 
   return (
-    <div css={backgroundStyle}>
-      <SEO {...props} />
-      <Header
-        updateThemeMode={updateThemeMode}
-        themeMode={themeMode}
-        closeHandler={toggleMobileMenu}
-      />
-      <MobileMenu
-        closeHandler={toggleMobileMenu}
-        isOpen={isMobileMenuOpended}
-      />
-      <div css={childrenStyle}>{children}</div>
-      <Footer />
-    </div>
+    <Location>
+      {({ location }) => {
+        const { pathname } = location;
+        return (
+          <div css={backgroundStyle}>
+            <SEO {...props} />
+            <Header
+              pathname={pathname}
+              updateThemeMode={updateThemeMode}
+              themeMode={themeMode}
+              closeHandler={toggleMobileMenu}
+            />
+            <MobileMenu
+              closeHandler={toggleMobileMenu}
+              isOpen={isMobileMenuOpended}
+            />
+            <div css={childrenStyle}>{children}</div>
+            <Footer />
+          </div>
+        );
+      }}
+    </Location>
   );
 };
 

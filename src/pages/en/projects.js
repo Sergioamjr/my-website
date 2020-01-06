@@ -23,7 +23,7 @@ const Projects = props => {
               externalLink
               categories={categories || []}
               excerpt={content}
-              slug={link}
+              path={link}
               title={title}
               key={i}
             />

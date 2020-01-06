@@ -48,11 +48,18 @@ export const useFirebaseCounter = ({ id, title }) => {
   return [high5, submitHigh5];
 };
 
-export const useGetLang = location => {
-  const [lang, setLang] = useState("PT");
+const checkPageLanguage = pathname => {
+  const patterns = ["/en/", "posts_en"];
+  return patterns.filter(pattern => pathname.includes(pattern)).length > 0
+    ? "EN"
+    : "PT";
+};
+
+export const useGetLang = pathname => {
+  const [lang, setLang] = useState(checkPageLanguage(pathname));
   useEffect(() => {
-    setLang("PT");
-  }, [location]);
+    setLang(checkPageLanguage(pathname));
+  }, [pathname]);
   return lang;
 };
 
