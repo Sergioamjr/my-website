@@ -32,6 +32,6 @@ export const menuOptionsEN = [
   },
   {
     name: "Resume",
-    url: "/en/resume"
+    url: "/en-resume"
   }
 ];

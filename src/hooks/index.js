@@ -49,7 +49,7 @@ export const useFirebaseCounter = ({ id, title }) => {
 };
 
 const checkPageLanguage = pathname => {
-  const patterns = ["/en/", "posts_en"];
+  const patterns = ["/en", "posts_en"];
   return patterns.filter(pattern => pathname.includes(pattern)).length > 0
     ? "EN"
     : "PT";
