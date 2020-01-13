@@ -26,6 +26,7 @@ const Blog = props => {
               excerpt={excerpt}
               title={title}
               key={i}
+              label="Ler mais"
             />
           );
         })}

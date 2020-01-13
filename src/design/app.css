@@ -23,6 +23,25 @@
   color: var(--text);
 }
 
+.post-content a {
+  line-height: 1.8;
+  font-family: "Open Sans", sans-serif;
+  color: #3498db;
+  border-bottom: 2px solid;
+}
+
+.post-content a:hover {
+  color: #2980b9;
+}
+
+.post-content img {
+  margin-bottom: 8px;
+}
+
+img {
+  width: 100%;
+}
+
 :root {
   --gray: #ababab;
   --theme: #2c3e50;

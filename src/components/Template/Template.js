@@ -26,10 +26,10 @@ const Template = ({ children, ...props }) => {
   return (
     <Location>
       {({ location }) => {
-        const { pathname } = location;
+        const { pathname, href } = location;
         return (
           <div css={backgroundStyle}>
-            <SEO {...props} />
+            <SEO {...props} href={href} />
             <Header
               pathname={pathname}
               updateThemeMode={updateThemeMode}
@@ -50,9 +50,7 @@ const Template = ({ children, ...props }) => {
 };
 
 Template.propTypes = {
-  children: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string
+  children: PropTypes.node.isRequired
 };
 
 export default Template;

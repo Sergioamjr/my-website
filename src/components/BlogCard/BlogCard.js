@@ -17,7 +17,14 @@ const zIndex = css`
   ${xLargeMgBottom};
 `;
 
-const BlogCard = ({ title, excerpt, path, categories, externalLink }) => {
+const BlogCard = ({
+  title,
+  excerpt,
+  path,
+  categories,
+  externalLink,
+  label
+}) => {
   return (
     <div css={zIndex}>
       <p css={secondTitle}>{title}</p>
@@ -36,12 +43,12 @@ const BlogCard = ({ title, excerpt, path, categories, externalLink }) => {
           css={linkStyle}
           href={path}
         >
-          Read more
+          {label}
         </a>
       )}
       {!externalLink && path && (
         <Link css={linkStyle} to={`/${path}`}>
-          Read more
+          {label}
         </Link>
       )}
     </div>
@@ -51,6 +58,7 @@ const BlogCard = ({ title, excerpt, path, categories, externalLink }) => {
 BlogCard.propTypes = {
   externalLink: PropTypes.bool,
   title: PropTypes.string,
+  label: PropTypes.string,
   excerpt: PropTypes.string,
   path: PropTypes.string,
   categories: PropTypes.arrayOf(
@@ -58,6 +66,10 @@ BlogCard.propTypes = {
       category: PropTypes.string
     })
   )
+};
+
+BlogCard.defaultProps = {
+  label: "Read more"
 };
 
 export default BlogCard;

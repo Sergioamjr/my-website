@@ -2,7 +2,15 @@
 import { jsx, css } from "@emotion/core";
 import { graphql } from "gatsby";
 import Template from "../components/Template";
-import { Container, secondTitle, text, largeMgBottom } from "../design";
+import {
+  Container,
+  secondTitle,
+  text,
+  largeMgBottom,
+  mgBottom,
+  linkStyle,
+  secondaryFont
+} from "../design";
 import Disqus from "../components/Disqus";
 import { useFirebaseCounter } from "../hooks";
 import image from "./../images/highfive.png";
@@ -27,12 +35,23 @@ const Post = props => {
   const id = post.id;
   const title = post.title;
   const url = props.location.href;
+  const img = post.featured_media.localFile.childImageSharp.resolutions.src;
   const [counter, setCounter] = useFirebaseCounter({ id, title });
 
   return (
-    <Template title={post.title} description={post.excerpt}>
+    <Template thumbnail={img} title={post.title} description={post.excerpt}>
       <Container small>
-        <article css={largeMgBottom}>
+        <article css={largeMgBottom} className="post-content">
+          <div css={mgBottom}>
+            <a
+              css={css`
+                ${(secondaryFont, linkStyle)}
+              `}
+              href="/#"
+            >
+              Read this article in English.
+            </a>
+          </div>
           <h1 css={secondTitle} dangerouslySetInnerHTML={{ __html: title }} />
           <p
             css={css`
@@ -43,12 +62,9 @@ const Post = props => {
             Publicado em
             <time dateTime={post.date}> {post.date}</time>
           </p>
+          {img && <img src={img} alt="test" />}
 
-          <div
-            className="post-content"
-            css={text}
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+          <div css={text} dangerouslySetInnerHTML={{ __html: post.content }} />
         </article>
         <div css={largeMgBottom}>
           <button css={highFiveStyle} onClick={setCounter}>
@@ -76,6 +92,15 @@ export const pageQuery = graphql`
       content
       excerpt
       date(formatString: "MM-DD-YYYY")
+      featured_media {
+        localFile {
+          childImageSharp {
+            resolutions(width: 670, height: 500) {
+              src
+            }
+          }
+        }
+      }
     }
   }
 `;

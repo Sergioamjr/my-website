@@ -25,6 +25,7 @@ const Projects = props => {
               excerpt={content}
               path={link}
               title={title}
+              label="Ler mais"
               key={i}
             />
           );

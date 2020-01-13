@@ -2,7 +2,15 @@
 import { jsx, css } from "@emotion/core";
 import { graphql } from "gatsby";
 import Template from "../components/Template";
-import { Container, secondTitle, text, largeMgBottom } from "../design";
+import {
+  Container,
+  secondTitle,
+  text,
+  largeMgBottom,
+  mgBottom,
+  secondaryFont,
+  linkStyle
+} from "../design";
 import Disqus from "../components/Disqus";
 import { useFirebaseCounter } from "../hooks";
 import image from "./../images/highfive.png";
@@ -32,7 +40,17 @@ const Post = props => {
   return (
     <Template title={post.title} description={post.excerpt}>
       <Container small>
-        <article css={largeMgBottom}>
+        <article css={largeMgBottom} className="post-content">
+          <div css={mgBottom}>
+            <a
+              css={css`
+                ${(secondaryFont, linkStyle)}
+              `}
+              href="/#"
+            >
+              Leia esse artigo em Português.
+            </a>
+          </div>
           <h1 css={secondTitle} dangerouslySetInnerHTML={{ __html: title }} />
           <p
             css={css`
@@ -40,15 +58,11 @@ const Post = props => {
               color: var(--gray);
             `}
           >
-            Publicado em
+            Published on
             <time dateTime={post.date}> {post.date}</time>
           </p>
 
-          <div
-            className="post-content"
-            css={text}
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+          <div css={text} dangerouslySetInnerHTML={{ __html: post.content }} />
         </article>
         <div css={largeMgBottom}>
           <button css={highFiveStyle} onClick={setCounter}>
