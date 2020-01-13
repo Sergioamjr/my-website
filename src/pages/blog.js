@@ -37,7 +37,7 @@ const Blog = props => {
 
 export default Blog;
 
-Blog.propTypes = {
+export const wpPostsTypes = {
   data: PropTypes.shape({
     allWordpressPost: PropTypes.shape({
       edges: PropTypes.arrayOf(
@@ -59,6 +59,8 @@ Blog.propTypes = {
     })
   }).isRequired
 };
+
+Blog.propTypes = wpPostsTypes;
 
 export const pageQuery = graphql`
   query {

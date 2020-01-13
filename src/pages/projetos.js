@@ -36,7 +36,7 @@ const Projects = props => {
 };
 export default Projects;
 
-Projects.propTypes = {
+export const wpProjetosTypes = {
   data: PropTypes.shape({
     allWordpressWpProjetos: PropTypes.shape({
       edges: PropTypes.arrayOf(
@@ -58,6 +58,8 @@ Projects.propTypes = {
     })
   }).isRequired
 };
+
+Projects.propTypes = wpProjetosTypes;
 
 export const pageQuery = graphql`
   query {
