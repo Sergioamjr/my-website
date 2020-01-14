@@ -26,10 +26,10 @@ const Template = ({ children, ...props }) => {
   return (
     <Location>
       {({ location }) => {
-        const { pathname, href } = location;
+        const { pathname, href, origin } = location;
         return (
           <div css={backgroundStyle}>
-            <SEO {...props} href={href} />
+            <SEO {...props} href={href} origin={origin} />
             <Header
               pathname={pathname}
               updateThemeMode={updateThemeMode}

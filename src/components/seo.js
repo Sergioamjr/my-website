@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
 
-const SEO = ({ description, lang, title, thumbnail, href }) => {
+const SEO = ({ description, lang, title, thumbnail }) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -26,6 +26,9 @@ const SEO = ({ description, lang, title, thumbnail, href }) => {
   );
 
   const metaDescription = description || site.siteMetadata.description;
+  const href = typeof window !== "undefined" ? window.location.href : "";
+  const origin = typeof window !== "undefined" ? window.location.origin : "";
+  console.log(origin, href);
 
   return (
     <Helmet
@@ -39,8 +42,12 @@ const SEO = ({ description, lang, title, thumbnail, href }) => {
       <meta property="og:type" content="website" />
       <meta property="og:url" content={href} />
 
-      {thumbnail && <meta property="og:image" content={thumbnail} />}
-      {thumbnail && <meta property="witter:image" content={thumbnail} />}
+      {thumbnail && (
+        <meta property="og:image" content={`${origin}${thumbnail}`} />
+      )}
+      {thumbnail && (
+        <meta property="witter:image" content={`${origin}${thumbnail}`} />
+      )}
 
       <meta property="og:site_name" content={site.siteMetadata.title} />
 
@@ -115,7 +122,6 @@ SEO.defaultProps = {
 SEO.propTypes = {
   thumbnail: PropTypes.string,
   description: PropTypes.string,
-  href: PropTypes.string,
   lang: PropTypes.string,
   title: PropTypes.string.isRequired
 };
