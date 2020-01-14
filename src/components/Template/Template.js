@@ -23,10 +23,13 @@ const Template = ({ children, ...props }) => {
     setIsMobileMenuOpended(v => !v);
   };
 
+  const href = typeof window !== "undefined" ? window.location.href : "";
+  const origin = typeof window !== "undefined" ? window.location.origin : "";
+
   return (
     <Location>
       {({ location }) => {
-        const { pathname, href, origin } = location;
+        const { pathname } = location;
         return (
           <div css={backgroundStyle}>
             <SEO {...props} href={href} origin={origin} />
