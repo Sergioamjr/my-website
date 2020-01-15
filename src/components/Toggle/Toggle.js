@@ -28,7 +28,8 @@ const toggleWrapper = css`
     content: "🌞";
     position: absolute;
     right: 0;
-    top: -2px;
+    margin: auto;
+    bottom: 0;
     transform: translateX(0);
     transition: transform 0.2s ease;
     will-change: transform;

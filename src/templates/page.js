@@ -1,24 +1,53 @@
-import React from "react";
-import { graphql } from "gatsby";
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
+import { graphql, Link } from "gatsby";
 import PropTypes from "prop-types";
 import Template from "../components/Template";
-import { Container } from "../design";
+import {
+  Container,
+  text,
+  secondTitle,
+  pageTitle,
+  linkStyle,
+  mgBottom
+} from "../design";
 
 const Page = props => {
   const post = props.data.wordpressPage;
 
   return (
     <Template>
-      <Container>
-        <h1
-          className="m-bottom-20 fs-custom"
-          dangerouslySetInnerHTML={{ __html: post.title }}
-        />
+      <Container small>
+        <div className="post-content">
+          <div
+            css={css`
+              ${mgBottom}
+            `}
+          >
+            <Link to="/">Ver em Português</Link>
+          </div>
 
-        <div
-          className="content_ color-dark"
-          dangerouslySetInnerHTML={{ __html: post.content }}
-        />
+          <h2 css={pageTitle}>:)</h2>
+          <p css={secondTitle}>{post.title}</p>
+
+          <div css={text} dangerouslySetInnerHTML={{ __html: post.content }} />
+          <p css={text}>
+            This will be a place to share what I am working on, learning or
+            thinking. While I are here, feel free to see my{" "}
+            <Link css={linkStyle} to="/en/blog">
+              articles
+            </Link>
+            ,{" "}
+            <Link css={linkStyle} to="/en/projects">
+              projects
+            </Link>{" "}
+            or{" "}
+            <Link css={linkStyle} to="/en-resume">
+              my CV.
+            </Link>
+            .
+          </p>
+        </div>
       </Container>
     </Template>
   );
