@@ -54,8 +54,12 @@ const Page = props => {
 };
 
 Page.propTypes = {
-  data: PropTypes.object.isRequired,
-  edges: PropTypes.array
+  data: PropTypes.shape({
+    wordpressPage: PropTypes.shape({
+      content: PropTypes.string,
+      title: PropTypes.string
+    })
+  })
 };
 
 export default Page;
