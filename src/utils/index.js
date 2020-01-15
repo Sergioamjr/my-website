@@ -1,3 +1,5 @@
+import { useGetLang } from "../hooks";
+
 export const menuOptionsPT = [
   {
     name: "Início",
@@ -35,3 +37,8 @@ export const menuOptionsEN = [
     url: "/en-resume"
   }
 ];
+
+export const providerCorretlyMenu = pathname => {
+  const lang = useGetLang(pathname);
+  return lang === "EN" ? menuOptionsEN : menuOptionsPT;
+};

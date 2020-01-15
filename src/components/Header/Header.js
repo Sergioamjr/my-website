@@ -15,8 +15,6 @@ import {
 } from "../../design";
 import Toggle from "../Toggle";
 import { IconMenu } from "../../design/icons";
-import { menuOptionsPT, menuOptionsEN } from "../../utils";
-import { useGetLang } from "../../hooks";
 
 const headerStyle = css`
   background: var(--theme);
@@ -45,11 +43,10 @@ const btnStyle = css`
   background: none;
   border: 0;
   cursor: pointer;
+  display: flex;
 `;
 
-const Header = ({ closeHandler, updateThemeMode, themeMode, pathname }) => {
-  const lang = useGetLang(pathname);
-  const menuOptions = lang === "EN" ? menuOptionsEN : menuOptionsPT;
+const Header = ({ closeHandler, updateThemeMode, themeMode, menu }) => {
   return (
     <header css={headerStyle}>
       <Container css={justifyContent}>
@@ -61,7 +58,7 @@ const Header = ({ closeHandler, updateThemeMode, themeMode, pathname }) => {
               align-items: center;
             `}
           >
-            {menuOptions.map(({ url, name }) => (
+            {menu.map(({ url, name }) => (
               <li
                 key={url}
                 css={css`
@@ -100,7 +97,12 @@ const Header = ({ closeHandler, updateThemeMode, themeMode, pathname }) => {
 };
 
 Header.propTypes = {
-  pathname: PropTypes.string.isRequired,
+  menu: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      url: PropTypes.string
+    })
+  ),
   themeMode: PropTypes.string.isRequired,
   updateThemeMode: PropTypes.func.isRequired,
   closeHandler: PropTypes.func.isRequired

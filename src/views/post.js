@@ -75,7 +75,7 @@ PostView.propTypes = {
 
 PostView.defaultProps = {
   publishedAt: "Publicado em",
-  translationLabel: "Leia esse artigo em Inglês."
+  translationLabel: "Read this article in English"
 };
 
 export default PostView;

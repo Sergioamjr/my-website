@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import { Link } from "gatsby";
 import { primaryFont, hideSm } from "../../design";
 import { IconClose } from "../../design/icons";
-import { menuOptionsPT } from "../../utils";
 
 const Wrapper = styled.div`
   ${hideSm};
@@ -44,14 +43,14 @@ const btnStyle = css`
   cursor: pointer;
 `;
 
-const MobileMenu = ({ isOpen, closeHandler }) => {
+const MobileMenu = ({ isOpen, closeHandler, menu }) => {
   return (
     <Wrapper isOpen={isOpen}>
       <button onClick={closeHandler} css={btnStyle}>
         <IconClose />
       </button>
       <ul css={ulStyle}>
-        {menuOptionsPT.map(({ name, url }) => (
+        {menu.map(({ name, url }) => (
           <li key={url}>
             <Link css={linkStyle} to={url}>
               {name}
@@ -64,6 +63,12 @@ const MobileMenu = ({ isOpen, closeHandler }) => {
 };
 
 MobileMenu.propTypes = {
+  menu: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      url: PropTypes.string
+    })
+  ),
   isOpen: PropTypes.bool.isRequired,
   closeHandler: PropTypes.func.isRequired
 };

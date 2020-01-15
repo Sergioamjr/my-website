@@ -21,7 +21,7 @@ const Post = props => {
       excerpt={excerpt}
       date={date}
       publishedAt="Published at"
-      translationLabel="Read this article in English"
+      translationLabel="Leia esse artigo em Português"
       content={content}
     />
   );
