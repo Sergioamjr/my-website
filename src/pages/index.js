@@ -3,14 +3,7 @@ import { jsx, css } from "@emotion/core";
 import { Link, graphql } from "gatsby";
 import PropTypes from "prop-types";
 import Template from "../components/Template";
-import {
-  Container,
-  pageTitle,
-  text,
-  linkStyle,
-  mgBottom,
-  secondTitle
-} from "../design";
+import { Container, pageTitle, text, mgBottom, secondTitle } from "../design";
 
 const Home = props => {
   const post = props.data.wordpressPage;
@@ -23,27 +16,13 @@ const Home = props => {
               ${mgBottom}
             `}
           >
-            <Link to="/en">See in English</Link>
+            <Link className="secondary-font" to="/en">
+              See in English
+            </Link>
           </div>
           <h2 css={pageTitle}>:)</h2>
           <p css={secondTitle}>{post.title}</p>
           <div css={text} dangerouslySetInnerHTML={{ __html: post.content }} />
-          <p css={text}>
-            Esse será um espaço pra compartilhar o que ando fazendo, aprendendo
-            ou pensando. Enquanto estiver aqui, fique a vontade para ver meus{" "}
-            <Link css={linkStyle} to="/en/blog">
-              artigos
-            </Link>
-            ,{" "}
-            <Link css={linkStyle} to="/en/projects">
-              projetos
-            </Link>{" "}
-            ou{" "}
-            <Link css={linkStyle} to="/en-resume">
-              CV
-            </Link>
-            .
-          </p>
         </div>
       </Container>
     </Template>

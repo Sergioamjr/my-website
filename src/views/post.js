@@ -32,6 +32,7 @@ const PostView = ({
         <article css={largeMgBottom} className="post-content">
           <div css={mgBottom}>
             <Link
+              className="secondary-font"
               css={css`
                 ${(secondaryFont, linkStyle)}
               `}

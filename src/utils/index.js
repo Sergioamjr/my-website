@@ -14,7 +14,7 @@ export const menuOptionsPT = [
     url: "/projetos"
   },
   {
-    name: "Resume",
+    name: "CV",
     url: "/resume"
   }
 ];

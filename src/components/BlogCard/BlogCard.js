@@ -38,6 +38,7 @@ const BlogCard = ({
       )}
       {externalLink && path && (
         <a
+          className="secondary-font"
           rel="noopener noreferrer"
           target="_blank"
           css={linkStyle}
@@ -47,7 +48,7 @@ const BlogCard = ({
         </a>
       )}
       {!externalLink && path && (
-        <Link css={linkStyle} to={`/${path}`}>
+        <Link className="secondary-font" css={linkStyle} to={`/${path}`}>
           {label}
         </Link>
       )}

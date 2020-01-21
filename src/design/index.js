@@ -84,7 +84,6 @@ export const wrapStyle = css`
 
 export const linkStyle = css`
   line-height: 1.8;
-  ${primaryFont};
   color: ${colors.primary};
   border-bottom: 2px solid;
   &:hover {

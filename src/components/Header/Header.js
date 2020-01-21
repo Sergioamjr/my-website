@@ -50,7 +50,9 @@ const Header = ({ closeHandler, updateThemeMode, themeMode, menu }) => {
   return (
     <header css={headerStyle}>
       <Container css={justifyContent}>
-        <h1 css={titleStyle}>Sérgio Júnior</h1>
+        <Link to={menu[0].url}>
+          <h1 css={titleStyle}>Sérgio Júnior</h1>
+        </Link>
         <nav css={alignCenter}>
           <ul
             css={css`

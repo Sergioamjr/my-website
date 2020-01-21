@@ -25,9 +25,13 @@
 
 .post-content a {
   line-height: 1.8;
-  font-family: "Open Sans", sans-serif;
   color: #3498db;
   border-bottom: 2px solid;
+}
+
+.secondary-font {
+  line-height: 1.8;
+  font-family: "Open Sans", sans-serif;
 }
 
 .post-content a:hover {
