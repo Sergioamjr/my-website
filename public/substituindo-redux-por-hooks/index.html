@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="pt"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style data-href="/styles.daa1e6ed69611800767a.css">pre::-webkit-scrollbar{width:14px}pre::-webkit-scrollbar-track{background-color:#6272a4;border-radius:0}pre::-webkit-scrollbar-thumb{background-color:#bd93f9;border-radius:0}code[class*=language-],pre[class*=language-]{color:#ccc;background:#282936;text-shadow:none;font-family:PT Mono,Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}code[class*=language-]::selection,code[class*=language-] ::selection,pre[class*=language-]::selection,pre[class*=language-] ::selection{text-shadow:none;background-color:#5a5f80}@media print{code[class*=language-],pre[class*=language-]{text-shadow:none}}pre[class*=language-]{background:#282936!important;border-radius:.5em;padding:1em;margin:.5em 0;overflow:auto;height:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#282936}:not(pre)>code[class*=language-]{padding:4px 7px;border-radius:.3em;white-space:normal}.limit-300{height:300px!important}.limit-400{height:400px!important}.limit-500{height:500px!important}.limit-600{height:600px!important}.limit-700{height:700px!important}.limit-800{height:800px!important}.token.comment{color:#6272a4}.token.prolog{color:#cfcfc2}.token.tag{color:#dc68aa}.token.entity{color:#8be9fd}.token.atrule{color:#62ef75}.token.url{color:#66d9ef}.token.selector{color:#cfcfc2}.token.string{color:#f1fa8c}.token.property{color:#ffb86c}.token.important{color:#ff79c6;font-weight:700}.token.punctuation{color:#e6db74}.token.number{color:#bd93f9}.token.function{color:#50fa7b}.token.class-name{color:#ffb86c}.token.keyword{color:#ff79c6}.token.boolean{color:#ffb86c}.token.operator{color:#8be9fd}.token.char{color:#ff879d}.token.regex,.token.variable{color:#50fa7b}.token.constant,.token.symbol{color:#ffb86c}.token.builtin{color:#ff79c6}.token.attr-value{color:#7ec699}.token.deleted,.token.namespace{color:#e2777a}.token.bold{font-weight:700}.token.italic{font-style:italic}.token{color:#ff79c6}.language-c .token.string,.language-cpp .token.string{color:#8be9fd}.language-css .token.selector{color:#50fa7b}.language-css .token.property{color:#ffb86c}.language-java .token.class-name,.language-java span.token.class-name{color:#8be9fd}.language-markup .token.attr-value{color:#66d9ef}.language-markup .token.tag{color:#50fa7b}.language-objectivec .token.property{color:#66d9ef}.language-objectivec .token.string{color:#50fa7b}.language-php .token.boolean{color:#8be9fd}.language-php .token.function{color:#ff79c6}.language-php .token.keyword{color:#66d9ef}.language-ruby .token.symbol{color:#8be9fd}.language-ruby .token.class-name{color:#cfcfc2}pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}pre.line-numbers>code{position:relative;white-space:inherit}.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:0;font-size:100%;left:-3.8em;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-ms-user-select:none;user-select:none}.line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}div.code-toolbar{position:relative}div.code-toolbar>.toolbar{position:absolute;top:.3em;right:.2em;-webkit-transition:opacity .3s ease-in-out;transition:opacity .3s ease-in-out;opacity:0}div.code-toolbar:hover>.toolbar{opacity:1}div.code-toolbar>.toolbar .toolbar-item{display:inline-block;padding-right:20px}div.code-toolbar>.toolbar a{cursor:pointer}div.code-toolbar>.toolbar button{background:none;border:0;color:inherit;font:inherit;line-height:normal;overflow:visible;padding:0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}div.code-toolbar>.toolbar a,div.code-toolbar>.toolbar button,div.code-toolbar>.toolbar span{color:#ccc;font-size:.8em;padding:.5em;background:#6272a4;border-radius:.5em}div.code-toolbar>.toolbar a:focus,div.code-toolbar>.toolbar a:hover,div.code-toolbar>.toolbar button:focus,div.code-toolbar>.toolbar button:hover,div.code-toolbar>.toolbar span:focus,div.code-toolbar>.toolbar span:hover{color:inherit;text-decoration:none;background-color:var(--verde)}*{padding:0;margin:0;box-sizing:border-box;list-style-type:none;text-decoration:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.post-content p:not(:last-child),.post-content ul{margin-bottom:16px}.post-content ul{padding-left:20px}.post-content li{list-style-type:disc;margin-bottom:8px;color:var(--text)}.post-content a{line-height:1.8;color:#3498db;border-bottom:2px solid}.secondary-font{line-height:1.8;font-family:Open Sans,sans-serif}.post-content a:hover{color:#2980b9}.post-content img{margin-bottom:8px}img{width:100%}:root{--gray:#ababab;--theme:#2c3e50;--black:#333;--light:#ecf0f1;--white:#fff;--primary:#3498db;--darkPrimary:#2980b9;--text:var(--black);--title:#2c3e50;--background:var(--white);--darkMode:true}</style><meta name="generator" content="Gatsby 2.18.12"/><title data-react-helmet="true">Substituindo Redux por Hooks</title><meta data-react-helmet="true" property="og:title" content="Substituindo Redux por Hooks"/><meta data-react-helmet="true" name="description" content="&lt;p&gt;Vamos criar o custom hook useStore, responsável por criar e fornecer nosso context. Com ele também será possível acessar diretamente nossa store e o dispatch de qualquer lugar da nossa aplicação, além do componente Connect, inspirado no Redux, que vamos criar em breve. Agora vamos criar o hook useCombinedReducers, responsável por retornar um array com [&amp;hellip;]&lt;/p&gt;
-"/><meta data-react-helmet="true" property="og:description" content="&lt;p&gt;Vamos criar o custom hook useStore, responsável por criar e fornecer nosso context. Com ele também será possível acessar diretamente nossa store e o dispatch de qualquer lugar da nossa aplicação, além do componente Connect, inspirado no Redux, que vamos criar em breve. Agora vamos criar o hook useCombinedReducers, responsável por retornar um array com [&amp;hellip;]&lt;/p&gt;
-"/><meta data-react-helmet="true" property="og:type" content="website"/><meta data-react-helmet="true" property="og:url" content=""/><meta data-react-helmet="true" property="og:image" content="/static/502764e6c2ad3e1dae22fc132380de1f/01e6b/person-using-macbook-air-on-table-1181248-1.jpg"/><meta data-react-helmet="true" property="witter:image" content="/static/502764e6c2ad3e1dae22fc132380de1f/01e6b/person-using-macbook-air-on-table-1181248-1.jpg"/><meta data-react-helmet="true" property="og:site_name" content="Sérgio Júnior - Front End Developer"/><link rel="icon" href="/icons/icon-48x48.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="manifest" href="/manifest.webmanifest"/><meta name="theme-color" content="#663399"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="/google-fonts/s/merriweather/v21/u-440qyriQwlOrhSvowK_l5-fCZM.woff2"/><link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="/google-fonts/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l521wRZWMf6.woff2"/><link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="/google-fonts/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l52xwNZWMf6.woff2"/><style type="text/css">@font-face{font-family:Merriweather;font-style:normal;font-weight:300;src:local('Merriweather Light'),local('Merriweather-Light'),url(/google-fonts/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l521wRZWMf6.woff2) format('woff2'),url(/google-fonts/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l521wRZWMf8.woff) format('woff');font-display: swap;}@font-face{font-family:Merriweather;font-style:normal;font-weight:400;src:local('Merriweather Regular'),local('Merriweather-Regular'),url(/google-fonts/s/merriweather/v21/u-440qyriQwlOrhSvowK_l5-fCZM.woff2) format('woff2'),url(/google-fonts/s/merriweather/v21/u-440qyriQwlOrhSvowK_l5-fCZK.woff) format('woff');font-display: swap;}@font-face{font-family:Merriweather;font-style:normal;font-weight:700;src:local('Merriweather Bold'),local('Merriweather-Bold'),url(/google-fonts/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l52xwNZWMf6.woff2) format('woff2'),url(/google-fonts/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l52xwNZWMf8.woff) format('woff');font-display: swap;}</style><link rel="preconnect dns-prefetch" href="https://www.google-analytics.com"/><script>
+<!DOCTYPE html><html lang="pt"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><style data-href="/styles.daa1e6ed69611800767a.css">pre::-webkit-scrollbar{width:14px}pre::-webkit-scrollbar-track{background-color:#6272a4;border-radius:0}pre::-webkit-scrollbar-thumb{background-color:#bd93f9;border-radius:0}code[class*=language-],pre[class*=language-]{color:#ccc;background:#282936;text-shadow:none;font-family:PT Mono,Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-ms-hyphens:none;hyphens:none}code[class*=language-]::selection,code[class*=language-] ::selection,pre[class*=language-]::selection,pre[class*=language-] ::selection{text-shadow:none;background-color:#5a5f80}@media print{code[class*=language-],pre[class*=language-]{text-shadow:none}}pre[class*=language-]{background:#282936!important;border-radius:.5em;padding:1em;margin:.5em 0;overflow:auto;height:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#282936}:not(pre)>code[class*=language-]{padding:4px 7px;border-radius:.3em;white-space:normal}.limit-300{height:300px!important}.limit-400{height:400px!important}.limit-500{height:500px!important}.limit-600{height:600px!important}.limit-700{height:700px!important}.limit-800{height:800px!important}.token.comment{color:#6272a4}.token.prolog{color:#cfcfc2}.token.tag{color:#dc68aa}.token.entity{color:#8be9fd}.token.atrule{color:#62ef75}.token.url{color:#66d9ef}.token.selector{color:#cfcfc2}.token.string{color:#f1fa8c}.token.property{color:#ffb86c}.token.important{color:#ff79c6;font-weight:700}.token.punctuation{color:#e6db74}.token.number{color:#bd93f9}.token.function{color:#50fa7b}.token.class-name{color:#ffb86c}.token.keyword{color:#ff79c6}.token.boolean{color:#ffb86c}.token.operator{color:#8be9fd}.token.char{color:#ff879d}.token.regex,.token.variable{color:#50fa7b}.token.constant,.token.symbol{color:#ffb86c}.token.builtin{color:#ff79c6}.token.attr-value{color:#7ec699}.token.deleted,.token.namespace{color:#e2777a}.token.bold{font-weight:700}.token.italic{font-style:italic}.token{color:#ff79c6}.language-c .token.string,.language-cpp .token.string{color:#8be9fd}.language-css .token.selector{color:#50fa7b}.language-css .token.property{color:#ffb86c}.language-java .token.class-name,.language-java span.token.class-name{color:#8be9fd}.language-markup .token.attr-value{color:#66d9ef}.language-markup .token.tag{color:#50fa7b}.language-objectivec .token.property{color:#66d9ef}.language-objectivec .token.string{color:#50fa7b}.language-php .token.boolean{color:#8be9fd}.language-php .token.function{color:#ff79c6}.language-php .token.keyword{color:#66d9ef}.language-ruby .token.symbol{color:#8be9fd}.language-ruby .token.class-name{color:#cfcfc2}pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}pre.line-numbers>code{position:relative;white-space:inherit}.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:0;font-size:100%;left:-3.8em;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-ms-user-select:none;user-select:none}.line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}div.code-toolbar{position:relative}div.code-toolbar>.toolbar{position:absolute;top:.3em;right:.2em;-webkit-transition:opacity .3s ease-in-out;transition:opacity .3s ease-in-out;opacity:0}div.code-toolbar:hover>.toolbar{opacity:1}div.code-toolbar>.toolbar .toolbar-item{display:inline-block;padding-right:20px}div.code-toolbar>.toolbar a{cursor:pointer}div.code-toolbar>.toolbar button{background:none;border:0;color:inherit;font:inherit;line-height:normal;overflow:visible;padding:0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}div.code-toolbar>.toolbar a,div.code-toolbar>.toolbar button,div.code-toolbar>.toolbar span{color:#ccc;font-size:.8em;padding:.5em;background:#6272a4;border-radius:.5em}div.code-toolbar>.toolbar a:focus,div.code-toolbar>.toolbar a:hover,div.code-toolbar>.toolbar button:focus,div.code-toolbar>.toolbar button:hover,div.code-toolbar>.toolbar span:focus,div.code-toolbar>.toolbar span:hover{color:inherit;text-decoration:none;background-color:var(--verde)}*{padding:0;margin:0;box-sizing:border-box;list-style-type:none;text-decoration:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.post-content p:not(:last-child),.post-content ul{margin-bottom:16px}.post-content ul{padding-left:20px}.post-content li{list-style-type:disc;margin-bottom:8px;color:var(--text)}.post-content a{line-height:1.8;color:#3498db;border-bottom:2px solid}.secondary-font{line-height:1.8;font-family:Open Sans,sans-serif}.post-content a:hover{color:#2980b9}.post-content img{margin-bottom:8px}img{width:100%}:root{--gray:#ababab;--theme:#2c3e50;--black:#333;--light:#ecf0f1;--white:#fff;--primary:#3498db;--darkPrimary:#2980b9;--text:var(--black);--title:#2c3e50;--background:var(--white);--darkMode:true}</style><meta name="generator" content="Gatsby 2.18.12"/><title data-react-helmet="true">Substituindo Redux por React Hooks</title><meta data-react-helmet="true" property="og:title" content="Substituindo Redux por React Hooks"/><meta data-react-helmet="true" name="description" content="&lt;p&gt;Em 2019 o time do React lançou os React Hooks, que são funções que dão mais flexibilidade e poder para os functional components. Hoje em dia eu quase não vejo um novo componente do React feito com classe e as aplicações estão simples de se manter. Em um dos meus últimos trabalhos eu resolvi substituir [&amp;hellip;]&lt;/p&gt;
+"/><meta data-react-helmet="true" property="og:description" content="&lt;p&gt;Em 2019 o time do React lançou os React Hooks, que são funções que dão mais flexibilidade e poder para os functional components. Hoje em dia eu quase não vejo um novo componente do React feito com classe e as aplicações estão simples de se manter. Em um dos meus últimos trabalhos eu resolvi substituir [&amp;hellip;]&lt;/p&gt;
+"/><meta data-react-helmet="true" property="og:type" content="website"/><meta data-react-helmet="true" property="og:url" content=""/><meta data-react-helmet="true" property="og:image" content="/static/a36338fc09be32f0a762c89c2410c5b1/48cea/UnitedStates_Los_Angeles_Flyovers_Image.jpg"/><meta data-react-helmet="true" property="witter:image" content="/static/a36338fc09be32f0a762c89c2410c5b1/48cea/UnitedStates_Los_Angeles_Flyovers_Image.jpg"/><meta data-react-helmet="true" property="og:site_name" content="Sérgio Júnior - Front End Developer"/><link rel="icon" href="/icons/icon-48x48.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="manifest" href="/manifest.webmanifest"/><meta name="theme-color" content="#663399"/><link rel="apple-touch-icon" sizes="48x48" href="/icons/icon-48x48.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="apple-touch-icon" sizes="256x256" href="/icons/icon-256x256.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png?v=e7be62aa0976e3dcdccbaeceb9060b48"/><link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="/google-fonts/s/merriweather/v21/u-440qyriQwlOrhSvowK_l5-fCZM.woff2"/><link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="/google-fonts/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l521wRZWMf6.woff2"/><link rel="preload" as="font" type="font/woff2" crossorigin="anonymous" href="/google-fonts/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l52xwNZWMf6.woff2"/><style type="text/css">@font-face{font-family:Merriweather;font-style:normal;font-weight:300;src:local('Merriweather Light'),local('Merriweather-Light'),url(/google-fonts/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l521wRZWMf6.woff2) format('woff2'),url(/google-fonts/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l521wRZWMf8.woff) format('woff');font-display: swap;}@font-face{font-family:Merriweather;font-style:normal;font-weight:400;src:local('Merriweather Regular'),local('Merriweather-Regular'),url(/google-fonts/s/merriweather/v21/u-440qyriQwlOrhSvowK_l5-fCZM.woff2) format('woff2'),url(/google-fonts/s/merriweather/v21/u-440qyriQwlOrhSvowK_l5-fCZK.woff) format('woff');font-display: swap;}@font-face{font-family:Merriweather;font-style:normal;font-weight:700;src:local('Merriweather Bold'),local('Merriweather-Bold'),url(/google-fonts/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l52xwNZWMf6.woff2) format('woff2'),url(/google-fonts/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l52xwNZWMf8.woff) format('woff');font-display: swap;}</style><link rel="preconnect dns-prefetch" href="https://www.google-analytics.com"/><script>
   
   
   if(true) {
@@ -16,219 +16,32 @@
       
       
       
-      }</script><link as="script" rel="preload" href="/webpack-runtime-f47eac72b26852f7363e.js"/><link as="script" rel="preload" href="/app-eec6a0e37e17d826b28e.js"/><link as="script" rel="preload" href="/styles-1281c08bf3dfda22a093.js"/><link as="script" rel="preload" href="/commons-314164884f448f8f3984.js"/><link as="script" rel="preload" href="/component---src-templates-post-js-4e5773a8aca924c7a139.js"/><link as="fetch" rel="preload" href="/page-data/substituindo-redux-por-hooks/page-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group" id="gatsby-focus-wrapper"><style data-emotion-css="ituevm">.css-ituevm{background:var(--background);height:100vh;overflow:scroll;-webkit-transition:background 0.3s ease;transition:background 0.3s ease;will-change:background;}</style><div class="css-ituevm"><style data-emotion-css="1ebyzc5">.css-1ebyzc5{background:var(--theme);height:60px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin-bottom:40px;}</style><header class="css-1ebyzc5"><style data-emotion-css="uf1ume">.css-uf1ume{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}</style><style data-emotion-css="1vrhw4e">.css-1vrhw4e{max-width:1200px;padding:0 15px;width:100%;margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}</style><div class="css-1vrhw4e"><a href="/"><style data-emotion-css="1g73syq">.css-1g73syq{font-family:"Open Sans",sans-serif;font-size:24px;color:var(--light);}</style><h1 class="css-1g73syq">Sérgio Júnior</h1></a><style data-emotion-css="1sg2lsz">.css-1sg2lsz{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}</style><nav class="css-1sg2lsz"><style data-emotion-css="141pr1k">.css-141pr1k{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}</style><ul class="css-141pr1k"><style data-emotion-css="cl9tds">.css-cl9tds{margin-left:15px;display:none;}@media screen and (min-width:720px){.css-cl9tds{display:block;}}</style><li class="css-cl9tds"><style data-emotion-css="1b8i0dj">.css-1b8i0dj{font-family:"Open Sans",sans-serif;color:var(--light);}</style><a class="css-1b8i0dj" href="/">Início</a></li><li class="css-cl9tds"><a class="css-1b8i0dj" href="/blog">Artigos</a></li><li class="css-cl9tds"><a class="css-1b8i0dj" href="/projetos">Projetos</a></li><li class="css-cl9tds"><a class="css-1b8i0dj" href="/resume">CV</a></li><style data-emotion-css="1oxgg1n">.css-1oxgg1n{margin-left:15px;}</style><li class="css-1oxgg1n"><div><style data-emotion-css="1fa4s91">.css-1fa4s91{width:0;height:0;display:none;}.css-1fa4s91:checked ~ label{background:#333;}.css-1fa4s91:checked ~ label:after{-webkit-transform:translateX(26px);-ms-transform:translateX(26px);transform:translateX(26px);}.css-1fa4s91:checked ~ label:before{content:"🌚";-webkit-transform:translateX(-26px);-ms-transform:translateX(-26px);transform:translateX(-26px);}</style><input type="checkbox" id="toggle" class="css-1fa4s91"/><style data-emotion-css="yjbzmk">.css-yjbzmk{background:#eca723;cursor:pointer;width:50px;display:block;height:24px;border-radius:50px;position:relative;}.css-yjbzmk:after{content:"";width:20px;height:20px;background:#fff;position:absolute;border-radius:50%;bottom:0;top:0;margin:auto;left:2px;-webkit-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0);-webkit-transition:-webkit-transform 0.2s ease;-webkit-transition:transform 0.2s ease;transition:transform 0.2s ease;will-change:transform;}.css-yjbzmk:before{content:"🌞";position:absolute;right:0;margin:auto;bottom:0;-webkit-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0);-webkit-transition:-webkit-transform 0.2s ease;-webkit-transition:transform 0.2s ease;transition:transform 0.2s ease;will-change:transform;}</style><label for="toggle" class="css-yjbzmk"></label></div></li><style data-emotion-css="a7js5f">.css-a7js5f{margin-left:15px;}@media screen and (min-width:720px){.css-a7js5f{display:none;}}</style><li class="css-a7js5f"><style data-emotion-css="ih24cn">.css-ih24cn{background:none;border:0;cursor:pointer;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}</style><button class="css-ih24cn"><svg fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width="26px" height="26px"><path d="M 0 4 L 0 6 L 26 6 L 26 4 Z M 0 12 L 0 14 L 26 14 L 26 12 Z M 0 20 L 0 22 L 26 22 L 26 20 Z"></path></svg></button></li></ul></nav></div></header><style data-emotion-css="rd7h8u">.css-rd7h8u{z-index:9;position:fixed;width:100vw;height:100vh;background:var(--theme);top:0;-webkit-transition:-webkit-transform 0.3s ease;-webkit-transition:transform 0.3s ease;transition:transform 0.3s ease;will-change:transform;-webkit-transform:translateY(100%);-ms-transform:translateY(100%);transform:translateY(100%);}@media screen and (min-width:720px){.css-rd7h8u{display:none;}}</style><div class="css-rd7h8u"><style data-emotion-css="1asylr1">.css-1asylr1{position:absolute;right:15px;top:22px;background:none;border:0;cursor:pointer;}</style><button class="css-1asylr1"><svg fill="#fff" viewBox="0 0 413.348 413.348" height="25" width="25" xmlns="http://www.w3.org/2000/svg"><path d="m413.348 24.354-24.354-24.354-182.32 182.32-182.32-182.32-24.354 24.354 182.32 182.32-182.32 182.32 24.354 24.354 182.32-182.32 182.32 182.32 24.354-24.354-182.32-182.32z"></path></svg></button><style data-emotion-css="km3zwk">.css-km3zwk{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;height:100%;}</style><ul class="css-km3zwk"><li><style data-emotion-css="r46x25">.css-r46x25{font-family:"Open Sans",sans-serif;margin-bottom:32px;color:var(--light);display:block;}</style><a class="css-r46x25" href="/">Início</a></li><li><a class="css-r46x25" href="/blog">Artigos</a></li><li><a class="css-r46x25" href="/projetos">Projetos</a></li><li><a class="css-r46x25" href="/resume">CV</a></li></ul></div><style data-emotion-css="1is8dr0">.css-1is8dr0{min-height:calc(100vh - 200px);}</style><div class="css-1is8dr0"><style data-emotion-css="hsnqky">.css-hsnqky{max-width:700px;padding:0 15px;width:100%;margin:0 auto;}</style><div class="css-hsnqky"><style data-emotion-css="bpi9el">.css-bpi9el:not(:last-child){margin-bottom:20px;}</style><article class="post-content css-bpi9el"><style data-emotion-css="env1z2">.css-env1z2{margin-bottom:8px;}</style><div class="css-env1z2"><style data-emotion-css="z9dudo">.css-z9dudo{line-height:1.8;color:#3498db;border-bottom:2px solid;}.css-z9dudo:hover{color:#2980b9;}</style><a class="secondary-font css-z9dudo" href="/tste">Read this article in English</a></div><style data-emotion-css="1bj9jfq">.css-1bj9jfq{margin-bottom:8px;color:var(--title);font-size:24px;font-weight:bold;font-family:"Open Sans",sans-serif;}</style><h1 class="css-1bj9jfq">Substituindo Redux por Hooks</h1><style data-emotion-css="tvtlbl">.css-tvtlbl{color:var(--text);line-height:1.8;font-size:16px;font-family:"Merriweather",serif;margin-bottom:8px;-webkit-transition:color 0.3s ease;transition:color 0.3s ease;will-change:color;color:var(--gray);}</style><p class="css-tvtlbl">Publicado em<time dateTime="01-21-2020"> <!-- -->01-21-2020</time></p><img src="/static/502764e6c2ad3e1dae22fc132380de1f/01e6b/person-using-macbook-air-on-table-1181248-1.jpg" alt="Substituindo Redux por Hooks"/><style data-emotion-css="1mu05f0">.css-1mu05f0{color:var(--text);line-height:1.8;font-size:16px;font-family:"Merriweather",serif;margin-bottom:8px;-webkit-transition:color 0.3s ease;transition:color 0.3s ease;will-change:color;}</style><div class="css-1mu05f0">
-<p>Vamos criar o custom hook <em>useStore</em>, responsável por criar e fornecer nosso context.</p>
+      }</script><link as="script" rel="preload" href="/webpack-runtime-f47eac72b26852f7363e.js"/><link as="script" rel="preload" href="/app-eec6a0e37e17d826b28e.js"/><link as="script" rel="preload" href="/styles-1281c08bf3dfda22a093.js"/><link as="script" rel="preload" href="/commons-314164884f448f8f3984.js"/><link as="script" rel="preload" href="/component---src-templates-post-js-4e5773a8aca924c7a139.js"/><link as="fetch" rel="preload" href="/page-data/substituindo-redux-por-hooks/page-data.json" crossorigin="anonymous"/></head><body><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group" id="gatsby-focus-wrapper"><style data-emotion-css="ituevm">.css-ituevm{background:var(--background);height:100vh;overflow:scroll;-webkit-transition:background 0.3s ease;transition:background 0.3s ease;will-change:background;}</style><div class="css-ituevm"><style data-emotion-css="1ebyzc5">.css-1ebyzc5{background:var(--theme);height:60px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin-bottom:40px;}</style><header class="css-1ebyzc5"><style data-emotion-css="uf1ume">.css-uf1ume{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}</style><style data-emotion-css="1vrhw4e">.css-1vrhw4e{max-width:1200px;padding:0 15px;width:100%;margin:0 auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}</style><div class="css-1vrhw4e"><a href="/"><style data-emotion-css="1g73syq">.css-1g73syq{font-family:"Open Sans",sans-serif;font-size:24px;color:var(--light);}</style><h1 class="css-1g73syq">Sérgio Júnior</h1></a><style data-emotion-css="1sg2lsz">.css-1sg2lsz{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}</style><nav class="css-1sg2lsz"><style data-emotion-css="141pr1k">.css-141pr1k{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}</style><ul class="css-141pr1k"><style data-emotion-css="cl9tds">.css-cl9tds{margin-left:15px;display:none;}@media screen and (min-width:720px){.css-cl9tds{display:block;}}</style><li class="css-cl9tds"><style data-emotion-css="1b8i0dj">.css-1b8i0dj{font-family:"Open Sans",sans-serif;color:var(--light);}</style><a class="css-1b8i0dj" href="/">Início</a></li><li class="css-cl9tds"><a class="css-1b8i0dj" href="/blog">Artigos</a></li><li class="css-cl9tds"><a class="css-1b8i0dj" href="/projetos">Projetos</a></li><li class="css-cl9tds"><a class="css-1b8i0dj" href="/resume">CV</a></li><style data-emotion-css="1oxgg1n">.css-1oxgg1n{margin-left:15px;}</style><li class="css-1oxgg1n"><div><style data-emotion-css="1fa4s91">.css-1fa4s91{width:0;height:0;display:none;}.css-1fa4s91:checked ~ label{background:#333;}.css-1fa4s91:checked ~ label:after{-webkit-transform:translateX(26px);-ms-transform:translateX(26px);transform:translateX(26px);}.css-1fa4s91:checked ~ label:before{content:"🌚";-webkit-transform:translateX(-26px);-ms-transform:translateX(-26px);transform:translateX(-26px);}</style><input type="checkbox" id="toggle" class="css-1fa4s91"/><style data-emotion-css="yjbzmk">.css-yjbzmk{background:#eca723;cursor:pointer;width:50px;display:block;height:24px;border-radius:50px;position:relative;}.css-yjbzmk:after{content:"";width:20px;height:20px;background:#fff;position:absolute;border-radius:50%;bottom:0;top:0;margin:auto;left:2px;-webkit-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0);-webkit-transition:-webkit-transform 0.2s ease;-webkit-transition:transform 0.2s ease;transition:transform 0.2s ease;will-change:transform;}.css-yjbzmk:before{content:"🌞";position:absolute;right:0;margin:auto;bottom:0;-webkit-transform:translateX(0);-ms-transform:translateX(0);transform:translateX(0);-webkit-transition:-webkit-transform 0.2s ease;-webkit-transition:transform 0.2s ease;transition:transform 0.2s ease;will-change:transform;}</style><label for="toggle" class="css-yjbzmk"></label></div></li><style data-emotion-css="a7js5f">.css-a7js5f{margin-left:15px;}@media screen and (min-width:720px){.css-a7js5f{display:none;}}</style><li class="css-a7js5f"><style data-emotion-css="ih24cn">.css-ih24cn{background:none;border:0;cursor:pointer;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}</style><button class="css-ih24cn"><svg fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width="26px" height="26px"><path d="M 0 4 L 0 6 L 26 6 L 26 4 Z M 0 12 L 0 14 L 26 14 L 26 12 Z M 0 20 L 0 22 L 26 22 L 26 20 Z"></path></svg></button></li></ul></nav></div></header><style data-emotion-css="rd7h8u">.css-rd7h8u{z-index:9;position:fixed;width:100vw;height:100vh;background:var(--theme);top:0;-webkit-transition:-webkit-transform 0.3s ease;-webkit-transition:transform 0.3s ease;transition:transform 0.3s ease;will-change:transform;-webkit-transform:translateY(100%);-ms-transform:translateY(100%);transform:translateY(100%);}@media screen and (min-width:720px){.css-rd7h8u{display:none;}}</style><div class="css-rd7h8u"><style data-emotion-css="1asylr1">.css-1asylr1{position:absolute;right:15px;top:22px;background:none;border:0;cursor:pointer;}</style><button class="css-1asylr1"><svg fill="#fff" viewBox="0 0 413.348 413.348" height="25" width="25" xmlns="http://www.w3.org/2000/svg"><path d="m413.348 24.354-24.354-24.354-182.32 182.32-182.32-182.32-24.354 24.354 182.32 182.32-182.32 182.32 24.354 24.354 182.32-182.32 182.32 182.32 24.354-24.354-182.32-182.32z"></path></svg></button><style data-emotion-css="km3zwk">.css-km3zwk{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;height:100%;}</style><ul class="css-km3zwk"><li><style data-emotion-css="r46x25">.css-r46x25{font-family:"Open Sans",sans-serif;margin-bottom:32px;color:var(--light);display:block;}</style><a class="css-r46x25" href="/">Início</a></li><li><a class="css-r46x25" href="/blog">Artigos</a></li><li><a class="css-r46x25" href="/projetos">Projetos</a></li><li><a class="css-r46x25" href="/resume">CV</a></li></ul></div><style data-emotion-css="1is8dr0">.css-1is8dr0{min-height:calc(100vh - 200px);}</style><div class="css-1is8dr0"><style data-emotion-css="hsnqky">.css-hsnqky{max-width:700px;padding:0 15px;width:100%;margin:0 auto;}</style><div class="css-hsnqky"><style data-emotion-css="bpi9el">.css-bpi9el:not(:last-child){margin-bottom:20px;}</style><article class="post-content css-bpi9el"><style data-emotion-css="env1z2">.css-env1z2{margin-bottom:8px;}</style><div class="css-env1z2"><style data-emotion-css="z9dudo">.css-z9dudo{line-height:1.8;color:#3498db;border-bottom:2px solid;}.css-z9dudo:hover{color:#2980b9;}</style><a class="secondary-font css-z9dudo" href="/tste">Read this article in English</a></div><style data-emotion-css="1bj9jfq">.css-1bj9jfq{margin-bottom:8px;color:var(--title);font-size:24px;font-weight:bold;font-family:"Open Sans",sans-serif;}</style><h1 class="css-1bj9jfq">Substituindo Redux por React Hooks</h1><style data-emotion-css="tvtlbl">.css-tvtlbl{color:var(--text);line-height:1.8;font-size:16px;font-family:"Merriweather",serif;margin-bottom:8px;-webkit-transition:color 0.3s ease;transition:color 0.3s ease;will-change:color;color:var(--gray);}</style><p class="css-tvtlbl">Publicado em<time dateTime="01-21-2020"> <!-- -->01-21-2020</time></p><img src="/static/a36338fc09be32f0a762c89c2410c5b1/48cea/UnitedStates_Los_Angeles_Flyovers_Image.jpg" alt="Substituindo Redux por React Hooks"/><style data-emotion-css="1mu05f0">.css-1mu05f0{color:var(--text);line-height:1.8;font-size:16px;font-family:"Merriweather",serif;margin-bottom:8px;-webkit-transition:color 0.3s ease;transition:color 0.3s ease;will-change:color;}</style><div class="css-1mu05f0">
+<p>Em 2019 o time do React lançou os React Hooks, que são funções que dão mais flexibilidade e poder para os functional components. Hoje em dia eu quase não vejo um novo componente do React feito com classe e as aplicações estão simples de se manter.</p>
 
 
 
-<pre class="wp-block-prismatic-blocks"><code class="language-javascript">//src/store/hooks/useStore.js
-import { useContext, createContext } from "react";
-import { authDefault } from "../reducers/auth";
-import { counterDefault } from "../reducers/counter";
+<p>Em um dos meus últimos trabalhos eu resolvi substituir o gerenciamento de estado do Redux por React Hooks. Eu havia gostado bastante do resultado, escrevi <a rel="noreferrer noopener" aria-label="um artigo no Medium (abre numa nova aba)" href="https://medium.com/reactbrasil/substituindo-o-redux-pelo-context-api-react-hooks-a70e995daa1d" target="_blank">um artigo no Medium</a> explicando como eu havia feito e ele chegou até ser publicado na conta do <a href="https://medium.com/reactbrasil" target="_blank" rel="noreferrer noopener" aria-label="React Brasil (abre numa nova aba)">React Brasil</a>.</p>
 
-export const defaultStore = {
-  store: { ...authDefault, ...counterDefault },
-  dispatch: () => {}
-};
 
-export const storeContext = createContext(defaultStore);
-export default () => {
-  return useContext(storeContext);
-};</code></pre>
 
+<p>Eu particulamente fiquei muito feliz com o feedback do pessoal mas sentia que poderia refatorar aquele código, torna-lo mais limpo e organizado, por isso, acabei reescrevendo o exemplo e o artigo, que se tornou esse que você está lendo agora.</p>
 
 
-<p>Com ele também será possível acessar diretamente nossa store e o dispatch de qualquer lugar da nossa aplicação, além do componente Connect, inspirado no Redux, que vamos criar em breve.</p>
 
+<p>Eu estou usando o mesmo exemplo de um simples contador e autenticação. Caso queira, você já pode ver <a rel="noreferrer noopener" aria-label="a demo (abre numa nova aba)" href="https://context-usereducer.netlify.com/" target="_blank">a demo</a> como ficou e o <a rel="noreferrer noopener" aria-label="repositório (abre numa nova aba)" href="https://github.com/Sergioamjr/redux-to-context-usereducer" target="_blank">repositório</a> com o código final, com um pequeno CSS que eu escrevi e a primeira versão dele.</p>
 
 
-<p>Agora vamos criar o hook useCombinedReducers, responsável por retornar um array com nossos reducers e um objeto com os valores padrões da nossa store.</p>
 
+<h3>Vamos ao código.</h3>
 
 
-<pre class="wp-block-prismatic-blocks"><code class="language-javascript">//src/store/hooks/useCombinedReducers.js
-import { useReducer } from "react";
-import counterReducer, { counterDefault } from "./../reducers/counter";
-import authReducer, { authDefault } from "./../reducers/auth";
 
-const useCombinedReducers = () => {
-  const [counterStore, counter] = useReducer(counterReducer, counterDefault);
-  const [authStore, auth] = useReducer(authReducer, authDefault);
+<p>Primeiro, vamos criar os estados da nosso store e também nossos reducers, types e actions. Eles seguem basicamente o mesmo modelo do Redux, apenas estou usando o padrão Ducks, pra mantermos tudo que é relacionado no mesmo arquivo.</p>
 
-  return {
-    store: { ...counterStore, ...authStore },
-    reducers: [counter, auth]
-  };
-};
 
-export default useCombinedReducers;</code></pre>
 
-
-
-<p>Sempre que formos adicionar um novo objeto na nossa store, precisaremos apenas alterar esse arquivo, importando o reducer, o objeto padrão, usando o hook useReducer e os retornando na função principal.</p>
-
-
-
-<p>Essa foi a única diferente que eu fiz do padrão do Redux, para tornar nosso Provider mais dinâmico, fazendo um loop entre os reducers pra passar por todos e não precisarmos ficar alterando ele.</p>
-
-
-
-<p>Esse será nosso componente Connect, que injetará nossa store e dispatch nos nossos componente. Aqui usamos o componente StoreContext retornado no nosso hook useStore.</p>
-
-
-
-<pre class="wp-block-prismatic-blocks"><code class="language-jsx">//src/store/connect.js
-import React from "react";
-import { storeContext as StoreContext } from "./hooks/useStore";
-
-const returnPropsAsDefault = (store, props) => props;
-
-const Connect = (mapStateToProps = returnPropsAsDefault) => Component => {
-  return function WrapConnect(props) {
-    return (
-      &lt;StoreContext.Consumer>
-        {({ dispatch, store }) => {
-          const storeProps = mapStateToProps(store, props);
-          return &lt;Component {...storeProps} dispatch={dispatch} />;
-        }}
-      &lt;/StoreContext.Consumer>
-    );
-  };
-};
-
-export default Connect;</code></pre>
-
-
-
-<p>Ele funcionará semelhante ao reducer, recebendo dois parametros, o mapStateToProps e o componente que receberá a store.</p>
-
-
-
-<pre class="wp-block-prismatic-blocks"><code class="language-javascript">function mapStateToProps(store, props) {
-  return {
-    ...store,
-    ...props
-  }
-}
-
-Connect(mapStateToProps)(Component)
-</code></pre>
-
-
-
-<p>Lembrando que o mapStateToProps é uma função que recebe a store e as props originais. Você é responsável por retornar a store inteira ou selecionar os objetos que precise.</p>
-
-
-
-<p>Caso o mapStateToProps não seja fornecido, sua função padrão returnPropsAsDefault retornará as props originais do Component.</p>
-
-
-
-<p>Você pode ler mais sobre ele <a rel="noreferrer noopener" aria-label="nesse link  (abre numa nova aba)" href="https://react-redux.js.org/using-react-redux/connect-mapstate" target="_blank">nesse link</a>.</p>
-
-
-
-<p>Nosso próximo componente será nosso Provider, responsável por envolver plataforma e tornar nosso context disponível dentro dela. Usamos o hook useCombinedReducers para receber o objeto da store e um array com nossos reducers.</p>
-
-
-
-<pre class="wp-block-prismatic-blocks"><code class="language-jsx">//src/store/index.js
-import React from "react";
-import PropTypes from "prop-types";
-import useCombinedReducers from "./hooks/useCombinedReducers";
-import { storeContext as StoreContext } from "./hooks/useStore";
-
-const Provider = ({ children }) => {
-  const { store, reducers } = useCombinedReducers();
-
-  const triggerDispatchs = action => {
-    for (let i = 0; i &lt; reducers.length; i++) {
-      reducers[i](action);
-    }
-  };
-
-  return (
-    &lt;StoreContext.Provider
-      value={{
-        store,
-        dispatch: action => triggerDispatchs(action)
-      }}
-    >
-      {children}
-    &lt;/StoreContext.Provider>
-  );
-};
-
-Provider.propTypes = {
-  children: PropTypes.node.isRequired
-};
-
-export default Provider;
-</code></pre>
-
-
-
-<p>O método triggerDispatchs faz um loop em nossos reducers, passando a action como parâmetro.</p>
-
-
-
-<p>Também podemos adicionar um middleware nesse arquivo, que servirá pra interceptar nosso dispatch e fazer qualquer coisa que queremos, uma requisição, disparar outra action, etc.</p>
-
-
-
-<p>Ele será basicamente assim.</p>
-
-
-
-<pre class="wp-block-prismatic-blocks"><code class="language-javascript">//src/store/middleware.js
-import { LOGOUT } from "./reducers/auth";
-import { resetAction } from "./reducers/counter";
-
-export default action => dispatch => {
-  if (action.type === LOGOUT) {
-    dispatch(resetAction());
-  }
-
-  dispatch(action);
-};</code></pre>
-
-
-
-<p>Ele é um closure que recebe a action e o dispatch, onde podemos interceptar nosso dispatch e fazer qualquer coisa que queremos, uma requisição, disparar outra action, etc.</p>
-
-
-
-<p>Nesse caso estou disparando a action resetAction caso o type da action original seja de LOGOUT.</p>
-
-
-
-<p>Pra a utilizarmos, precisamos criar o méotodo withMiddleware e substituir a atribuição do dispatch.</p>
-
-
-
-<pre class="wp-block-prismatic-blocks"><code class="language-jsx">//src/store/index.js
-const withMiddleware = action => {
-  middleware(action)(triggerDispatchs);
-};
-
-return (
-  &lt;StoreContext.Provider
-    value={{
-      store,
-      dispatch: withMiddleware
-    }}
-  >
-    {children}
-  &lt;/StoreContext.Provider>
-);</code></pre>
-
-
-
-<p>Nossos próximos arquivos seguem o modelo do Redux, contendo o valor padrão do seu objeto, os types, reducer e actions, porém, estou usando o padrão Ducks, pra mantermos tudo que é relacionado no mesmo arquivo.</p>
-
-
-
-<p>Você pode ler mais sobre esse pattern <a href="https://github.com/erikras/ducks-modular-redux" target="_blank" rel="noreferrer noopener" aria-label="nesse link. (abre numa nova aba)">nesse link.</a></p>
+<p>Você pode ler mais sobre esse padrão de organização <a rel="noreferrer noopener" aria-label="nesse link. (abre numa nova aba)" href="https://github.com/erikras/ducks-modular-redux" target="_blank">nesse link.</a></p>
 
 
 
@@ -336,7 +149,213 @@ export default counterReducer;</code></pre>
 
 
 
-<p>Nesse ponto já temos tudo o que precisamos pra usar nossa store na nossa aplição.</p>
+<p>Ótimo, agora vamos criar nossos <em>custom hooks</em>, o primeiro é o <em>useCombinedReducers</em>, responsável por retornar um array com os reducers e um objeto com o valor padrão da nossa store. Aqui iremos utilizar o hook <em>useReducer</em>.</p>
+
+
+
+<pre class="wp-block-prismatic-blocks"><code class="language-javascript">//src/store/hooks/useCombinedReducers.js
+import { useReducer } from "react";
+import counterReducer, { counterDefault } from "./../reducers/counter";
+import authReducer, { authDefault } from "./../reducers/auth";
+
+const useCombinedReducers = () => {
+  const [counterStore, counter] = useReducer(counterReducer, counterDefault);
+  const [authStore, auth] = useReducer(authReducer, authDefault);
+
+  return {
+    store: { ...counterStore, ...authStore },
+    reducers: [counter, auth]
+  };
+};
+
+export default useCombinedReducers;</code></pre>
+
+
+
+<p>Sempre que formos adicionar um novo objeto na nossa store, precisaremos apenas alterar esse arquivo, importando seu reducer, seu valor padrão, usar o hook <em>useReducer</em> e os retornar na função principal.</p>
+
+
+
+<p>Essa foi a única alteração que eu fiz pro Redux, para tornar nosso componente <em>Provider</em> mais dinâmico e não precisarmos ficar alterando ele.</p>
+
+
+
+<p>Nosso segundo <em>custom hook</em> é o <em>useStore</em>, responsável por criar e fornecer o context da aplicação através do hook <em>useContext</em>.</p>
+
+
+
+<pre class="wp-block-prismatic-blocks"><code class="language-javascript">//src/store/hooks/useStore.js
+import { useContext, createContext } from "react";
+import { authDefault } from "../reducers/auth";
+import { counterDefault } from "../reducers/counter";
+
+export const defaultStore = {
+  store: { ...authDefault, ...counterDefault },
+  dispatch: () => {}
+};
+
+export const StoreContext = createContext(defaultStore);
+export default () => {
+  return useContext(storeContext);
+};
+</code></pre>
+
+
+
+<p>Com ele também será possível acessar diretamente nossa store e o dispatch, além do componente <em>Connect</em>, inspirado no Redux, que vamos criar logo em seguida.</p>
+
+
+
+<p>O <em>Connect</em> injetará nossa store e dispatch nos nossos componentes. Aqui usamos componente <em>StoreContext</em> retornado no nosso hook <em>useStore</em>.</p>
+
+
+
+<pre class="wp-block-prismatic-blocks"><code class="language-jsx">//src/store/connect.js
+import React from "react";
+import { StoreContext } from "./hooks/useStore";
+
+const returnPropsAsDefault = (store, props) => props;
+
+const Connect = (mapStateToProps = returnPropsAsDefault) => Component => {
+  return function WrapConnect(props) {
+    return (
+      &lt;StoreContext.Consumer>
+        {({ dispatch, store }) => {
+          const storeProps = mapStateToProps(store, props);
+          return &lt;Component {...storeProps} dispatch={dispatch} />;
+        }}
+      &lt;/StoreContext.Consumer>
+    );
+  };
+};
+
+export default Connect;</code></pre>
+
+
+
+<p>Ele funcionará semelhante ao do Redux, recebendo o <em>mapStateToProps</em> e o componente que receberá a store.</p>
+
+
+
+<p>Lembrando que o <em>mapStateToProps</em> é uma função que recebe a store e as props originais. Você é responsável por retornar a store inteira ou selecionar os objetos que precise.</p>
+
+
+
+<pre class="wp-block-prismatic-blocks"><code class="language-javascript">function mapStateToProps(store, props) {
+  return {
+    ...store,
+    ...props
+  }
+}
+
+export default Connect(mapStateToProps)(Component)
+</code></pre>
+
+
+
+<p>Caso o <em>mapStateToProps</em> não seja fornecido, sua função padrão <em>returnPropsAsDefault</em> retornará as props originais do componente.</p>
+
+
+
+<p>Você pode ler mais sobre o <em>mapStateToProps</em> <a rel="noreferrer noopener" aria-label="nesse link  (abre numa nova aba)" href="https://react-redux.js.org/using-react-redux/connect-mapstate" target="_blank">nesse link</a>.</p>
+
+
+
+<p>O próximo componente será nosso <em>Provider</em>, que irá envolver nossa plataforma e tornar nossa store disponível dentro dela. Usamos o hook <em>useCombinedReducers</em> para receber o valor da store e um array com nossos reducers.</p>
+
+
+
+<pre class="wp-block-prismatic-blocks"><code class="language-jsx">//src/store/index.js
+import React from "react";
+import PropTypes from "prop-types";
+import useCombinedReducers from "./hooks/useCombinedReducers";
+import { StoreContext } from "./hooks/useStore";
+
+const Provider = ({ children }) => {
+  const { store, reducers } = useCombinedReducers();
+
+  const triggerDispatchs = action => {
+    for (let i = 0; i &lt; reducers.length; i++) {
+      reducers[i](action);
+    }
+  };
+
+  return (
+    &lt;StoreContext.Provider
+      value={{
+        store,
+        dispatch: triggerDispatchs
+      }}
+    >
+      {children}
+    &lt;/StoreContext.Provider>
+  );
+};
+
+Provider.propTypes = {
+  children: PropTypes.node.isRequired
+};
+
+export default Provider;
+</code></pre>
+
+
+
+<p>O método <em>triggerDispatchs</em> faz um loop em nossos reducers, passando a <em>action</em> como parâmetro pra cada um deles.</p>
+
+
+
+<p>Também podemos adicionar um <em>middleware</em> nesse arquivo, que servirá pra interceptar nossos <em>dispatchs</em> e fazer qualquer coisa que queremos a partir disso, como uma requisição, disparar outra action, etc.</p>
+
+
+
+<p>Ele será basicamente assim.</p>
+
+
+
+<pre class="wp-block-prismatic-blocks"><code class="language-javascript">//src/store/middleware.js
+import { LOGOUT } from "./reducers/auth";
+import { resetAction } from "./reducers/counter";
+
+export default action => dispatch => {
+  if (action.type === LOGOUT) {
+    dispatch(resetAction());
+  }
+
+  dispatch(action);
+};</code></pre>
+
+
+
+<p>Ele é um closure que recebe a <em>action</em> e o <em>dispatch</em>, nesse caso estou disparando a action <em>resetAction</em> caso o type da action original seja <em>LOGOUT</em>.</p>
+
+
+
+<p>Pra o utilizarmos precisamos alterar o arquivo do nosso <em>Provider</em> criando o método <em>withMiddleware</em> e substituir a atribuição do <em>dispatch</em>, assim.</p>
+
+
+
+<pre class="wp-block-prismatic-blocks"><code class="language-jsx">//src/store/index.js
+import middleware from "./middleware";
+
+const withMiddleware = action => {
+  middleware(action)(triggerDispatchs);
+};
+
+return (
+  &lt;StoreContext.Provider
+    value={{
+      store,
+      dispatch: withMiddleware
+    }}
+  >
+    {children}
+  &lt;/StoreContext.Provider>
+);</code></pre>
+
+
+
+<p>Nesse ponto já temos tudo o que precisamos configurado para usar a store na nossa aplicação.</p>
 
 
 
@@ -344,7 +363,7 @@ export default counterReducer;</code></pre>
 
 
 
-<p>Vamos começar adicionando nos nossos componente de contador, login e header.</p>
+<p>Vamos começar conectando nossa store nos nossos componentes <em>Counter, Login e Header.</em></p>
 
 
 
@@ -483,23 +502,23 @@ export default Header;
 
 
 
-<p>Se você já usou Redux, deve ser familiar com o que temos aqui; o componente Connect intejeta o dispatch e a store e importamos as actions pra passarmos como seu parametro.</p>
+<p>Se você já usou Redux, deve ser familiar com o que temos aqui; o componente <em>Connect</em> injeta o dispatch e a store, também importamos as <em>actions</em> pra passarmos como seu parametro.</p>
 
 
 
-<p>No nosso Header eu estou usando o custom hook useStore pra acessar a store e o dispatch, ao invés do Connect. Fique a vontade pra usar qual preferir 🙂</p>
+<p>No nosso <em>Header</em> eu estou usando o custom hook <em>useStore</em> pra acessar a store e o dispatch, ao invés do Connect. Fique a vontade pra usar qual preferir 🙂</p>
 
 
 
-<p>É isso. Sua aplicação já deve estar funcionando com uma store, criada com hooks nativos do React ao invés do Redux.</p>
+<p>É isso. Sua aplicação já deve estar funcionando com uma store criada com hooks nativos do React ao invés do Redux.</p>
 
 
 
-<p>Ressaltando que os únicos pontos negativos comparados ao Redux é a falta de uma extensão do navegador, como o Redux Dev Tools, que nos permita debugar as interações com a store e também a falta de suporte para as actions assincronas, como redux thunk.</p>
+<p>Ressaltando que os únicos pontos negativos comparados ao Redux é a falta de uma extensão do navegador, como o Redux Dev Tools, que nos permita debugar as interações com a store e também a falta de suporte para as actions assincronas, como redux-thunk.</p>
 
 
 
-<p>Também preciso dizer que, dependendo do tamanho e complexidade da sua aplicação, usar o Redux poderá ser mais perfomatico do que os hooks.</p>
+<p>Também preciso dizer que dependendo do tamanho e complexidade da sua aplicação, usar o Redux poderá ser mais perfomatico do que os hooks.</p>
 
 
 
