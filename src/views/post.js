@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { Link } from "gatsby";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 import Template from "../components/Template";
 import {
@@ -13,6 +14,8 @@ import {
   secondaryFont
 } from "../design";
 import Disqus from "../components/Disqus";
+import Prism from "prismjs";
+import "prismjs/components/prism-jsx.min";
 
 const PostView = ({
   id,
@@ -26,6 +29,9 @@ const PostView = ({
   translationLabel,
   publishedAt
 }) => {
+  useEffect(() => {
+    Prism.highlightAll();
+  }, []);
   return (
     <Template thumbnail={img} title={title} description={excerpt}>
       <Container small>

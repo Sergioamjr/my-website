@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import { justifyContent, primaryFont } from "../../design";
+import { useEffect } from "react";
 import {
   IconMedium,
   IconCodepen,
@@ -50,6 +51,9 @@ const linkStyle = css`
 `;
 
 const Footer = () => {
+  useEffect(() => {
+    // require("./../../assets/prism.js");
+  });
   return (
     <footer css={footerStyle}>
       <ul css={justifyContent}>

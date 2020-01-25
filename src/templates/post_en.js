@@ -9,7 +9,7 @@ const Post = props => {
   const { id, title, excerpt, date, content } = post;
   const url = props.location.href;
   const img = post.featured_media.localFile.childImageSharp.resolutions.src;
-  const tranlation = post.acf.translation.url;
+  const tranlation = post.acf.translation;
 
   return (
     <PostView
@@ -49,9 +49,7 @@ export const pageQuery = graphql`
         }
       }
       acf {
-        translation {
-          url
-        }
+        translation
       }
     }
   }
