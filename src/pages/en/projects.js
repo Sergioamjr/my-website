@@ -22,8 +22,9 @@ const Projects = props => {
           } = node;
           return (
             <BlogCard
+              label="See more"
               externalLink
-              categories={categories || []}
+              categories={categories}
               excerpt={content}
               path={link}
               title={title}

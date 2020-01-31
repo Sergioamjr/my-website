@@ -70,7 +70,8 @@ BlogCard.propTypes = {
 };
 
 BlogCard.defaultProps = {
-  label: "Read more"
+  label: "Read more",
+  categories: []
 };
 
 export default BlogCard;

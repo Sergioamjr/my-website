@@ -12,10 +12,6 @@ export const menuOptionsPT = [
   {
     name: "Projetos",
     url: "/projetos"
-  },
-  {
-    name: "CV",
-    url: "/resume"
   }
 ];
 
@@ -31,10 +27,6 @@ export const menuOptionsEN = [
   {
     name: "Projects",
     url: "/en/projects"
-  },
-  {
-    name: "Resume",
-    url: "/en-resume"
   }
 ];
 

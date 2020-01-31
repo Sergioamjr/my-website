@@ -23,11 +23,11 @@ const Projects = props => {
           return (
             <BlogCard
               externalLink
-              categories={categories || []}
+              categories={categories}
               excerpt={content}
               path={link}
               title={title}
-              label="Ler mais"
+              label="Ver mais"
               key={i}
             />
           );
