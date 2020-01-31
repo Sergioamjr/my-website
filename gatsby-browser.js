@@ -6,4 +6,4 @@
 
 // You can delete this file if you're not using it
 
-require("prismjs/themes/prism-dracula.css");
+require("./src/design/prism-dracula.css");

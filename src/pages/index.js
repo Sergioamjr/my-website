@@ -1,31 +1,21 @@
 /** @jsx jsx */
-import { jsx, css } from "@emotion/core";
-import { Link, graphql } from "gatsby";
+import { jsx } from "@emotion/core";
+import { graphql } from "gatsby";
 import PropTypes from "prop-types";
-import Template from "../components/Template";
-import { Container, pageTitle, text, mgBottom, secondTitle } from "../design";
+import { text } from "../design";
+import Page from "../views/page";
 
 const Home = props => {
   const post = props.data.wordpressPage;
   return (
-    <Template>
-      <Container small>
-        <div className="post-content">
-          <div
-            css={css`
-              ${mgBottom}
-            `}
-          >
-            <Link className="secondary-font" to="/en">
-              See in English
-            </Link>
-          </div>
-          <h2 css={pageTitle}>:)</h2>
-          <p css={secondTitle}>{post.title}</p>
-          <div css={text} dangerouslySetInnerHTML={{ __html: post.content }} />
-        </div>
-      </Container>
-    </Template>
+    <Page
+      translateLabel="See in English"
+      translateTo="/en"
+      title=":)"
+      subtitle={post.title}
+    >
+      <div css={text} dangerouslySetInnerHTML={{ __html: post.content }} />
+    </Page>
   );
 };
 

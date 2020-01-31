@@ -2,16 +2,18 @@
 import { jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
-import Template from "../components/Template";
-import { Container, pageTitle } from "../design";
 import BlogCard from "../components/BlogCard";
+import Page from "../views/page";
 
 const Projects = props => {
   const data = props.data.allWordpressWpProjetos.edges;
   return (
-    <Template title="Projects">
-      <Container small>
-        <h2 css={pageTitle}>Projetos</h2>
+    <Page
+      translateLabel="See in English"
+      translateTo="en/projects"
+      title="Projetos"
+    >
+      <div>
         {data.map(({ node }, i) => {
           const {
             title,
@@ -30,8 +32,8 @@ const Projects = props => {
             />
           );
         })}
-      </Container>
-    </Template>
+      </div>
+    </Page>
   );
 };
 export default Projects;

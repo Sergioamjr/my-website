@@ -36,17 +36,19 @@ const PostView = ({
     <Template thumbnail={img} title={title} description={excerpt}>
       <Container small>
         <article css={largeMgBottom} className="post-content">
-          <div css={mgBottom}>
-            <Link
-              className="secondary-font"
-              css={css`
-                ${(secondaryFont, linkStyle)}
-              `}
-              to={tranlation}
-            >
-              {translationLabel}
-            </Link>
-          </div>
+          {tranlation !== "skip" && (
+            <div css={mgBottom}>
+              <Link
+                className="secondary-font"
+                css={css`
+                  ${(secondaryFont, linkStyle)}
+                `}
+                to={tranlation}
+              >
+                {translationLabel}
+              </Link>
+            </div>
+          )}
           <h1 css={secondTitle} dangerouslySetInnerHTML={{ __html: title }} />
           <p
             css={css`
