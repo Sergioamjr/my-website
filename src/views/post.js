@@ -50,15 +50,17 @@ const PostView = ({
             </div>
           )}
           <h1 css={secondTitle} dangerouslySetInnerHTML={{ __html: title }} />
-          <p
-            css={css`
-              ${text};
-              color: var(--gray);
-            `}
-          >
-            {publishedAt}
-            <time dateTime={date}> {date}</time>
-          </p>
+          {false && (
+            <p
+              css={css`
+                ${text};
+                color: var(--gray);
+              `}
+            >
+              {publishedAt}
+              <time dateTime={date}> {date}</time>
+            </p>
+          )}
           {img && <img src={img} alt={title} />}
 
           <div css={text} dangerouslySetInnerHTML={{ __html: content }} />
