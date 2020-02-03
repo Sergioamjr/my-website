@@ -9,7 +9,7 @@ import Footer from "../Footer";
 import SEO from "../seo";
 import { useThemeMode } from "../../hooks";
 import "./../../design/app.css";
-import { providerCorretlyMenu } from "../../utils";
+import { providerCorretlyMenu, providerCorretlyFooter } from "../../utils";
 
 const childrenStyle = css`
   min-height: calc(100vh - 200px);
@@ -25,8 +25,8 @@ const Template = ({ children, ...props }) => {
 
   const href = typeof window !== "undefined" ? window.location.href : "";
   const origin = typeof window !== "undefined" ? window.location.origin : "";
-  console.log(href);
   const menuOptions = providerCorretlyMenu(href);
+  const footerOptions = providerCorretlyFooter(href);
 
   return (
     <div css={backgroundStyle}>
@@ -43,7 +43,7 @@ const Template = ({ children, ...props }) => {
         isOpen={isMobileMenuOpended}
       />
       <div css={childrenStyle}>{children}</div>
-      <Footer />
+      <Footer options={footerOptions} />
     </div>
   );
 };
