@@ -17,6 +17,12 @@ import Disqus from "../components/Disqus";
 import Prism from "prismjs";
 import "prismjs/components/prism-jsx.min";
 
+const captionStyle = css`
+  margin-top: -8px;
+  text-align: center;
+  color: #6b6b6b;
+`;
+
 const PostView = ({
   id,
   title,
@@ -27,7 +33,9 @@ const PostView = ({
   date,
   content,
   translationLabel,
-  publishedAt
+  publishedAt,
+  imgAlt,
+  caption
 }) => {
   useEffect(() => {
     Prism.highlightAll();
@@ -41,7 +49,8 @@ const PostView = ({
               <Link
                 className="secondary-font"
                 css={css`
-                  ${(secondaryFont, linkStyle)}
+                  ${secondaryFont};
+                  ${linkStyle}}
                 `}
                 to={tranlation}
               >
@@ -61,7 +70,16 @@ const PostView = ({
               <time dateTime={date}> {date}</time>
             </p>
           )}
-          {img && <img src={img} alt={title} />}
+          {img && <img src={img} alt={imgAlt} />}
+          {caption && (
+            <div
+              css={css`
+                ${text};
+                ${captionStyle}
+              `}
+              dangerouslySetInnerHTML={{ __html: caption }}
+            />
+          )}
 
           <div css={text} dangerouslySetInnerHTML={{ __html: content }} />
         </article>
@@ -72,6 +90,8 @@ const PostView = ({
 };
 
 PostView.propTypes = {
+  caption: PropTypes.string.isRequired,
+  imgAlt: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,

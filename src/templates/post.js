@@ -8,11 +8,15 @@ const Post = props => {
   const post = props.data.wordpressPost;
   const { id, title, excerpt, date, content } = post;
   const url = props.location.href;
-  const img = post.featured_media.localFile.childImageSharp.resolutions.src;
+  const img = post.featured_media.localFile.childImageSharp.original.src;
   const tranlation = post.acf.translation;
+  const imgAlt = post.featured_media.alt_text;
+  const caption = post.featured_media.caption;
 
   return (
     <PostView
+      caption={caption}
+      imgAlt={imgAlt}
       url={url}
       title={title}
       tranlation={tranlation}
@@ -38,9 +42,13 @@ export const pageQuery = graphql`
       excerpt
       date(formatString: "MM-DD-YYYY")
       featured_media {
+        alt_text
+        caption
         localFile {
           childImageSharp {
-            resolutions(width: 670, height: 500) {
+            original {
+              width
+              height
               src
             }
           }
