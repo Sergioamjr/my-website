@@ -9,7 +9,13 @@ import Footer from "../Footer";
 import SEO from "../seo";
 import { useThemeMode } from "../../hooks";
 import "./../../design/app.css";
-import { providerCorretlyMenu, providerCorretlyFooter } from "../../utils";
+import {
+  providerCorretlyMenu,
+  providerCorretlyFooter,
+  returnActivedMenu,
+  returnWebsiteLang,
+  returnLocationProperty
+} from "../../utils";
 
 const childrenStyle = css`
   min-height: calc(100vh - 200px);
@@ -23,21 +29,26 @@ const Template = ({ children, ...props }) => {
     setIsMobileMenuOpended(v => !v);
   };
 
-  const href = typeof window !== "undefined" ? window.location.href : "";
-  const origin = typeof window !== "undefined" ? window.location.origin : "";
+  const href = returnLocationProperty("href");
+  const origin = returnLocationProperty("origin");
+  const pathName = returnLocationProperty("pathname");
   const menuOptions = providerCorretlyMenu(href);
   const footerOptions = providerCorretlyFooter(href);
+  const actived = returnActivedMenu(pathName);
+  const lang = returnWebsiteLang(pathName);
 
   return (
     <div css={backgroundStyle}>
-      <SEO {...props} href={href} origin={origin} />
+      <SEO {...props} lang={lang} href={href} origin={origin} />
       <Header
+        activedMenu={actived}
         menu={menuOptions}
         updateThemeMode={updateThemeMode}
         themeMode={themeMode}
         closeHandler={toggleMobileMenu}
       />
       <MobileMenu
+        activedMenu={actived}
         menu={menuOptions}
         closeHandler={toggleMobileMenu}
         isOpen={isMobileMenuOpended}

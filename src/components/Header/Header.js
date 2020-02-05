@@ -46,7 +46,26 @@ const btnStyle = css`
   display: flex;
 `;
 
-const Header = ({ closeHandler, updateThemeMode, themeMode, menu }) => {
+export const borderedMenu = css`
+  position: relative;
+  &:after {
+    content: "";
+    background: white;
+    height: 2px;
+    width: 100%;
+    display: block;
+    position: absolute;
+    top: 21px;
+  }
+`;
+
+const Header = ({
+  activedMenu,
+  closeHandler,
+  updateThemeMode,
+  themeMode,
+  menu
+}) => {
   return (
     <header css={headerStyle}>
       <Container css={justifyContent}>
@@ -60,13 +79,14 @@ const Header = ({ closeHandler, updateThemeMode, themeMode, menu }) => {
               align-items: center;
             `}
           >
-            {menu.map(({ url, name }) => (
+            {menu.map(({ url, name, id }) => (
               <li
                 key={url}
                 css={css`
               ${liStyle}
               ${displayNone}
               ${showSm}
+              ${activedMenu === id && borderedMenu}
               `}
               >
                 <Link to={url} css={linkStyle}>
@@ -105,6 +125,7 @@ Header.propTypes = {
       url: PropTypes.string
     })
   ),
+  activedMenu: PropTypes.string.isRequired,
   themeMode: PropTypes.string.isRequired,
   updateThemeMode: PropTypes.func.isRequired,
   closeHandler: PropTypes.func.isRequired

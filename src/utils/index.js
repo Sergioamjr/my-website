@@ -68,7 +68,7 @@ export const footerLinksPT = [
   {
     Icon: IconEmail,
     name: "Gmail",
-    description: "Me manda um email",
+    description: "Me mande um email",
     url: "mailto: sergioamjr91@gmail.com"
   }
 ];
@@ -76,14 +76,17 @@ export const footerLinksPT = [
 export const menuOptionsPT = [
   {
     name: "Início",
+    id: "home",
     url: "/"
   },
   {
     name: "Artigos",
+    id: "blog",
     url: "/blog"
   },
   {
     name: "Projetos",
+    id: "projects",
     url: "/projetos"
   }
 ];
@@ -91,17 +94,29 @@ export const menuOptionsPT = [
 export const menuOptionsEN = [
   {
     name: "Home",
+    id: "home",
     url: "/en"
   },
   {
     name: "Articles",
+    id: "blog",
     url: "/en/blog"
   },
   {
     name: "Projects",
+    id: "projects",
     url: "/en/projects"
   }
 ];
+
+const menuMap = {
+  "/": "home",
+  "/en": "home",
+  "/blog": "blog",
+  "/en/blog": "blog",
+  "/projetos": "projects",
+  "/en/projects": "projects"
+};
 
 export const providerCorretlyMenu = pathname => {
   const lang = useGetLang(pathname);
@@ -111,4 +126,17 @@ export const providerCorretlyMenu = pathname => {
 export const providerCorretlyFooter = pathname => {
   const lang = useGetLang(pathname);
   return lang === "EN" ? footerLinksEN : footerLinksPT;
+};
+
+export const returnActivedMenu = pathName => {
+  return menuMap[pathName] || "blog";
+};
+
+export const returnWebsiteLang = pathname => {
+  const lang = useGetLang(pathname);
+  return lang === "PT" ? "pt-br" : "en";
+};
+
+export const returnLocationProperty = property => {
+  return typeof window !== "undefined" ? window.location[property] : "";
 };
