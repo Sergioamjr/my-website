@@ -10,6 +10,7 @@ import {
   mgBottom,
   linkStyle
 } from "../../design";
+import { replaceWpPrefix } from "./../../utils/replaceWpPrefix";
 
 const zIndex = css`
   position: relative;
@@ -48,7 +49,11 @@ const BlogCard = ({
         </a>
       )}
       {!externalLink && path && (
-        <Link className="secondary-font" css={linkStyle} to={`/${path}`}>
+        <Link
+          className="secondary-font"
+          css={linkStyle}
+          to={`/${replaceWpPrefix(path)}`}
+        >
           {label}
         </Link>
       )}

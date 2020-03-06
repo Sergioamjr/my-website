@@ -32,7 +32,7 @@ Home.propTypes = {
 
 export const pageQuery = graphql`
   query {
-    wordpressPage(id: { eq: "1f967ae6-c216-5bfa-a198-3d45e494dae3" }) {
+    wordpressPage(id: { eq: "e11a7aeb-027a-50f0-b8b8-8753826a9303" }) {
       title
       content
     }

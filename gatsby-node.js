@@ -1,5 +1,6 @@
 const path = require("path");
 const slash = require("slash");
+const { replaceWpPrefix } = require("./src/utils/replaceWpPrefix");
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
@@ -55,7 +56,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   allWordpressPage.edges.forEach(edge => {
     createPage({
-      path: edge.node.path,
+      path: replaceWpPrefix(edge.node.path),
       component: slash(
         edge.node.path.includes("resume") ? resumeTemplate : pageTemplate
       ),
@@ -67,7 +68,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   allWordpressPost.edges.forEach(edge => {
     createPage({
-      path: edge.node.path,
+      path: replaceWpPrefix(edge.node.path),
       component: slash(postTemplate),
       context: {
         id: edge.node.id
@@ -77,7 +78,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   allWordpressWpPostsEn.edges.forEach(edge => {
     createPage({
-      path: edge.node.path,
+      path: replaceWpPrefix(edge.node.path),
       component: slash(postEnTemplate),
       context: {
         id: edge.node.id,
