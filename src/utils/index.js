@@ -129,7 +129,7 @@ export const providerCorretlyFooter = pathname => {
 };
 
 export const returnActivedMenu = pathName => {
-  return menuMap[pathName] || "blog";
+  return menuMap[pathName] || menuMap[`${pathName}/`] || "blog";
 };
 
 export const returnWebsiteLang = pathname => {
