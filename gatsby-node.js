@@ -9,6 +9,7 @@ exports.createPages = async ({ graphql, actions }) => {
       allMdx {
         nodes {
           slug
+          body
           frontmatter {
             title
           }
@@ -65,12 +66,12 @@ exports.createPages = async ({ graphql, actions }) => {
   const postEnTemplate = path.resolve("./src/templates/post_en.js");
 
   allMdx.nodes.forEach((node) => {
-    console.log("---------allMdx---------");
-    console.log(JSON.stringify(node, null, 2));
     createPage({
       path: node.slug,
       component: slash(markdownTemplate),
-      context: {},
+      context: {
+        node,
+      },
     });
   });
 
@@ -102,7 +103,6 @@ exports.createPages = async ({ graphql, actions }) => {
       component: slash(postEnTemplate),
       context: {
         id: edge.node.id,
-        ola: true,
       },
     });
   });

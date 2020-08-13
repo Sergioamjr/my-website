@@ -1,24 +1,26 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-// import PostView from "../views/post";
+import PostView from "../views/post";
 
 const Markdown = (props) => {
-  console.log(props);
-  return <p>Nova página</p>;
-  // return (
-  //   <PostView
-  //     caption={caption}
-  //     imgAlt={imgAlt}
-  //     url={url}
-  //     title={title}
-  //     tranlation={tranlation}
-  //     id={id}
-  //     img={img}
-  //     excerpt={excerpt}
-  //     date={date}
-  //     content={content}
-  //   />
-  // );
+  // eslint-disable-next-line react/prop-types
+  const body = props.pageContext.node.body;
+
+  return (
+    <PostView
+      mdx
+      caption="caption"
+      imgAlt=""
+      url=""
+      title="Título"
+      tranlation=""
+      id="id"
+      img="img"
+      excerpt="dxc"
+      date="date"
+      content={body}
+    />
+  );
 };
 
 export default Markdown;

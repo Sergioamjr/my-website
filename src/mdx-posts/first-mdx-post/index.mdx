@@ -3,3 +3,18 @@ title: Hello, world!
 slug: /hello-world
 date: 2019-01-29
 ---
+
+# Olá, primeiro teste!
+
+Sempre quis
+
+```js
+export const getLocalStorage = (item = key) => {
+  // highlight-next-line
+  if (typeof localStorage !== "undefined") {
+    const value = localStorage.getItem(item) || "{}";
+    return JSON.parse(value);
+  }
+  return {};
+};
+```
