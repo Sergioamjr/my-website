@@ -1,3 +1,4 @@
 src/images/**
 src/**/*.css
 src/assets
+gatsby-config.js

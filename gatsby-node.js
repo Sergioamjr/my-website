@@ -6,6 +6,14 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const result = await graphql(`
     {
+      allMdx {
+        nodes {
+          slug
+          frontmatter {
+            title
+          }
+        }
+      }
       allWordpressPage {
         edges {
           node {
@@ -46,44 +54,56 @@ exports.createPages = async ({ graphql, actions }) => {
   const {
     allWordpressPage,
     allWordpressPost,
-    allWordpressWpPostsEn
+    allWordpressWpPostsEn,
+    allMdx,
   } = result.data;
 
   const pageTemplate = path.resolve("./src/templates/page.js");
   const resumeTemplate = path.resolve("./src/templates/resume.js");
   const postTemplate = path.resolve("./src/templates/post.js");
+  const markdownTemplate = path.resolve("./src/templates/markdown.js");
   const postEnTemplate = path.resolve("./src/templates/post_en.js");
 
-  allWordpressPage.edges.forEach(edge => {
+  allMdx.nodes.forEach((node) => {
+    console.log("---------allMdx---------");
+    console.log(JSON.stringify(node, null, 2));
+    createPage({
+      path: node.slug,
+      component: slash(markdownTemplate),
+      context: {},
+    });
+  });
+
+  allWordpressPage.edges.forEach((edge) => {
     createPage({
       path: replaceWpPrefix(edge.node.path),
       component: slash(
         edge.node.path.includes("resume") ? resumeTemplate : pageTemplate
       ),
       context: {
-        id: edge.node.id
-      }
+        id: edge.node.id,
+      },
     });
   });
 
-  allWordpressPost.edges.forEach(edge => {
+  allWordpressPost.edges.forEach((edge) => {
     createPage({
       path: replaceWpPrefix(edge.node.path),
       component: slash(postTemplate),
       context: {
-        id: edge.node.id
-      }
+        id: edge.node.id,
+      },
     });
   });
 
-  allWordpressWpPostsEn.edges.forEach(edge => {
+  allWordpressWpPostsEn.edges.forEach((edge) => {
     createPage({
       path: replaceWpPrefix(edge.node.path),
       component: slash(postEnTemplate),
       context: {
         id: edge.node.id,
-        ola: true
-      }
+        ola: true,
+      },
     });
   });
 };
