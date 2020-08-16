@@ -14,15 +14,6 @@ exports.createPages = async ({ graphql, actions }) => {
             path
             title
             caption
-            image {
-              childImageSharp {
-                original {
-                  width
-                  height
-                  src
-                }
-              }
-            }
           }
         }
       }

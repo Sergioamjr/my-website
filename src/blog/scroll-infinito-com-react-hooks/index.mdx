@@ -1,0 +1,156 @@
+---
+title: Scroll infinito com React Hooks
+caption: Photo by Denys Nevozhai on Unsplash
+path: /scroll-infinito-com-react-hooks
+date: 2019-01-29
+image: images/roads.jpg
+---
+
+Scroll infinito não é algo comum de se ver mas pode ser muito útil e prático na hora de exibir uma lista sem ter que usar uma paginação e precisar de uma maior interação do usuário.
+
+Eu já precisei fazer em um projeto há um tempo e utilizei essa lib que funcionou muito bem, porém, recentemente eu decidi reescrever esse projeto e tentar criar o scroll infinito com react hooks e a IntersectionObserver API, sem nenhuma lib externa, e funcionou muito bem. Por isso gostaria de compartilhar o resultado com vocês.
+
+Ele será bem simples, usarei um componente com um state pra indicar o estado do loading na página, outro para armazenar os dados da nossa listagem e a referência de um componente. Ocultarei o CSS por ser irrelevante mas você pode ver o resultado final clicando aqui...
+
+### Criando nosso componente
+
+Primeiro vamos criar nosso componente que exibirá os dados.
+
+```js
+import React, { useState, useRef } from "react";
+
+const App = () => {
+  const lastRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [todos, setTodos] = useState({
+    itens: [],
+    page: 0,
+    totalPages: 1,
+  });
+
+  return (
+    <div>
+      <h2>Lorem ipsum's list</h2>
+      {todos.itens.map(({ title }, index) => {
+        return (
+          <div key={index}>
+            <p>{title}</p>
+          </div>
+        );
+      })}
+      {!!todos.itens.length && <div ref={lastRef} />}
+      {isLoading && <p>Loading...</p>}
+    </div>
+  );
+};
+
+export default App;
+```
+
+### Buscando dados da API
+
+Também precisamos de um método que faça a requisição HTTP buscando os dados de alguma API. Eu criei uma função chamada fetchTodos que recebe o número da página que quero buscar como parâmetro. Pra esse exemplo eu mockei o retorno dessa função, não irei compartilhar o código aqui pois é pra um caso muito específico, se quiser você pode ver o código que eu fiz clicando aqui, o mais importante é que você tenha uma API que retorno no mínimo esse formato de dados:
+
+```js
+{
+  itens: [{...}],
+  totalPages: X,
+  page: X,
+}
+```
+
+### Custom Hook useIsElementVisible
+
+Agora iremos criar nosso custom hook que indicará se o elemento está visível na tela, usando a API IntersectionObserver pra isso, que é nativa dos navegadores.
+
+```js
+import { useEffect, useState } from "react";
+
+export default (el) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const callback = ([entry]) => {
+    setIsVisible(entry.isIntersecting);
+  };
+
+  useEffect(() => {
+    const watch = new IntersectionObserver(callback);
+    if (el) {
+      watch.observe(el);
+      return () => watch.unobserve(el);
+    }
+  }, [el]);
+
+  return isVisible && !!el;
+};
+```
+
+Nosso objetivo é passar a referência de um elemento em baixo da lista e verificar se ele está visível na tela ou não. Se sim, disparamos a função pra buscar mais itens.
+
+### Atualizando nosso componente
+
+Tudo pronto, agora vamos criar nosso método pra buscar os dados. Também usaremos o hook useEffect duas vezes; para disparar a função no carregamento da página e quando o elemento a baixo da lista estiver visível.
+
+```js{1, 13-38}
+import React, { useState, useEffect, useRef } from "react";
+import useIsElementVisible from "./hooks/useIsElementVisible";
+import { fetchTodos } from "./services";
+
+const App = () => {
+  const lastRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [todos, setTodos] = useState({
+    itens: [],
+    page: 0,
+    totalPages: 1,
+  });
+
+  const isLastVisible = useIsElementVisible(lastRef.current);
+
+  useEffect(() => {
+    // Fetch no mount da página.
+    getMoreTodos(todos.page + 1);
+  }, []);
+
+  useEffect(() => {
+    // Fetch ao chegar no final da lista.
+    if (isLastVisible) {
+      getMoreTodos(todos.page + 1);
+    }
+  }, [isLastVisible]);
+
+  const getMoreTodos = async (page) => {
+    try {
+      setIsLoading(true);
+      const newTodos = await fetchTodos(page);
+      setTodos((prev) => ({
+        ...newTodos,
+        itens: prev.itens.concat(newTodos.itens),
+      }));
+      setIsLoading(false);
+    } catch (err) {}
+  };
+
+  return (
+    <div>
+      <h2>Lorem ipsum's list</h2>
+      {todos.itens.map(({ title }, index) => {
+        return (
+          <div key={index}>
+            <p>{title}</p>
+          </div>
+        );
+      })}
+      {!!todos.itens.length && <div ref={lastRef} />}
+      {isLoading && <p>Loading...</p>}
+    </div>
+  );
+};
+
+export default App;
+```
+
+### Conclusão
+
+E está pronto nosso componente com scroll infinito. Eu apenas implementei a listagem e loading dos dados nesse exemplo, fique a vontade de estiliza-los como preferir. No mundo real você também deve tratar a excessão no catch do método getMoreTodos se a API retornar algum erro.
+
+Você pode ver o repositório com todo o código clicando aqui.
