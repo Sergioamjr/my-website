@@ -1,0 +1,484 @@
+---
+title: Enlighs - Substituindo Redux por React Hooks
+caption: Photo by Denys Nevozhai on Unsplash
+path: /posts_en/replacing-redux-with-react-hooks
+date: 2019-01-29
+image: images/roads.jpg
+---
+
+In 2019 I was learning how to use [React Hooks](https://pt-br.reactjs.org/docs/hooks-intro.html) and decided to replace the Redux library with React Hooks to manage the state of a simple application that I was building at that time. I didn’t know how I would do that, however, in the end, it worked pretty well.
+
+I kept the concepts of reducer, actions, types, middleware, mapStateToProps and I wrote [um artigo no Medium](https://medium.com/reactbrasil/substituindo-o-redux-pelo-context-api-react-hooks-a70e995daa1d) on Medium showing up how I had done it. And it was published at [React Brasil](https://medium.com/reactbrasil) on Medium.
+
+I was really happy with the community’s feedback but I felt that I could refactor that code which I wrote one year ago and make it cleaner and organized, so, I ended up rewriting my code example and my article, that became this that you’re reading right now.
+
+I’m using the same example of a simple counter and authentication. If you want, you can already check [a demo](https://replacing-redux-to-hooks.netlify.com/) and [repositório](https://github.com/Sergioamjr/replacing-redux-to-hooks) with the final code.
+
+### Vamos ao código
+
+First of all, let’s create the state of our counter and authentication and also its reducers, types and actions. They follow basically the same structure of Redux. I’m just using the pattern Ducks to keep everything related in the same file.
+
+You can read more about this pattern in [nesse link](https://github.com/erikras/ducks-modular-redux).
+
+```js
+//src/store/reducers/auth.js
+export const authDefault = {
+  auth: {
+    isLogged: false,
+    user: {},
+  },
+};
+
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
+
+const authReducer = (state = authDefault, action) => {
+  switch (action.type) {
+    case LOGIN:
+      return {
+        auth: {
+          ...state.auth,
+          isLogged: true,
+          user: action.payload,
+        },
+      };
+    case LOGOUT:
+      return {
+        auth: {
+          ...state.auth,
+          isLogged: false,
+          user: {},
+        },
+      };
+    default:
+      return state;
+  }
+};
+
+export const loginAction = (user) => {
+  return {
+    type: LOGIN,
+    payload: user,
+  };
+};
+
+export const logoutAction = () => {
+  return {
+    type: LOGOUT,
+  };
+};
+
+export default authReducer;
+```
+
+```js
+//src/store/reducers/counter.js
+export const counterDefault = {
+  counter: 0,
+};
+
+export const INCREMENT = "INCREMENT";
+export const DECREMENT = "DECREMENT";
+export const RESET = "RESET";
+
+const counterReducer = (state = counterDefault, action) => {
+  switch (action.type) {
+    case INCREMENT:
+      return {
+        ...state,
+        counter: state.counter + 1,
+      };
+    case DECREMENT:
+      return {
+        ...state,
+        counter: state.counter - 1,
+      };
+    case RESET:
+      return {
+        counter: 0,
+      };
+    default:
+      return state;
+  }
+};
+
+export const incrementAction = () => {
+  return {
+    type: INCREMENT,
+  };
+};
+
+export const decrementAction = () => {
+  return {
+    type: DECREMENT,
+  };
+};
+
+export const resetAction = () => {
+  return {
+    type: RESET,
+  };
+};
+
+export default counterReducer;
+```
+
+Now we will create our custom hooks, the first one is the useCombinedReducers, it will be responsible to return an array with all reducers and our store object. We will only use the React hook useReducer to create it.
+
+```js
+//src/store/hooks/useCombinedReducers.js
+import { useReducer } from "react";
+import counterReducer, { counterDefault } from "./../reducers/counter";
+import authReducer, { authDefault } from "./../reducers/auth";
+
+const useCombinedReducers = () => {
+  const [counterStore, counter] = useReducer(counterReducer, counterDefault);
+  const [authStore, auth] = useReducer(authReducer, authDefault);
+
+  return {
+    store: { ...counterStore, ...authStore },
+    reducers: [counter, auth],
+  };
+};
+
+export default useCombinedReducers;
+```
+
+When we add a new object in our store, we will need to edit this file, importing the reducer and default value, passing both to the hook useReducer and returning them in our main function.
+
+This was the only change that I made compared to Redux, in order to keep our Provider component more dynamic and do not need to edit it again.
+
+Our second custom hook is the useStore, it will create and provide the context of our application through useContext hook.
+
+```js
+//src/store/hooks/useStore.js
+import { useContext, createContext } from "react";
+import { authDefault } from "../reducers/auth";
+import { counterDefault } from "../reducers/counter";
+
+export const defaultStore = {
+  store: { ...authDefault, ...counterDefault },
+  dispatch: () => {},
+};
+
+export const StoreContext = createContext(defaultStore);
+export default () => {
+  return useContext(storeContext);
+};
+```
+
+With this custom hook will be possible to access directly our store and its dispatch method, besides the component Connect that we will create right now.
+
+The Connect component will inject the store and the dispatch method in our components. We will use the component StoreContext returned from our custom hook useStore.
+
+```js
+//src/store/connect.js
+import React from "react";
+import { StoreContext } from "./hooks/useStore";
+
+const returnPropsAsDefault = (store, props) => props;
+
+const Connect = (mapStateToProps = returnPropsAsDefault) => (Component) => {
+  return function WrapConnect(props) {
+    return (
+      <StoreContext.Consumer>
+        {({ dispatch, store }) => {
+          const storeProps = mapStateToProps(store, props);
+          return <Component {...storeProps} dispatch={dispatch} />;
+        }}
+      </StoreContext.Consumer>
+    );
+  };
+};
+
+export default Connect;
+```
+
+It will work like Redux receiving our component and the mapStateToProps, which is a function that receives the store and the originals props. It is up to you to return the entire store or pick up the objects that you need, like this.
+
+```js
+function mapStateToProps(store, props) {
+  return {
+    ...store,
+    ...props,
+  };
+}
+
+export default Connect(mapStateToProps)(Component);
+```
+
+In case of mapStateToProps is not provided, its default function returnPropsAsDefault will return only the original props and the dispatch method.
+
+The next component will be our Provider, it will wrap our application and make our store available within it. We will use the custom hook useCombinedReducers to receive the store object and an array with all our reducers.
+
+```js
+//src/store/index.js
+import React from "react";
+import useCombinedReducers from "./hooks/useCombinedReducers";
+import { StoreContext } from "./hooks/useStore";
+
+const Provider = ({ children }) => {
+  const { store, reducers } = useCombinedReducers();
+
+  const triggerDispatchs = (action) => {
+    for (let i = 0; i < reducers.length; i++) {
+      reducers[i](action);
+    }
+  };
+
+  return (
+    <StoreContext.Provider
+      value={{
+        store,
+        dispatch: triggerDispatchs,
+      }}
+    >
+      {children}
+    </StoreContext.Provider>
+  );
+};
+
+export default Provider;
+```
+
+The method triggerDispatchs do a loop in our reducers, passing the action through as a parameter to each one of them.
+
+We can also add a middleware here, it will intercept our dispatch and we can check its value to trigger a new action or anything.
+
+It will be basically like this.
+
+```js
+//src/store/middleware.js
+import { LOGOUT } from "./reducers/auth";
+import { resetAction } from "./reducers/counter";
+
+export default (action) => (dispatch) => {
+  if (action.type === LOGOUT) {
+    dispatch(resetAction());
+  }
+
+  dispatch(action);
+};
+```
+
+It is a closure that receives an action and the dispatch method, in this case, I am triggering the resetAction action if the type is equal LOGOUT, in order to reset our counter on logout.
+
+To use this middleware we need to edit our Provider component, importing the middleware function, creating the method withMiddleware and replacing the dispatch’s attribution.
+
+```js
+//src/store/index.js
+import React from "react";
+import useCombinedReducers from "./hooks/useCombinedReducers";
+import { StoreContext } from "./hooks/useStore";
+import middleware from "./middleware";
+
+const Provider = ({ children }) => {
+  const { store, reducers } = useCombinedReducers();
+
+  const triggerDispatchs = (action) => {
+    for (let i = 0; i < reducers.length; i++) {
+      reducers[i](action);
+    }
+  };
+
+  const withMiddleware = (action) => {
+    middleware(action)(triggerDispatchs);
+  };
+
+  return (
+    <StoreContext.Provider
+      value={{
+        store,
+        dispatch: withMiddleware,
+      }}
+    >
+      {children}
+    </StoreContext.Provider>
+  );
+};
+
+export default Provider;
+```
+
+Now we just need to wrap your application with our Provider, like this.
+
+```js
+//src/index.js
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import Provider from "./store";
+
+ReactDOM.render(
+  <Provider>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
+```
+
+### Connecting our components
+
+At this point, we have everything set up to use the store in our application. Let’s connect our store in our Counter, Login and Header components.
+
+```js
+//src/container/counter.js
+import React from "react";
+import ConnectTo from "../store/connect";
+import { decrementAction, incrementAction } from "../store/reducers/counter";
+
+const Counter = ({ dispatch, counter }) => {
+  const decrementHandler = () => dispatch(decrementAction());
+  const incrementHandler = () => dispatch(incrementAction());
+
+  return (
+    <div>
+      <p>{counter}</p>
+      <div>
+        <button aria-label="Menos 1" onClick={decrementHandler}>
+          -
+        </button>
+        <button aria-label="Mais 1" onClick={incrementHandler}>
+          +
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const mapStateToProps = ({ counter }, props) => {
+  return {
+    counter,
+    ...props,
+  };
+};
+
+export default ConnectTo(mapStateToProps)(Counter);
+```
+
+```js
+//src/container/login.js
+import React, { useState } from "react";
+import Connect from "../store/connect";
+import { loginAction } from "../store/reducers/auth";
+
+const Login = ({ dispatch }) => {
+  const [name, setName] = useState("");
+  const changeNameHandler = ({ target: { value } }) => setName(value);
+  const onSubmitHandler = () => dispatch(loginAction(name));
+  return (
+    <div>
+      <form>
+        <p>
+          Context + useState ={" "}
+          <span role="img" aria-label="Coração">
+            ❤️
+          </span>
+        </p>
+        <input
+          value={name}
+          onChange={changeNameHandler}
+          type="text"
+          placeholder="Nome"
+        />
+        <button onClick={onSubmitHandler} disabled={!name}>
+          Entrar
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default Connect()(Login);
+```
+
+```js
+//src/container/header.js
+import React from "react";
+import { logoutAction } from "../store/reducers/auth";
+import useStore from "../store/hooks/useStore";
+
+const Header = () => {
+  const {
+    dispatch,
+    store: { auth },
+  } = useStore();
+  const logoutHandler = () => dispatch(logoutAction());
+  return (
+    <div>
+      <div>
+        <div>
+          <p>
+            Context + useState ={" "}
+            <span role="img" aria-label="Coração">
+              ❤️
+            </span>
+          </p>
+          <div>
+            <p>Olá, {auth.user}</p>
+            <button onClick={logoutHandler}>Sair</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Header;
+```
+
+If you already used Redux before, you must be familiar with what we have here; the Connect inject the dispatch method and our store. We also import the actions to pass them as the dispatch’s parameter.
+
+In our Header component, I am using our custom hook useStore to access the store and the dispatch method, instead of Connect. You can use which one you would rather.
+
+Now let’s put all those components together and add a conditional to show them, using the authentication object from our store.
+
+```js
+//src/app.js
+import React from "react";
+import Counter from "./container/counter";
+import Login from "./container/login";
+import Connect from "./store/connect";
+import Header from "./container/header";
+
+const App = ({ auth }) => {
+  return (
+    <div>
+      <div>
+        {auth.isLogged ? (
+          <>
+            <Header />
+            <Counter />
+          </>
+        ) : (
+          <Login />
+        )}
+      </div>
+    </div>
+  );
+};
+
+const mapStateToProps = ({ auth }, props) => {
+  return {
+    auth,
+    ...props,
+  };
+};
+
+export default Connect(mapStateToProps)(App);
+```
+
+And we’re done. Your app should be working with a store created with React Hooks.
+
+You can see a demo of our application clicking here.
+
+I need to say, we have two drawbacks, comparing with Redux; we don’t have an browser extension, like Redux DevTools, which allow us to debug it, and we don’t support async actions, like Redux Thunk.
+
+And depending on the size and complexity of your application, using Redux might be more performatic then React Hooks.
+
+I hope you’re not upset with me because of these points.
+
+Remembering, all this code is in this repository, feel free to download it, use it, share it and let it a star.
+
+Any suggestion, comment, a critic is well welcome, let me know through the comment’s box below.
