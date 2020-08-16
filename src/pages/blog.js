@@ -5,21 +5,21 @@ import { graphql } from "gatsby";
 import BlogCard from "../components/BlogCard";
 import Page from "../views/page";
 
-const Blog = props => {
-  const data = props.data.allWordpressPost.edges;
+const Blog = (props) => {
+  const data = props.data.allMdx.edges;
   return (
     <Page translateLabel="See in English" translateTo="en/blog" title="Artigos">
       <div>
         {data.map(({ node }, i) => {
-          const {
-            title,
-            excerpt,
-            path,
-            acf: { categories }
-          } = node;
+          const { slug, frontmatter } = node;
+          const { title, excerpt, path } = frontmatter;
+          if (slug.includes("__") || path.includes("/posts_en/")) {
+            return null;
+          }
+
           return (
             <BlogCard
-              categories={categories || []}
+              categories={[]}
               path={path}
               excerpt={excerpt}
               title={title}
@@ -47,31 +47,30 @@ export const wpPostsTypes = {
             acf: PropTypes.shape({
               categories: PropTypes.arrayOf(
                 PropTypes.shape({
-                  category: PropTypes.string
+                  category: PropTypes.string,
                 })
-              )
-            })
-          })
+              ),
+            }),
+          }),
         })
-      )
-    })
-  }).isRequired
+      ),
+    }),
+  }).isRequired,
 };
 
 Blog.propTypes = wpPostsTypes;
 
 export const pageQuery = graphql`
-  query {
-    allWordpressPost(sort: { fields: [date], order: DESC }) {
+  query MyQuery {
+    allMdx {
       edges {
         node {
-          title
-          excerpt
-          path
-          acf {
-            categories {
-              category
-            }
+          slug
+          frontmatter {
+            date
+            excerpt
+            title
+            path
           }
         }
       }
