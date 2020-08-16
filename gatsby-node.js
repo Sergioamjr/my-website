@@ -12,6 +12,16 @@ exports.createPages = async ({ graphql, actions }) => {
           body
           frontmatter {
             title
+            caption
+            image {
+              childImageSharp {
+                original {
+                  width
+                  height
+                  src
+                }
+              }
+            }
           }
         }
       }

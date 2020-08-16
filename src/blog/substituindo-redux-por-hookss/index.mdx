@@ -1,0 +1,490 @@
+---
+title: Substituindo Redux por React Hooks
+caption: Photo by Denys Nevozhai on Unsplash
+slug: /substituindo-redux-por-hooks
+date: 2019-01-29
+image: images/roads.jpg
+---
+
+Em 2019 eu estava aprendendo os [React Hooks](https://pt-br.reactjs.org/docs/hooks-intro.html) e resolvi substituir o gerenciamento de estado de uma simples aplicação que eu estava fazendo de Redux com os Hooks. Eu não fazia idéia de como faria mas no final das contas deu super certo.
+
+Consegui replicar os conceitos de reducers, actions, types, middleware, mapStateToProps e escrevi [um artigo no Medium](https://medium.com/reactbrasil/substituindo-o-redux-pelo-context-api-react-hooks-a70e995daa1d) mostrando como eu havia feito. Depois de divugar na cominidade, ele chegou até ser publicado na conta oficial do [React Brasil](https://medium.com/reactbrasil).
+
+Eu fiquei muito feliz com o feedback do pessoal mas sentia que poderia refatorar aquele código que eu fiz há um ano atrás, torna-lo mais limpo e organizado, por isso, acabei reescrevendo o exemplo e o artigo, que se tornou esse que você está lendo agora.
+
+Eu estou usando o mesmo exemplo de um simples contador e autenticação. Caso queira, você pode conferir [a demo](https://replacing-redux-to-hooks.netlify.com/) de como ficou e o [repositório](https://github.com/Sergioamjr/replacing-redux-to-hooks) com o código final.
+
+### Vamos ao código
+
+Primeiro, vamos criar os estados do nosso contador e autenticação na nossa store e também seus reducers, types e actions. Eles seguem basicamente o mesmo modelo do Redux, estou apenas usando o padrão Ducks pra manter tudo o que é relacionado no mesmo arquivo.
+
+Você pode ler mais sobre esse padrão de organização [nesse link](https://github.com/erikras/ducks-modular-redux).
+
+```js
+//src/store/reducers/auth.js
+export const authDefault = {
+  auth: {
+    isLogged: false,
+    user: {},
+  },
+};
+
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
+
+const authReducer = (state = authDefault, action) => {
+  switch (action.type) {
+    case LOGIN:
+      return {
+        auth: {
+          ...state.auth,
+          isLogged: true,
+          user: action.payload,
+        },
+      };
+    case LOGOUT:
+      return {
+        auth: {
+          ...state.auth,
+          isLogged: false,
+          user: {},
+        },
+      };
+    default:
+      return state;
+  }
+};
+
+export const loginAction = (user) => {
+  return {
+    type: LOGIN,
+    payload: user,
+  };
+};
+
+export const logoutAction = () => {
+  return {
+    type: LOGOUT,
+  };
+};
+
+export default authReducer;
+```
+
+```js
+//src/store/reducers/counter.js
+export const counterDefault = {
+  counter: 0,
+};
+
+export const INCREMENT = "INCREMENT";
+export const DECREMENT = "DECREMENT";
+export const RESET = "RESET";
+
+const counterReducer = (state = counterDefault, action) => {
+  switch (action.type) {
+    case INCREMENT:
+      return {
+        ...state,
+        counter: state.counter + 1,
+      };
+    case DECREMENT:
+      return {
+        ...state,
+        counter: state.counter - 1,
+      };
+    case RESET:
+      return {
+        counter: 0,
+      };
+    default:
+      return state;
+  }
+};
+
+export const incrementAction = () => {
+  return {
+    type: INCREMENT,
+  };
+};
+
+export const decrementAction = () => {
+  return {
+    type: DECREMENT,
+  };
+};
+
+export const resetAction = () => {
+  return {
+    type: RESET,
+  };
+};
+
+export default counterReducer;
+```
+
+Agora vamos criar nossos custom hooks, o primeiro é o useCombinedReducers, responsável por retornar um array com os reducers e um objeto com o valor padrão da nossa store. Aqui iremos utilizar o hook useReducer.
+
+```js
+//src/store/hooks/useCombinedReducers.js
+import { useReducer } from "react";
+import counterReducer, { counterDefault } from "./../reducers/counter";
+import authReducer, { authDefault } from "./../reducers/auth";
+
+const useCombinedReducers = () => {
+  const [counterStore, counter] = useReducer(counterReducer, counterDefault);
+  const [authStore, auth] = useReducer(authReducer, authDefault);
+
+  return {
+    store: { ...counterStore, ...authStore },
+    reducers: [counter, auth],
+  };
+};
+
+export default useCombinedReducers;
+```
+
+Sempre que formos adicionar um novo objeto na nossa store, precisaremos apenas alterar esse arquivo, importando seu reducer, seu valor padrão, passa-los para o useReducer e os retornar na função principal.
+
+Essa foi a única alteração que eu fiz pro Redux, para tornar nosso componente Provider mais dinâmico e não precisar altera-lo novamente.
+
+Nosso segundo custom hook é o useStore, responsável por criar e fornecer o context da aplicação através do hook useContext.
+
+```js
+//src/store/hooks/useStore.js
+import { useContext, createContext } from "react";
+import { authDefault } from "../reducers/auth";
+import { counterDefault } from "../reducers/counter";
+
+export const defaultStore = {
+  store: { ...authDefault, ...counterDefault },
+  dispatch: () => {},
+};
+
+export const StoreContext = createContext(defaultStore);
+export default () => {
+  return useContext(storeContext);
+};
+```
+
+Com esse custom hook também será possível acessar diretamente nossa store e o dispatch, além do componente Connect, que vamos criar logo em seguida.
+
+O Connect injetará nossa store e dispatch nos nossos componentes. Aqui usamos componente StoreContext retornado no nosso hook useStore..
+
+```js
+//src/store/connect.js
+import React from "react";
+import { StoreContext } from "./hooks/useStore";
+
+const returnPropsAsDefault = (store, props) => props;
+
+const Connect = (mapStateToProps = returnPropsAsDefault) => (Component) => {
+  return function WrapConnect(props) {
+    return (
+      <StoreContext.Consumer>
+        {({ dispatch, store }) => {
+          const storeProps = mapStateToProps(store, props);
+          return <Component {...storeProps} dispatch={dispatch} />;
+        }}
+      </StoreContext.Consumer>
+    );
+  };
+};
+
+export default Connect;
+```
+
+Ele funcionará semelhante ao do Redux, recebendo o mapStateToProps e o componente que receberá a store.
+
+Lembrando que o mapStateToProps é uma função que recebe a store e as props originais. Você é responsável por retornar a store inteira ou selecionar os objetos que precise, assim:
+
+```js
+function mapStateToProps(store, props) {
+  return {
+    ...store,
+    ...props,
+  };
+}
+
+export default Connect(mapStateToProps)(Component);
+```
+
+Caso o mapStateToProps não seja fornecido, sua função padrão returnPropsAsDefault retornará as props originais do componente.
+
+O próximo componente será nosso Provider, que irá envolver nossa plataforma e tornar nossa store disponível dentro dela. Usamos o hook useCombinedReducers para receber o valor da store e um array com nossos reducers.
+
+```js
+//src/store/index.js
+import React from "react";
+import useCombinedReducers from "./hooks/useCombinedReducers";
+import { StoreContext } from "./hooks/useStore";
+
+const Provider = ({ children }) => {
+  const { store, reducers } = useCombinedReducers();
+
+  const triggerDispatchs = (action) => {
+    for (let i = 0; i < reducers.length; i++) {
+      reducers[i](action);
+    }
+  };
+
+  return (
+    <StoreContext.Provider
+      value={{
+        store,
+        dispatch: triggerDispatchs,
+      }}
+    >
+      {children}
+    </StoreContext.Provider>
+  );
+};
+
+export default Provider;
+```
+
+Apenas explicando, o método triggerDispatchs faz um loop em nossos reducers, passando a action como parâmetro pra cada um deles.
+
+Também podemos adicionar um middleware nesse arquivo, que servirá pra interceptar nossos dispatchs e fazer qualquer coisa que queremos a partir disso, como uma requisição, disparar outra action, etc.
+
+Ele será basicamente assim.
+
+```js
+//src/store/middleware.js
+import { LOGOUT } from "./reducers/auth";
+import { resetAction } from "./reducers/counter";
+
+export default (action) => (dispatch) => {
+  if (action.type === LOGOUT) {
+    dispatch(resetAction());
+  }
+
+  dispatch(action);
+};
+```
+
+Ele é um closure que recebe a action e o dispatch, nesse caso estou disparando a action resetAction caso o type da action original seja LOGOUT.
+
+Pra o utilizarmos precisamos alterar o arquivo do nosso Provider, importando nosso middleware, criando o método withMiddleware e substituir a atribuição do dispatch.
+
+```js
+//src/store/index.js
+import React from "react";
+import useCombinedReducers from "./hooks/useCombinedReducers";
+import { StoreContext } from "./hooks/useStore";
+import middleware from "./middleware";
+
+const Provider = ({ children }) => {
+  const { store, reducers } = useCombinedReducers();
+
+  const triggerDispatchs = (action) => {
+    for (let i = 0; i < reducers.length; i++) {
+      reducers[i](action);
+    }
+  };
+
+  const withMiddleware = (action) => {
+    middleware(action)(triggerDispatchs);
+  };
+
+  return (
+    <StoreContext.Provider
+      value={{
+        store,
+        dispatch: withMiddleware,
+      }}
+    >
+      {children}
+    </StoreContext.Provider>
+  );
+};
+
+export default Provider;
+```
+
+Agora só precisamos envolver nossa aplicação com o Provider, dessa maneira.
+
+```js
+//src/index.js
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import Provider from "./store";
+
+ReactDOM.render(
+  <Provider>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
+```
+
+Nesse ponto já temos tudo o que precisamos configurado para usar a store na nossa aplicação.
+
+### Conectando nossos componentes
+
+Vamos começar conectando nossos componentes Counter, Login e Header em nossa store.
+
+```js
+//src/container/counter.js
+import React from "react";
+import ConnectTo from "../store/connect";
+import { decrementAction, incrementAction } from "../store/reducers/counter";
+
+const Counter = ({ dispatch, counter }) => {
+  const decrementHandler = () => dispatch(decrementAction());
+  const incrementHandler = () => dispatch(incrementAction());
+
+  return (
+    <div>
+      <p>{counter}</p>
+      <div>
+        <button aria-label="Menos 1" onClick={decrementHandler}>
+          -
+        </button>
+        <button aria-label="Mais 1" onClick={incrementHandler}>
+          +
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const mapStateToProps = ({ counter }, props) => {
+  return {
+    counter,
+    ...props,
+  };
+};
+
+export default ConnectTo(mapStateToProps)(Counter);
+```
+
+```js
+//src/container/login.js
+import React, { useState } from "react";
+import Connect from "../store/connect";
+import { loginAction } from "../store/reducers/auth";
+
+const Login = ({ dispatch }) => {
+  const [name, setName] = useState("");
+  const changeNameHandler = ({ target: { value } }) => setName(value);
+  const onSubmitHandler = () => dispatch(loginAction(name));
+  return (
+    <div>
+      <form>
+        <p>
+          Context + useState ={" "}
+          <span role="img" aria-label="Coração">
+            ❤️
+          </span>
+        </p>
+        <input
+          value={name}
+          onChange={changeNameHandler}
+          type="text"
+          placeholder="Nome"
+        />
+        <button onClick={onSubmitHandler} disabled={!name}>
+          Entrar
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default Connect()(Login);
+```
+
+```js
+//src/container/header.js
+import React from "react";
+import { logoutAction } from "../store/reducers/auth";
+import useStore from "../store/hooks/useStore";
+
+const Header = () => {
+  const {
+    dispatch,
+    store: { auth },
+  } = useStore();
+  const logoutHandler = () => dispatch(logoutAction());
+  return (
+    <div>
+      <div>
+        <div>
+          <p>
+            Context + useState ={" "}
+            <span role="img" aria-label="Coração">
+              ❤️
+            </span>
+          </p>
+          <div>
+            <p>Olá, {auth.user}</p>
+            <button onClick={logoutHandler}>Sair</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Header;
+```
+
+Se você já usou Redux, deve ser familiar com o que temos aqui; o componente Connect injeta o dispatch e a store, também importamos as actions pra passarmos como seu parâmetro.
+
+No nosso Header eu estou usando o custom hook useStore pra acessar a store e o dispatch, ao invés do Connect. Fique a vontade pra usar qual preferir.
+
+Agora vamos colocar todos nossos componentes juntos e criar uma condição pra mostra-los, usando a autenticação da nossa store.
+
+```js
+//src/app.js
+import React from "react";
+import Counter from "./container/counter";
+import Login from "./container/login";
+import Connect from "./store/connect";
+import Header from "./container/header";
+
+const App = ({ auth }) => {
+  return (
+    <div>
+      <div>
+        {auth.isLogged ? (
+          <>
+            <Header />
+            <Counter />
+          </>
+        ) : (
+          <Login />
+        )}
+      </div>
+    </div>
+  );
+};
+
+const mapStateToProps = ({ auth }, props) => {
+  return {
+    auth,
+    ...props,
+  };
+};
+
+export default Connect(mapStateToProps)(App);
+```
+
+É isso. Sua aplicação já deve estar funcionando com uma store criada com os hooks nativos do React.
+
+Você pode ver a demo de como ficou [aqui](https://replacing-redux-to-hooks.netlify.com/).
+
+Ressaltando que os dois únicos pontos negativos comparados ao Redux é a falta de uma extensão do navegador, como o [Redux DevTools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=pt-BR), que nos permite debugar as interações com a store e também a falta de suporte para as actions assíncronas, como [redux-thunk](https://github.com/reduxjs/redux-thunk).
+
+Também preciso dizer que dependendo do tamanho e complexidade da sua aplicação, usar o Redux poderá ser mais perfomatico do que os hooks.
+
+Espero que não fique decepcionado comigo por causa desses pontos.
+
+Todo esse exemplo está [nesse repositório](https://github.com/Sergioamjr/replacing-redux-to-hooks), fique a vontade pra baixa-lo, usa-lo, compartilha-lo e deixar uma star.
+
+Qualquer sugestão, crítica ou comentário é super bem vindo, compartilhe comigo nos comentários a baixo.
+
+Até breve.

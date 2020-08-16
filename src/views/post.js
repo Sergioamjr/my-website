@@ -83,7 +83,9 @@ const PostView = ({
             />
           )}
           {mdx ? (
-            <MDXRenderer>{content}</MDXRenderer>
+            <div css={text}>
+              <MDXRenderer>{content}</MDXRenderer>
+            </div>
           ) : (
             <div css={text} dangerouslySetInnerHTML={{ __html: content }} />
           )}
