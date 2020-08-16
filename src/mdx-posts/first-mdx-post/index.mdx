@@ -1,0 +1,70 @@
+---
+title: Hello, world!
+slug: /hello-world
+date: 2019-01-29
+---
+
+# Olá, primeiro teste
+
+```javascript{1-2}
+// In your gatsby-config.js
+plugins: [
+  {
+    resolve: `gatsby-transformer-remark`,
+    options: {
+      plugins: [`gatsby-remark-prismjs`],
+    },
+  },
+];
+```
+
+```js{2-3}
+export const gsetLocalStorage = (item = key) => {
+  if (typeof localStorage !== "undefined") {
+    const value = localStorage.getItem(item) || "{}";
+    return JSON.parse(value);
+  }
+  return {};
+};
+```
+
+```jsx
+import React from "react";
+import PropTypes from "prop-types";
+import Counter from "./container/counter";
+import Login from "./container/login";
+import Connect from "./store/connect";
+import Header from "./container/header";
+
+const App = ({ auth }) => {
+  return (
+    <div className="full-screen">
+      <div className="d-flex d-flex-align-center d-flex-justify-center h-100">
+        {auth.isLogged ? (
+          <>
+            <Header />
+            <Counter />
+          </>
+        ) : (
+          <Login />
+        )}
+      </div>
+    </div>
+  );
+};
+
+App.propTypes = {
+  auth: PropTypes.shape({
+    isLogged: PropTypes.bool,
+  }).isRequired,
+};
+
+const mapStateToProps = ({ auth }, props) => {
+  return {
+    auth,
+    ...props,
+  };
+};
+
+export default Connect(mapStateToProps)(App);
+```

@@ -3,6 +3,7 @@ import { jsx, css } from "@emotion/core";
 import { Link } from "gatsby";
 import { useEffect } from "react";
 import PropTypes from "prop-types";
+import { MDXRenderer } from "gatsby-plugin-mdx";
 import Template from "../components/Template";
 import {
   Container,
@@ -11,11 +12,11 @@ import {
   largeMgBottom,
   mgBottom,
   linkStyle,
-  secondaryFont
+  secondaryFont,
 } from "../design";
 import Disqus from "../components/Disqus";
 import Prism from "prismjs";
-import "prismjs/components/prism-jsx.min";
+// import "prismjs/components/prism-jsx.min";
 
 const captionStyle = css`
   margin-top: -8px;
@@ -35,7 +36,8 @@ const PostView = ({
   translationLabel,
   publishedAt,
   imgAlt,
-  caption
+  caption,
+  mdx,
 }) => {
   useEffect(() => {
     Prism.highlightAll();
@@ -80,8 +82,11 @@ const PostView = ({
               dangerouslySetInnerHTML={{ __html: caption }}
             />
           )}
-
-          <div css={text} dangerouslySetInnerHTML={{ __html: content }} />
+          {mdx ? (
+            <MDXRenderer>{content}</MDXRenderer>
+          ) : (
+            <div css={text} dangerouslySetInnerHTML={{ __html: content }} />
+          )}
         </article>
         <Disqus url={url} id={id} />
       </Container>
@@ -101,12 +106,13 @@ PostView.propTypes = {
   date: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   translationLabel: PropTypes.string,
-  publishedAt: PropTypes.string
+  publishedAt: PropTypes.string,
+  mdx: PropTypes.bool,
 };
 
 PostView.defaultProps = {
   publishedAt: "Publicado em",
-  translationLabel: "Read this article in English"
+  translationLabel: "Read this article in English",
 };
 
 export default PostView;
