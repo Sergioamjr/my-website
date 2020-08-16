@@ -16,7 +16,7 @@ import {
 } from "../design";
 import Disqus from "../components/Disqus";
 import Prism from "prismjs";
-import "prismjs/components/prism-jsx.min";
+// import "prismjs/components/prism-jsx.min";
 
 const captionStyle = css`
   margin-top: -8px;
