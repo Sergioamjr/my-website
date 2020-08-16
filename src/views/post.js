@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { Link } from "gatsby";
-import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import Template from "../components/Template";
@@ -15,8 +14,6 @@ import {
   secondaryFont,
 } from "../design";
 import Disqus from "../components/Disqus";
-import Prism from "prismjs";
-// import "prismjs/components/prism-jsx.min";
 
 const captionStyle = css`
   margin-top: -8px;
@@ -39,14 +36,11 @@ const PostView = ({
   caption,
   mdx,
 }) => {
-  useEffect(() => {
-    Prism.highlightAll();
-  }, []);
   return (
     <Template thumbnail={img} title={title} description={excerpt}>
       <Container small>
         <article css={largeMgBottom} className="post-content">
-          {tranlation !== "skip" && (
+          {!!tranlation && (
             <div css={mgBottom}>
               <Link
                 className="secondary-font"

@@ -14,6 +14,7 @@ exports.createPages = async ({ graphql, actions }) => {
             path
             title
             caption
+            translate
           }
         }
       }

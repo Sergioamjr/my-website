@@ -4,8 +4,7 @@ import PostView from "../views/post";
 
 const Markdown = (props) => {
   const body = props.pageContext.node.body;
-  const { title } = props.pageContext.node.frontmatter;
-  const { caption } = props.pageContext.node.frontmatter;
+  const { title, translate, caption } = props.pageContext.node.frontmatter;
   const img = "";
   return (
     <PostView
@@ -14,7 +13,7 @@ const Markdown = (props) => {
       imgAlt=""
       url=""
       title={title}
-      tranlation=""
+      tranlation={translate}
       id="id"
       img={img}
       excerpt="dxc"
