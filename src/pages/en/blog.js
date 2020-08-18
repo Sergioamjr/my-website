@@ -1,12 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import PropTypes from "prop-types";
 import { graphql } from "gatsby";
 import BlogCard from "../../components/BlogCard";
 import Page from "../../views/page";
 
-const Blog = props => {
-  const data = props.data.allWordpressWpPostsEn.edges;
+const Blog = (props) => {
+  const data = props.data.allMdx.edges;
   return (
     <Page
       title="Articles"
@@ -15,15 +14,15 @@ const Blog = props => {
     >
       <div>
         {data.map(({ node }, i) => {
-          const {
-            title,
-            excerpt,
-            path,
-            acf: { categories }
-          } = node;
+          const { slug, frontmatter } = node;
+          const { title, excerpt, path } = frontmatter;
+          if (slug.includes("__") || !path.includes("/posts_en/")) {
+            return null;
+          }
+
           return (
             <BlogCard
-              categories={categories || []}
+              categories={[]}
               path={path}
               excerpt={excerpt}
               title={title}
@@ -38,41 +37,17 @@ const Blog = props => {
 
 export default Blog;
 
-Blog.propTypes = {
-  data: PropTypes.shape({
-    allWordpressWpPostsEn: PropTypes.shape({
-      edges: PropTypes.arrayOf(
-        PropTypes.shape({
-          node: PropTypes.shape({
-            title: PropTypes.string,
-            excerpt: PropTypes.string,
-            slug: PropTypes.string,
-            acf: PropTypes.shape({
-              categories: PropTypes.arrayOf(
-                PropTypes.shape({
-                  category: PropTypes.string
-                })
-              )
-            })
-          })
-        })
-      )
-    })
-  }).isRequired
-};
-
 export const pageQuery = graphql`
-  query {
-    allWordpressWpPostsEn(sort: { fields: [date], order: DESC }) {
+  query EnglishPosts {
+    allMdx {
       edges {
         node {
-          title
-          excerpt
-          path
-          acf {
-            categories {
-              category
-            }
+          slug
+          frontmatter {
+            date
+            excerpt
+            title
+            path
           }
         }
       }

@@ -25,6 +25,7 @@
     "react/forbid-prop-types": [
       "error",
       { "checkContextTypes": true, "checkChildContextTypes": true }
-    ]
+    ],
+    "react/prop-types": [0]
   }
 }

@@ -3,19 +3,19 @@ import { jsx } from "@emotion/core";
 import PostView from "../views/post";
 
 const Markdown = (props) => {
-  // eslint-disable-next-line react/prop-types
   const body = props.pageContext.node.body;
-
+  const { title, translate, caption } = props.pageContext.node.frontmatter;
+  const img = "";
   return (
     <PostView
       mdx
-      caption="caption"
+      caption={caption}
       imgAlt=""
       url=""
-      title="Título"
-      tranlation=""
+      title={title}
+      tranlation={translate}
       id="id"
-      img="img"
+      img={img}
       excerpt="dxc"
       date="date"
       content={body}

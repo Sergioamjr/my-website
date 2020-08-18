@@ -20,7 +20,7 @@ module.exports = {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "markdown",
-        path: `${__dirname}/src/mdx-posts`,
+        path: `${__dirname}/src/blog`,
       },
     },
     {
@@ -46,36 +46,6 @@ module.exports = {
         theme_color: "#663399",
         display: "minimal-ui",
         icon: "src/images/favicons/apple-icon-precomposed.png",
-      },
-    },
-    {
-      resolve: "gatsby-source-wordpress",
-      options: {
-        gatsbyRemarkPlugins: [
-          {
-            resolve: `gatsby-remark-prismjs`,
-          },
-        ],
-        baseUrl: "http://sergiojunior.com.br/wp/",
-        protocol: "http",
-        hostingWPCOM: false,
-        useACF: true,
-        verboseOutput: true,
-        excludedRoutes: ["**/users", "**/settings", "**/themes"],
-        includedRoutes: [
-          "**/posts",
-          "**/pages",
-          "**/taxonomies",
-          "**/menus",
-          "**/participantes",
-          "**/projetos",
-          "**/posts_en",
-          "**/projects_en",
-          "**/media",
-        ],
-        normalizer: function({ entities }) {
-          return entities;
-        },
       },
     },
     {

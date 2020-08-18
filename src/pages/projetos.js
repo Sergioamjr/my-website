@@ -1,12 +1,29 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
-import PropTypes from "prop-types";
-import { graphql } from "gatsby";
 import BlogCard from "../components/BlogCard";
 import Page from "../views/page";
 
-const Projects = props => {
-  const data = props.data.allWordpressWpProjetos.edges;
+const projects = [
+  {
+    name: "WhatToWatch",
+    description:
+      "Receba sugestões do que assistir ou veja os filmes mais populares por gênero.",
+    link: "https://whatto-watch.herokuapp.com/",
+  },
+  {
+    name: "Snake Game",
+    description: "O clássico jogo da cobrinha feito com React e Typescript.",
+    link: "https://github.com/Sergioamjr/snakegame-ts",
+  },
+  {
+    name: "Unguessing UI    ",
+    description:
+      "UnGuessing UI é um componente criado para ajudar a construir fieis UI’s sem dificuldades.    ",
+    link: "https://github.com/Sergioamjr/unguessing-ui",
+  },
+];
+
+const Projects = () => {
   return (
     <Page
       translateLabel="See in English"
@@ -14,19 +31,14 @@ const Projects = props => {
       title="Projetos"
     >
       <div>
-        {data.map(({ node }, i) => {
-          const {
-            title,
-            content,
-            acf: { categories, link }
-          } = node;
+        {projects.map(({ name, link, description }, i) => {
           return (
             <BlogCard
               externalLink
-              categories={categories}
-              excerpt={content}
+              categories={[]}
+              excerpt={description}
               path={link}
-              title={title}
+              title={name}
               label="Ver mais"
               key={i}
             />
@@ -37,47 +49,3 @@ const Projects = props => {
   );
 };
 export default Projects;
-
-export const wpProjetosTypes = {
-  data: PropTypes.shape({
-    allWordpressWpProjetos: PropTypes.shape({
-      edges: PropTypes.arrayOf(
-        PropTypes.shape({
-          node: PropTypes.shape({
-            title: PropTypes.string,
-            content: PropTypes.string,
-            acf: PropTypes.shape({
-              categories: PropTypes.arrayOf(
-                PropTypes.shape({
-                  category: PropTypes.string
-                })
-              ),
-              link: PropTypes.string
-            })
-          })
-        })
-      )
-    })
-  }).isRequired
-};
-
-Projects.propTypes = wpProjetosTypes;
-
-export const pageQuery = graphql`
-  query {
-    allWordpressWpProjetos {
-      edges {
-        node {
-          title
-          content
-          acf {
-            categories {
-              category
-            }
-            link
-          }
-        }
-      }
-    }
-  }
-`;
