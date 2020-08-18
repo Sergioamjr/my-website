@@ -3,7 +3,7 @@ import { jsx, css } from "@emotion/core";
 import { Link } from "gatsby";
 import PropTypes from "prop-types";
 import Template from "../components/Template";
-import { Container, pageTitle, mgBottom, secondTitle } from "../design";
+import { Container, pageTitle, mgBottom, secondTitle, text } from "../design";
 
 const Page = ({ title, subtitle, translateLabel, translateTo, children }) => {
   return (
@@ -23,7 +23,7 @@ const Page = ({ title, subtitle, translateLabel, translateTo, children }) => {
           )}
           {title && <h2 css={pageTitle}>{title}</h2>}
           {subtitle && <p css={secondTitle}>{subtitle}</p>}
-          {children}
+          <div css={text}>{children}</div>
         </div>
       </Container>
     </Template>
@@ -37,12 +37,12 @@ Page.propTypes = {
   subtitle: PropTypes.string,
   translateLabel: PropTypes.string,
   translateTo: PropTypes.string,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 Page.defaultProps = {
   title: "",
   subtitle: "",
   translateLabel: "",
-  translateTo: ""
+  translateTo: "",
 };
