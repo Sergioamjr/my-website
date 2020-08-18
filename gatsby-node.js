@@ -69,9 +69,6 @@ exports.createPages = async ({ graphql, actions }) => {
   const postEnTemplate = path.resolve("./src/templates/post_en.js");
 
   allMdx.nodes.forEach((node) => {
-    if (node.slug.includes("__")) {
-      return null;
-    }
     createPage({
       path: node.frontmatter.path,
       component: slash(markdownTemplate),
