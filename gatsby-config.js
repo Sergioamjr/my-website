@@ -49,36 +49,6 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-source-wordpress",
-      options: {
-        gatsbyRemarkPlugins: [
-          {
-            resolve: `gatsby-remark-prismjs`,
-          },
-        ],
-        baseUrl: "http://sergiojunior.com.br/wp/",
-        protocol: "http",
-        hostingWPCOM: false,
-        useACF: true,
-        verboseOutput: true,
-        excludedRoutes: ["**/users", "**/settings", "**/themes"],
-        includedRoutes: [
-          "**/posts",
-          "**/pages",
-          "**/taxonomies",
-          "**/menus",
-          "**/participantes",
-          "**/projetos",
-          "**/posts_en",
-          "**/projects_en",
-          "**/media",
-        ],
-        normalizer: function({ entities }) {
-          return entities;
-        },
-      },
-    },
-    {
       resolve: "gatsby-plugin-prefetch-google-fonts",
       options: {
         fonts: [

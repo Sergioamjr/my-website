@@ -8,9 +8,8 @@ import {
   xLargeMgBottom,
   secondTitle,
   mgBottom,
-  linkStyle
+  linkStyle,
 } from "../../design";
-import { replaceWpPrefix } from "./../../utils/replaceWpPrefix";
 
 const zIndex = css`
   position: relative;
@@ -24,7 +23,7 @@ const BlogCard = ({
   path,
   categories,
   externalLink,
-  label
+  label,
 }) => {
   return (
     <div css={zIndex}>
@@ -49,11 +48,7 @@ const BlogCard = ({
         </a>
       )}
       {!externalLink && path && (
-        <Link
-          className="secondary-font"
-          css={linkStyle}
-          to={`/${replaceWpPrefix(path)}`}
-        >
+        <Link className="secondary-font" css={linkStyle} to={`/${path}`}>
           {label}
         </Link>
       )}
@@ -69,14 +64,14 @@ BlogCard.propTypes = {
   path: PropTypes.string,
   categories: PropTypes.arrayOf(
     PropTypes.shape({
-      category: PropTypes.string
+      category: PropTypes.string,
     })
-  )
+  ),
 };
 
 BlogCard.defaultProps = {
   label: "Read more",
-  categories: []
+  categories: [],
 };
 
 export default BlogCard;
