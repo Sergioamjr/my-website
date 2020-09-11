@@ -1,0 +1,145 @@
+---
+title: Mockando suas requisições like a pro
+caption: Photo by Denys Nevozhai on Unsplash
+path: /mockando-suas-requisicoes-like-a-pro
+date: 2019-01-29
+excerpt: Scroll infinito não é algo comum de se ver mas pode ser muito útil e prático na hora de exibir uma lista sem ter que usar uma paginação e precisar de uma maior interação do usuário. Eu já precisei fazer em um projeto há um tempo e utilizei essa lib que funcionou muito bem, porém, […]
+---
+
+Mockar suas requisições do backend no lado do front end pode ser muito útil na hora do desenvolvimento e irei apresentar duas formas de fazer.
+
+### Vantagens de mockar requisições no front-end.
+
+- Navegar e desenvolver sem depender do backend.
+- Escrever testes de integração E2E na sua aplicação.
+- Economizar o tempo de espera de requisições assíncronas.
+- Economizar requisições em uma API pública com limite de requests.
+- Desenvolver mais rápido com os dados que você precisa.
+
+No meu trabalho nós combinamos o modelo do response com um backend, começamos a desenvolver com mocks e no final testamos com o backend real só pra garantir que tudo esteja funcionando.
+
+Com isso chegamos até a economizar dinheiro da empresa ao criar um ambiente de demonstração da nossa aplicação usando mocks e não precisar de uma infra pro backend.
+
+Pra esse exemplo irei criar uma listagem de personagens. Como estamos falando apenas das requisições, você pode usá-lo com _React, Angular, Vue, Vanilla_ ou whatever framework.
+
+Antes de tudo, vamos criar nosso arquivo de mock.
+
+```json
+{
+  "users": [
+    {
+      "name": "Gordinha"
+    },
+    {
+      "name": "Batman"
+    }
+  ]
+}
+```
+
+Agora vamos criar nossas funções responsáveis pelo requets.
+
+```javascript
+import userMocks from "./userMocks.json";
+const mockRequests = true;
+const BASE_URL = "https://www.you-api.com";
+
+const returnAsPromise = (mock) => {
+  return new Promise((resolve) => resolve(mock));
+};
+
+export const fetchAllUsers = () => {
+  if (mockRequests) {
+    return returnAsPromise(userMocks);
+  }
+
+  return fetch(`${BASE_URL}/all-users`);
+};
+
+export const fetchSingleUser = (id) => {
+  if (mockRequests) {
+    return returnAsPromise(userMocks.users[0]);
+  }
+
+  return fetch(`${BASE_URL}/single-user?id=${id}`);
+};
+```
+
+Dessa forma precisamos apenas mudar a variável mockRequests para receber as requisições mockadas ou não.
+
+### Usando axios-mock-adapter
+
+Uma alternativa de mockar suas requisições é usar o pacote do npm axios-mock-adapter. Ele deve ser usado junto com o axios, que também é outro pacote para requisições HTTP.
+
+Instalando as dependências:
+
+```bash
+npm install axios axios-mock-adapter
+```
+
+Configurar nosso arquivo de mocks assim:
+
+```javascript
+import MockAdapter from "axios-mock-adapter";
+import userMock from "./mock";
+
+const useMock = (axios) => {
+  const mock = new MockAdapter(axios);
+
+  mock.onGet(/all-users/).reply(200, userMock);
+  mock.onGet(/single-user/).reply(200, userMock);
+};
+
+export default useMock;
+```
+
+importa-lo e usa-lo no nosso arquivo de requisições:.
+
+```javascript
+import axios from "axios";
+import useMock from "./useMock";
+
+const mockRequests = true;
+const baseURL = "https://api.themoviedb.org";
+
+const client = axios.create({
+  baseURL,
+});
+
+if (mockRequests) {
+  useMock(client);
+}
+
+export const fetchAllUsers = () => {
+  return client.get("/all-users");
+};
+
+export const fetchSingleUser = (id) => {
+  return client.get(`/single-user?id=${id}`);
+};
+```
+
+Se você ver na documentação, a instância do _axios-mock-adapter_ recebe tem alguns métodos como `onGet`, `onPost`, `onPut`, `onDelete` que recebe o endpoint que será mockado e encadeando o reply é possível retornar o status code e o response que queremos.
+
+### Dicas
+
+É ideal substituir o mockRequests por uma variável de ambiente no .env, assim, podemos habilitar/desabilitar os mocks da aplicação em qualquer ambiente bem rápido.
+
+```bash
+MOCK_REQUESTS=ALL
+```
+
+```javascript
+const mockRequests = process.env.MOCK_REQUESTS === "ALL";
+```
+
+Você pode importar o useMock dentro da condição que verifica o mockRequests para os arquivos de mock não irem para o seu bundle final.
+
+```javascript
+if (process.env.NODE_ENV !== "production" && mockRequests) {
+  const useMock = require("./mockConfig");
+  useMock(client);
+}
+```
+
+Pode dar um pouco de trabalho pra você atualizar todos os mocks dependendo da quantidade de requições que você tem e as mudanças feitas no backend.

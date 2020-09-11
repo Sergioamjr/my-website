@@ -96,3 +96,10 @@ img {
   padding-left: 2.8em;
   overflow: initial;
 }
+
+.language-text {
+  background: transparent !important;
+  color: #ff5757 !important;
+  font-style: italic !important;
+  text-shadow: none !important;
+}
