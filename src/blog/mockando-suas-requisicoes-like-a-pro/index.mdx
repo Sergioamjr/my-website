@@ -2,7 +2,7 @@
 title: Mockando suas requisições like a pro
 path: /mockando-suas-requisicoes-like-a-pro
 date: 2019-01-29
-image: images/roads.jpg
+image: images/thumbnail.jpg
 excerpt: Scroll infinito não é algo comum de se ver mas pode ser muito útil e prático na hora de exibir uma lista sem ter que usar uma paginação e precisar de uma maior interação do usuário. Eu já precisei fazer em um projeto há um tempo e utilizei essa lib que funcionou muito bem, porém, […]
 ---
 
@@ -28,10 +28,10 @@ Antes de tudo, vamos criar nosso arquivo de mock.
 {
   "users": [
     {
-      "name": "Gordinha"
+      "name": "John"
     },
     {
-      "name": "Batman"
+      "name": "Mike"
     }
   ]
 }
@@ -87,7 +87,7 @@ const useMock = (axios) => {
   const mock = new MockAdapter(axios);
 
   mock.onGet(/all-users/).reply(200, userMock);
-  mock.onGet(/single-user/).reply(200, userMock);
+  mock.onGet(/single-user/).reply(200, userMock.users[0]);
 };
 
 export default useMock;
