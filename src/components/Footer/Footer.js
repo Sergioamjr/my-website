@@ -52,12 +52,12 @@ const Footer = ({ options }) => {
 Footer.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
-      Icon: PropTypes.node,
+      Icon: PropTypes.func,
       name: PropTypes.string,
       description: PropTypes.string,
-      url: PropTypes.string
+      url: PropTypes.string,
     })
-  )
+  ),
 };
 
 export default Footer;

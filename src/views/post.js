@@ -34,7 +34,6 @@ const PostView = ({
   publishedAt,
   imgAlt,
   caption,
-  mdx,
 }) => {
   return (
     <Template thumbnail={img} title={title} description={excerpt}>
@@ -76,13 +75,10 @@ const PostView = ({
               dangerouslySetInnerHTML={{ __html: caption }}
             />
           )}
-          {mdx ? (
-            <div css={text}>
-              <MDXRenderer>{content}</MDXRenderer>
-            </div>
-          ) : (
-            <div css={text} dangerouslySetInnerHTML={{ __html: content }} />
-          )}
+
+          <div css={text}>
+            <MDXRenderer>{content}</MDXRenderer>
+          </div>
         </article>
         <Disqus url={url} id={id} />
       </Container>
@@ -91,22 +87,23 @@ const PostView = ({
 };
 
 PostView.propTypes = {
-  caption: PropTypes.string.isRequired,
+  caption: PropTypes.string,
   imgAlt: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
-  tranlation: PropTypes.string.isRequired,
+  tranlation: PropTypes.string,
   excerpt: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
   translationLabel: PropTypes.string,
   publishedAt: PropTypes.string,
-  mdx: PropTypes.bool,
 };
 
 PostView.defaultProps = {
+  tranlation: "",
+  caption: "",
   publishedAt: "Publicado em",
   translationLabel: "Read this article in English",
 };

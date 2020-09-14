@@ -14,6 +14,13 @@ exports.createPages = async ({ graphql, actions }) => {
             title
             caption
             translate
+            image {
+              childImageSharp {
+                original {
+                  src
+                }
+              }
+            }
           }
         }
       }

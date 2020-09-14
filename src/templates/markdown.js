@@ -4,11 +4,16 @@ import PostView from "../views/post";
 
 const Markdown = (props) => {
   const body = props.pageContext.node.body;
-  const { title, translate, caption } = props.pageContext.node.frontmatter;
-  const img = "";
+  console.log(props.pageContext.node.frontmatter);
+  const {
+    title,
+    translate,
+    caption,
+    image,
+  } = props.pageContext.node.frontmatter;
+  const img = image.childImageSharp.original.src;
   return (
     <PostView
-      mdx
       caption={caption}
       imgAlt=""
       url=""
