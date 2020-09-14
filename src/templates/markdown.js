@@ -4,7 +4,6 @@ import PostView from "../views/post";
 
 const Markdown = (props) => {
   const body = props.pageContext.node.body;
-  console.log(props.pageContext.node.frontmatter);
   const {
     title,
     translate,
