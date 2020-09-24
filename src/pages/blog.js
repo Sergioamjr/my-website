@@ -7,7 +7,11 @@ import Page from "../views/page";
 const Blog = (props) => {
   const data = props.data.allMdx.edges;
   return (
-    <Page translateLabel="See in English" translateTo="en/blog" title="Artigos">
+    <Page
+      translateLabel="See in English"
+      translateTo="/en/blog"
+      title="Artigos"
+    >
       <div>
         {data.map(({ node }, i) => {
           const { slug, frontmatter } = node;
