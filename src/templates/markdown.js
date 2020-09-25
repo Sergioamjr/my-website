@@ -8,13 +8,18 @@ const Markdown = (props) => {
     title,
     translate,
     caption,
+    path,
     image,
   } = props.pageContext.node.frontmatter;
   const img = image.childImageSharp.original.src;
+  console.log(path);
   return (
     <PostView
       caption={caption}
       imgAlt=""
+      translationLabel={
+        path.includes("posts_en") ? "Leia em Português" : "Read in English"
+      }
       url=""
       title={title}
       tranlation={translate}
