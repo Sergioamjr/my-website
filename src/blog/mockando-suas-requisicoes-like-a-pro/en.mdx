@@ -1,0 +1,149 @@
+---
+title: Mocking your requests like a pro
+caption: Photo by Artem Sapegin on Unsplash
+path: /posts_en/mocking-your-requests-like-a-pro
+translate: /mockando-suas-requisicoes-like-a-pro
+date: 2019-01-29
+image: images/thumbnail.jpg
+excerpt: Mocking your back-end's requests on front-end side might by very useful on development and I'll show you two ways you can do this. […]
+---
+
+Mocking your back-end's requests on front-end side might by very useful on development and I'll show you two ways you can do this.
+
+### Advantages to mock your requests
+
+- Navigate and develop without rely on back-end.
+- Write E2E tests on your application.
+- Save time without await async requests.
+- Save requests when you use a public API with limited requests.
+- Develop faster with the data that your need.
+
+In my job we saved money setting up a demo enviroment of your project using mocks on front-end without infrastruture to back-end.
+
+### Disadvantage
+
+I also have to say the only drawback that I see, it might be hard to keep your mocks updated if you have too much requests and your backend changes frequently.
+
+For this example I'll create a listing page. How I'm just talking about requests, you can use it with _React, Angular, Vue, Vanilla_ or whatever framework you want.
+
+First all, let's create our mock file.
+
+```json
+{
+  "users": [
+    {
+      "name": "John"
+    },
+    {
+      "name": "Mike"
+    }
+  ]
+}
+```
+
+Now let's create our service methods to fetch that data.
+
+```javascript
+import userMocks from "./userMocks.json";
+const mockRequests = true;
+const BASE_URL = "https://www.you-api.com";
+
+const returnAsPromise = (mock) => {
+  return new Promise((resolve) => resolve(mock));
+};
+
+export const fetchAllUsers = () => {
+  if (mockRequests) {
+    return returnAsPromise(userMocks);
+  }
+
+  return fetch(`${BASE_URL}/all-users`);
+};
+
+export const fetchSingleUser = (id) => {
+  if (mockRequests) {
+    return returnAsPromise(userMocks.users[0]);
+  }
+
+  return fetch(`${BASE_URL}/single-user?id=${id}`);
+};
+```
+
+This way we just need to change the variable _mockRequests_ to mock our requests or not.
+
+### Using axios-mock-adapter
+
+A better alternative might be use the npm package _axios-mock-adapter_. It must be used with _axios_, which is a very known npm package to HTTP requests.
+
+#### Installing our dependencies.
+
+```bash
+npm install axios axios-mock-adapter
+```
+
+#### Setting up our mock file like this:
+
+```javascript
+import MockAdapter from "axios-mock-adapter";
+import userMock from "./mock";
+
+const useMock = (axios) => {
+  const mock = new MockAdapter(axios);
+
+  mock.onGet(/all-users/).reply(200, userMock);
+  mock.onGet(/single-user/).reply(200, userMock.users[0]);
+};
+
+export default useMock;
+```
+
+If you read the _axios-mock-adapter_ documentation, it has some methods like `onGet`, `onPost`, `onPut`, `onDelete` which receive the endpoint to mock and with `reply` is possible return the status code and the response.
+
+#### Import it and use it in our service file.
+
+```javascript
+import axios from "axios";
+import useMock from "./useMock";
+
+const mockRequests = true;
+const baseURL = "https://api.themoviedb.org";
+
+const client = axios.create({
+  baseURL,
+});
+
+if (mockRequests) {
+  useMock(client);
+}
+
+export const fetchAllUsers = () => {
+  return client.get("/all-users");
+};
+
+export const fetchSingleUser = (id) => {
+  return client.get(`/single-user?id=${id}`);
+};
+```
+
+### Tips
+
+It would be better put the **mockRequests** variable in the .env file, with this we can enable/disable the mock responses very quickly.
+
+```bash
+MOCK_REQUESTS=ALL
+```
+
+```javascript
+const mockRequests = process.env.MOCK_REQUESTS === "ALL";
+```
+
+You can import your mock config inside your condition to check the mockRequests and NODE_ENV to avoid putting your mock files on your final bundle.
+
+```javascript
+if (process.env.NODE_ENV !== "production" && mockRequests) {
+  const useMock = require("./mockConfig");
+  useMock(client);
+}
+```
+
+Cheers 🍻

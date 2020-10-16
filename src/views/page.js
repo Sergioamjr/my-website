@@ -16,7 +16,7 @@ const Page = ({ title, subtitle, translateLabel, translateTo, children }) => {
                 ${mgBottom}
               `}
             >
-              <Link className="secondary-font" to={translateTo}>
+              <Link className="secondary-font" to={`${translateTo}`}>
                 {translateLabel}
               </Link>
             </div>
