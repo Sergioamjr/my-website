@@ -2,6 +2,7 @@
 import { jsx, css } from "@emotion/core";
 import { Link } from "gatsby";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import Template from "../components/Template";
 import {
@@ -35,6 +36,14 @@ const PostView = ({
   imgAlt,
   caption,
 }) => {
+  useEffect(() => {
+    const links = document.querySelectorAll(".post-content a");
+    for (let i = 0; i < links.length; i++) {
+      links[i].setAttribute("target", "_blank");
+      links[i].setAttribute("rel", "noopener noreferrer");
+    }
+  }, []);
+
   return (
     <Template thumbnail={img} title={title} description={excerpt}>
       <Container small>

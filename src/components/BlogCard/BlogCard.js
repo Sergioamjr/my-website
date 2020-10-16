@@ -48,7 +48,7 @@ const BlogCard = ({
         </a>
       )}
       {!externalLink && path && (
-        <Link className="secondary-font" css={linkStyle} to={`/${path}`}>
+        <Link className="secondary-font" css={linkStyle} to={path}>
           {label}
         </Link>
       )}
