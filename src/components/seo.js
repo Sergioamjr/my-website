@@ -41,7 +41,7 @@ const SEO = ({ description, lang, title, thumbnail, origin, href }) => {
         <meta property="og:image" content={`${origin}${thumbnail}`} />
       )}
       {thumbnail && (
-        <meta property="witter:image" content={`${origin}${thumbnail}`} />
+        <meta property="twitter:image" content={`${origin}${thumbnail}`} />
       )}
 
       <meta property="og:site_name" content={site.siteMetadata.title} />
@@ -51,7 +51,7 @@ const SEO = ({ description, lang, title, thumbnail, origin, href }) => {
 
 SEO.defaultProps = {
   description: "",
-  thumbnail: ""
+  thumbnail: "",
 };
 
 SEO.propTypes = {
@@ -60,7 +60,7 @@ SEO.propTypes = {
   thumbnail: PropTypes.string,
   description: PropTypes.string,
   lang: PropTypes.string.isRequired,
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 export default SEO;
