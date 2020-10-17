@@ -7,7 +7,6 @@ exports.createPages = async ({ graphql, actions }) => {
     {
       allMdx {
         nodes {
-          slug
           body
           id
           frontmatter {

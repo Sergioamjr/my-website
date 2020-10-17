@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
+import { returnLocationProperty } from "../utils";
 import PostView from "../views/post";
 
 const Markdown = (props) => {
   const body = props.pageContext.node.body;
-  const { id, slug } = props.pageContext.node;
+  const { id } = props.pageContext.node;
   const {
     title,
     translate,
@@ -15,6 +16,7 @@ const Markdown = (props) => {
     date,
   } = props.pageContext.node.frontmatter;
   const img = image.childImageSharp.original.src;
+  const href = returnLocationProperty("href");
   return (
     <PostView
       caption={caption}
@@ -22,7 +24,7 @@ const Markdown = (props) => {
       translationLabel={
         path.includes("posts_en") ? "Leia em Português" : "Read in English"
       }
-      url={slug}
+      url={href}
       title={title}
       tranlation={translate}
       id={id}
