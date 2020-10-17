@@ -7,13 +7,15 @@ exports.createPages = async ({ graphql, actions }) => {
     {
       allMdx {
         nodes {
-          slug
           body
+          id
           frontmatter {
             path
             title
             caption
             translate
+            excerpt
+            date
             image {
               childImageSharp {
                 original {
