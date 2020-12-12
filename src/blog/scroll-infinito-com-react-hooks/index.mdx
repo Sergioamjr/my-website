@@ -2,6 +2,7 @@
 title: Scroll infinito com React Hooks
 caption: Foto de Kelly Sikkema no Unsplash
 path: /scroll-infinito-com-react-hooks
+translate: /posts_en/infinite-scroll-with-react-hooks
 date: 2019-01-29
 image: images/thumbnail.jpg
 excerpt: Scroll infinito não é algo comum de se ver mas pode ser muito útil e prático na hora de exibir uma lista sem ter que usar uma paginação e precisar de uma maior interação do usuário. Eu já precisei fazer em um projeto há um tempo e utilizei essa lib que funcionou muito bem, porém, […]
@@ -11,7 +12,7 @@ Scroll infinito não é algo comum de se ver mas pode ser muito útil e prático
 
 Eu já precisei fazer em um projeto há um tempo e utilizei essa lib que funcionou muito bem, porém, recentemente eu decidi reescrever esse projeto e tentar criar o scroll infinito com react hooks e a IntersectionObserver API, sem nenhuma lib externa, e funcionou muito bem. Por isso gostaria de compartilhar o resultado com vocês.
 
-Ele será bem simples, usarei um componente com um state pra indicar o estado do loading na página, outro para armazenar os dados da nossa listagem e a referência de um componente. Ocultarei o CSS por ser irrelevante mas você pode ver o resultado final clicando aqui...
+Ele será bem simples, usarei um componente com um state pra indicar o estado do loading na página, outro para armazenar os dados da nossa listagem e a referência de um componente. Ocultarei o CSS por ser irrelevante mas você pode ver o resultado final [no repositório](https://github.com/Sergioamjr/react-infinite-scroll-example).
 
 ### Criando nosso componente
 
@@ -20,7 +21,7 @@ Primeiro vamos criar nosso componente que exibirá os dados.
 ```js
 import React, { useState, useRef } from "react";
 
-const App = () => {
+export default function App() {
   const lastRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [todos, setTodos] = useState({
@@ -43,7 +44,7 @@ const App = () => {
       {isLoading && <p>Loading...</p>}
     </div>
   );
-};
+}
 
 export default App;
 ```
@@ -96,7 +97,7 @@ import React, { useState, useEffect, useRef } from "react";
 import useIsElementVisible from "./hooks/useIsElementVisible";
 import { fetchTodos } from "./services";
 
-const App = () => {
+export default function App() {
   const lastRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [todos, setTodos] = useState({
@@ -145,7 +146,7 @@ const App = () => {
       {isLoading && <p>Loading...</p>}
     </div>
   );
-};
+}
 
 export default App;
 ```
@@ -155,3 +156,5 @@ export default App;
 E está pronto nosso componente com scroll infinito. Eu apenas implementei a listagem e loading dos dados nesse exemplo, fique a vontade de estiliza-los como preferir. No mundo real você também deve tratar a excessão no catch do método getMoreTodos se a API retornar algum erro.
 
 Você pode ver o repositório com todo o código clicando aqui.
+
+Você pode ver [a demo](https://react-hooks-infinite-scroll.netlify.app/) ou [o repositório](https://github.com/Sergioamjr/react-infinite-scroll-example) com o código.

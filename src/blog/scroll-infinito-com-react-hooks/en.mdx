@@ -1,0 +1,167 @@
+---
+title: Infinite scroll with React Hooks
+caption: Photo by Kelly Sikkema no Unsplash
+path: /posts_en/infinite-scroll-with-react-hooks
+translate: /scroll-infinito-com-react-hooks
+date: 2019-01-29
+image: images/thumbnail.jpg
+excerpt: Infinite scroll is not usual to see on websites nowadays but it may be very useful to show a list without pagination or user interaction. […]
+---
+
+Infinite scroll is not usual to see on websites nowadays but it may be very useful to show a list without pagination or too many user interactions.
+
+Recently I decided to try to build a project using infinite scroll only using React Hooks and the IntersectionObserver Browser API, and it worked very well so I'd like to share with you all how I did.
+
+It will be very simple, I'll use:
+
+- The useState hook to show a loading icon and store our list.
+- The useEffect hook to fetch our list on our component mount.
+- The useRef hook to get a reference from a element above our list.
+- The IntersectionObserver API method to check wheter this element is visible or not.
+
+I can see all code on [this repository](https://github.com/Sergioamjr/react-infinite-scroll-example) already.
+
+### Building our component
+
+First of all, let's create our component that will show our list.
+
+We will only show the element above our list if there're itens and the current page is smaller than the total page.
+
+```js
+import React, { useState, useRef } from "react";
+
+export default function App() {
+  const lastRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [todos, setTodos] = useState({
+    itens: [],
+    page: 0,
+    totalPages: 1,
+  });
+
+  return (
+    <div>
+      <h2>Lorem ipsum's list</h2>
+      {todos.itens.map(({ title }, index) => {
+        return (
+          <div key={index}>
+            <p>{title}</p>
+          </div>
+        );
+      })}
+      {!!todos.itens.length && todos.page < todos.totalPages && (
+        <div ref={lastRef} />
+      )}
+      {isLoading && <p>Loading...</p>}
+    </div>
+  );
+}
+```
+
+### Fetching some data from an API
+
+We also need a method to fetch some data from an API. I created a method called `fetchTodos` that receives the page number that I want as parameter. For this example I mocked the returning of this method. If you want to know how I mocked these data, you can see [right here](https://github.com/Sergioamjr/react-infinite-scroll-example/blob/master/src/services/index.js), the only thing you need to know is that I expect this data format:
+
+```js
+{
+  itens: [{...}],
+  totalPages: number,
+  page: number,
+}
+```
+
+### Writing our Custom Hooks useIsElementVisible.
+
+Now we will create our custom hook that check wheter an element is visible on our screen or not, using the browser method IntersectionObserver API.
+
+```js
+import { useEffect, useState } from "react";
+
+export default (el) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const callback = ([entry]) => {
+    setIsVisible(entry.isIntersecting);
+  };
+
+  useEffect(() => {
+    const watch = new IntersectionObserver(callback);
+    if (el) {
+      watch.observe(el);
+      return () => watch.unobserve(el);
+    }
+  }, [el]);
+
+  return isVisible && !!el;
+};
+```
+
+Our goal it's pass a element reference to see wheter the element above list is visible on our screen or not. If so, we'll call the method to fetch more data.
+
+### Updating our component
+
+Everything is settled so far, now let's create our method to fetch the data. We'll use the hook useEffetch twice; on the page mount and whenever the element above our list is visible.
+
+```js{1, 13-38}
+import React, { useState, useEffect, useRef } from "react";
+import useIsElementVisible from "./hooks/useIsElementVisible";
+import { fetchTodos } from "./services";
+
+export default function App() {
+  const lastRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [todos, setTodos] = useState({
+    itens: [],
+    page: 0,
+    totalPages: 1,
+  });
+
+  const isLastVisible = useIsElementVisible(lastRef.current);
+
+  useEffect(() => {
+    // Fetch on page mount.
+    getMoreTodos(todos.page + 1);
+  }, []);
+
+  useEffect(() => {
+    // Fetch when the the div above our list is visible on screen
+    if (isLastVisible) {
+      getMoreTodos(todos.page + 1);
+    }
+  }, [isLastVisible]);
+
+  const getMoreTodos = async (page) => {
+    try {
+      setIsLoading(true);
+      const newTodos = await fetchTodos(page);
+      setTodos((prev) => ({
+        ...newTodos,
+        itens: prev.itens.concat(newTodos.itens),
+      }));
+      setIsLoading(false);
+    } catch (err) {}
+  };
+
+  return (
+    <div>
+      <h2>Lorem ipsum's list</h2>
+      {todos.itens.map(({ title }, index) => {
+        return (
+          <div key={index}>
+            <p>{title}</p>
+          </div>
+        );
+      })}
+      {!!todos.itens.length && todos.page < todos.totalPages && (
+        <div ref={lastRef} />
+      )}
+      {isLoading && <p>Loading...</p>}
+    </div>
+  );
+}
+```
+
+### Conclusion
+
+Now we're done. I created a simple example to fetch the data and show a loading, in the real world you also need to handle with the fetch exception using catch on your async method.
+
+You can see [the demo](https://react-hooks-infinite-scroll.netlify.app/) right here or [the repository](https://github.com/Sergioamjr/react-infinite-scroll-example).
