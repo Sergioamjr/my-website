@@ -1,0 +1,412 @@
+---
+title: React Hooks e suas principais utilidades
+caption: Foto de Kelly Sikkema no Unsplash
+path: /react-hooks-e-suas-principais-utilidades
+date: 2021-01-14
+image: images/thumbnail.jpg
+excerpt: React Hooks foram lançados há quase dois anos na versão 17 do React e ainda assim não vejo o uso de outros hooks além do useState e useEffect, por isso gostaria de explicar e dar exemplos do uso de todos os React Hooks. […]
+---
+
+React Hooks foram lançados há quase dois anos na versão 17 do React e ainda assim não vejo o uso de outros hooks que são muito úteis, por isso gostaria de explicar e dar alguns exemplos do uso de todos os React Hooks.
+
+Nesse artigo estarei passando por todos os React Hooks.
+
+- useState
+- useEffect
+- useRef
+- useContext
+- useReducer
+- useMemo
+- useCallback
+- useDebug
+- useLayoutEffect
+
+## useState
+
+O mais simples e usado dos React Hooks, o _useState_ permite armazenar qualquer valor em um componente, como _string, object, array, boolean, number, null_.
+
+Ele tem a mesma função do _this.state_ em um antigo Class Componentes do React.
+
+Você pode definir seu valor passando um valor direto ou uma função que acessa seu valor atual e retornando um novo.
+
+```javascript
+import { useState } from "react";
+
+export default function Component() {
+  const [counter, setCounter] = useState(0);
+  return (
+    <>
+      <p>Clicks: {counter}</p>
+      <button onClick={() => setCounter((prev) => ++prev)}>Increase 1</button>
+    </>
+  );
+}
+```
+
+## useEffect
+
+O _useEffect_ te permite executar uma função em alguns momento durante o lifecicle de um componente:
+
+- Na primeira renderização do componente.
+- Quando um valor observado é alterado.
+- Quando o componente é desmontado.
+
+Ele é similiar aos métodos _componentDidMount, componentDidUpdate e componentWillUnmount_ de um Class Componente.
+
+```javascript
+import { useEffect } from "react";
+
+export default function Component() {
+  const fetchSomething = (params) => {};
+  const onResizeScreenHandler = () => {};
+
+  useEffect(() => {
+    fetchSomething(filters);
+  }, [filters]);
+
+  useEffect(() => {
+    document.addEventlistener("resize", onResizeScreenHandler);
+    return () => document.removeEventlistener("resize", onResizeScreenHandler);
+  }, []);
+}
+```
+
+Para executar o _useEffect_ só uma vez, deixe o segundo parâmetro, o array vazio.
+
+```javascript
+useEffect(fn, []);
+```
+
+Para observar algum valor, adicione ele no array do segunddo parâmetro.
+
+```javascript
+useEffect(fn, [x]);
+```
+
+A função que você retorna irá ser chamada quando o componente for desmontado.
+
+```javascript
+useEffect(() => {
+  return () => doSomething();
+}, []);
+```
+
+## useRef
+
+O _useRef_ te permite:
+
+- Acessar um elemento do DOM.
+- Armazenar um valor imutável durante o ciclo de vida do componente.
+
+Seu valor é acessado por _.current_:
+
+```javascript
+const time = useRef(0);
+console.log(time.current); // 0;
+```
+
+### Acessando um elemento do DOM.
+
+```javascript
+import { useRef, useEffect } from "react";
+
+export default function Component() {
+  const textRef = useRef(null);
+  useEffect(() => {
+    if (textRef) {
+      const elementWidth = textRef.current.offsetWidth;
+    }
+  }, [textRef]);
+
+  return <p ref={textRef}>Exemplo de texto</p>;
+}
+```
+
+### Delay effect
+
+Você pode usar o _useRef_ pra criar um delay de _x_ segundos pra chamar uma função, por exemplo, quando usuário termina de digitar um campo para não sobrecarregar sua API com várias requisições cada vez que ele digita ou apaga uma letra.
+
+```javascript
+import { useRef, useEffect, useRef, useState } from "react";
+
+export default function Form() {
+  const [text, setText] = useState("");
+  const timeToCallSomething = useRef(null);
+
+  const fetchSomething = () => {
+    // Realiza alguma requisição http.
+  };
+
+  useEffect(() => {
+    if (timeToCallSomething.current) {
+      clearInterval(timeToCallSomething.current);
+    }
+    timeToCallSomething.current = setTimeout(fetchSomething, 1000);
+    return () => clearInterval(timeToCallSomething.current);
+  }, [text]);
+
+  const onChangeHandler = ({ target: { value } }) => {
+    setText(value);
+  };
+
+  return <input value={text} onChange={onChangeHandler} />;
+}
+```
+
+### Passando ref via props
+
+Se você quiser passar uma ref para utilizar num componente filho via props, você precisará usar o método _React.forwardRef_ do React no componente filho para receber essa ref como segundo parâmetro do componente.
+
+```javascript
+import { useRef, useEffect, forwardRef } from "react";
+
+export default function Parent() {
+  const childRef = useRef(null);
+
+  return <Text ref={childRef} />;
+}
+
+const Text = forwardRef((props, ref) => {
+  return <p ref={ref}>Exemplo de texto</p>;
+});
+```
+
+## useReducer
+
+Esse hook é uma alternativa ao _useState_ e bem parecido com a idéia de _reducer_ do Redux. Ele observa um _type_ pré definido a retorna algum valor dependendo desse _type_.
+
+```javascript
+function reducer(state, action) {
+  switch (action.type) {
+    case "increment":
+      return state + 1;
+    case "decrement":
+      return state - 1;
+    default:
+      return state;
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, 0);
+  return (
+    <>
+      Count: {state}
+      <button onClick={() => dispatch({ type: "decrement" })}>-</button>
+      <button onClick={() => dispatch({ type: "increment" })}>+</button>
+    </>
+  );
+}
+```
+
+## useContext
+
+O hook _useContext_ te permite armazenar e acessar algum valor em qualquer lugar dentro de sua hierarquia. Ele é muito parecido com o Redux, inclusive eu já escrevi um artigo mostrando [como substituir o Redux por React Hooks](https://www.sergiojunior.com.br/substituindo-redux-por-hooks).
+
+Isso é útil quando você utiliza muito um valor e não quer ficar passando ele para os componentes filhos via props.
+
+```javascript
+// hooks/useUserContext.js
+import { useContext, createContext } from "react";
+
+// Nosso contexto
+const UserContext = createContext({ name: "" });
+
+// Componente que recebe e atualiza o valor de name
+export function UserContextProvider({ name, children }) {
+  return <UserContext.Provider value={name}>{children}</UserContext.Provider>;
+}
+
+// Custom hook para pegar o valor atual
+export default function useUserContext() {
+  return useContext(UserContext);
+}
+```
+
+```javascript
+// App.js
+import { UserContextProvider } from "~hooks/useUserContext";
+
+export default function App() {
+  return (
+    <UserContextProvider value="John">
+      <YourAppTree />
+    </UserContextProvider>
+  );
+}
+```
+
+```javascript
+// App.js
+import useUserContext from "~hooks/useUserContext";
+
+export default function YourAppTree() {
+  const userName = useUserContext(); // Inicialmente será '' e logo em seguida 'John'.
+  return <p>Olá, {userName}</p>;
+}
+```
+
+Os próximos React Hooks, _useMemo_ e _useCallback_, são mais para resolver problemas de perfomances no React.
+
+## useMemo
+
+Você pode utilizar o _useMemo_ para economizar tempo e processamento na execução de uma função complexa.
+
+Imagine que você tenha uma função que receba alguns parâmetros e faça um cálculo usando esses parâmetros. O que o _useMemo_ faz é memorizar os parâmetros passados e o valor retornado da função. Assim, quando esses parâmetros forem iguais novamente, ele irá retornar o valor anterior, sem precisar calcula-lo.
+
+```javascript
+import { useMemo } from "react";
+
+export default function Component() {
+  const value = useMemo(() => {
+    // Faz algo complexo e demorado.
+  }, [x, y]);
+}
+```
+
+## useCallback
+
+Antes de explicar o _useCallback_, gostaria de explicar um conceito importante no React.
+
+React utiliza [Strict Equality Comparison](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Strict_equality) para comparar os valores das props, ou _[deps]_ de algum React Hook. Caso algum valor seja diferente, ele atualiza o componente, ou executa o React Hook.
+
+E você e o Patrick devem saber que as coisas não são tão óbvias no javascript com valores não primitivos.
+
+![alt](https://dkrn4sk0rn31v.cloudfront.net/2020/03/31110910/4skcofasa1p01.png)
+
+Valores primitivos são do tipo _string, number e boolean_. Agora os _array, object_ e _function_ não são primitivos, portanto, se você compara-los, irá receber _false_:
+
+```javascript
+1 === 1; // true;
+"batman" === "batman"; // true;
+false === false; // true;
+
+{} === {}; // false;
+[] === []; // false;
+() => {} === () => {}; //false;
+```
+
+Só retornará _true_ se tiver a mesma referência, como se estiver alocado numa variável:
+
+```javascript
+const fn = () => {};
+fn === fn; // true;
+```
+
+Então se você passar uma função via props, o React irá atualiza-lo mesmo que as props não tenham mudado, simplesmente porque uma função é diferente de uma função, mesmo que seja ela mesma. complexo?
+
+Então usamos o _useCallback_ pra criar uma referência única pra uma função e o React saber que é ela mesma e evitar atualizações desnecessárias.
+
+Sua referência só será diferente caso seus parâmetros mudarem.
+
+```javascript
+import { useCallback } from "react";
+
+export default function Parent() {
+  const onFetchAlwaysHandler = useCallback(() => {
+    // Sua referência irá mudar quando a e b mudarem.
+  }, [a, b]);
+
+  const onFetchOnceHandler = useCallback(() => {
+    // Sempre terá a mesma referência.
+  }, []);
+
+  return <Approvad onFetchHandler={onFetchHandler} />;
+}
+```
+
+### React.memo
+
+Isso não é um React Hook mas você também pode usar o `React.memo` para evitar que todo componente filho seja rerenderizado desnecessariamente sempre que houver alguma atualização no componente pai.
+
+```javascript
+function List({ item }) {
+  return <li>{item}</li>;
+}
+
+export default React.memo(List);
+```
+
+## useLayoutEffect
+
+O hook _useLayoutEffect_ tem a mesma função do _useEffect_, porém, ela é executada assim que o navegador termina de fazer as alterações no DOM.
+
+Você pode utilizar esse método para ler algum elemento do DOM ou realizar uma ação sincrona, assim que a página carrega.
+
+```javascript
+import { useState, useLayoutEffect } from "react";
+
+function Component() {
+  const [loadedDOM, setLoadedDOM] = useState(false);
+
+  useLayoutEffect(() => {
+    setLoadedDOM(true);
+    window.localstorage.getItem("...");
+  }, []);
+}
+```
+
+Eu sinceramente nunca usei esse hook num projeto.
+
+### SSR
+
+Se você estiver usando Server Side Render (NextJS), os hooks _useLayoutEffect_ e _useEffect_ não funcionaram, pois ele só são executados no client-side. Caso contrário, o React irá te avisa no console que você está usando no lado do server.
+
+Você pode usa-los para interagir com o _localstorage_, por exemplo, que é uma feature somente do browser.
+
+## useDebugValue
+
+O _useDebugValue_ pode ser usado para exibir alguma label dentro de um custom hook. Ele é parecido com o _console.log_, porém, sua mensagem irá aparece no [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi).
+
+```javascript
+import { useDebugValue, useState } from "react";
+
+function useUserStatus() {
+  const [isLogged, setIsLogged] = useState(false);
+
+  //...
+
+  useDebugValue(isLogged ? "Logged" : "Not logged");
+
+  return isLogged;
+}
+```
+
+## useImperativeHandle
+
+O hook _useImperativeHandle_ permite customizar o valor de uma _ref_ do elemento pai, através do componente filho. Ele deve ser utilizado junto com o _React.forwardRef_ no elemento filho, para receber a _ref_ do pai.
+
+```javascript
+import { useImperativeHandle, forwardRef, useEffect, useRef } from "react";
+
+const Input = forwardRef((props, parentRef) => {
+  const childRef = useRef();
+  useImperativeHandle(parentRef, () => ({
+    focus: () => {
+      childRef.current.focus();
+    },
+  }));
+  return <input ref={childRef} />;
+});
+
+const Form = () => {
+  const ref = useRef();
+  useEffect(() => {
+    if (ref) {
+      ref.current.focus();
+    }
+  }, []);
+
+  return (
+    <form>
+      <Input ref={ref} />
+    </form>
+  );
+};
+```
+
+Dessa forma, o elemento pai pode ser capaz de interagir com o _ref_ do elemento filho.
+
+## Documentação
+
+Caso você queira vêr mais detalhes e exemplos dos React Hooks, veja a [documetação oficial do React](https://pt-br.reactjs.org/docs/hooks-reference.html).

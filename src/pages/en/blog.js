@@ -5,7 +5,11 @@ import BlogCard from "../../components/BlogCard";
 import Page from "../../views/page";
 
 const Blog = (props) => {
-  const data = props.data.allMdx.edges;
+  const data = props.data.allMdx.edges.sort(
+    (a, b) =>
+      new Date(b.node.frontmatter.date).getTime() -
+      new Date(a.node.frontmatter.date)
+  );
   return (
     <Page
       title="Articles"
