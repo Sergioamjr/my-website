@@ -11,7 +11,7 @@ export const secondaryFont = css`
 `;
 
 export const Container = styled.div`
-  max-width: ${props => (props.small ? "700px" : "1200px")};
+  max-width: ${(props) => (props.small ? "700px" : "1200px")};
   padding: 0 15px;
   width: 100%;
   margin: 0 auto;
@@ -122,7 +122,7 @@ export const justifyContent = css`
 export const backgroundStyle = css`
   background: var(--background);
   height: 100vh;
-  overflow: scroll;
+  overflow-y: scroll;
   transition: background 0.3s ease;
   will-change: background;
 `;
