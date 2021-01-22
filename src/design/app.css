@@ -42,6 +42,17 @@
   margin-bottom: 8px;
 }
 
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.post-content pre[class*="language-"] {
+  overflow: overlay !important;
+}
+
 img {
   width: 100%;
 }

@@ -1,13 +1,14 @@
 ---
-title: React Hooks e suas principais utilidades
-caption: Foto de Kelly Sikkema no Unsplash
-path: /react-hooks-e-suas-principais-utilidades
+title: Explicando todos React Hook com exemplos
+caption: Foto de Oliver Paaske no Unsplash
+path: /explicando-todos-react-hooks-com-exemplos
+translate: /posts_en/explaining-all-react-hooks-with-examples
 date: 2021-01-14
 image: images/thumbnail.jpg
-excerpt: React Hooks foram lançados há quase dois anos na versão 17 do React e ainda assim não vejo o uso de outros hooks além do useState e useEffect, por isso gostaria de explicar e dar exemplos do uso de todos os React Hooks. […]
+excerpt: React Hooks foram lançados há quase dois anos na versão 16.8 do React. Não é muito comum ver o uso de todos eles mas eles podem ser muito úteis para simplificar uma funcionalidade, melhorar a perfomance em nossa aplicação […]
 ---
 
-React Hooks foram lançados há quase dois anos na versão 17 do React e ainda assim não vejo o uso de outros hooks que são muito úteis, por isso gostaria de explicar e dar alguns exemplos do uso de todos os React Hooks.
+React Hooks foram lançados há quase dois anos na versão 16.8 do React. Não é muito comum ver o uso de todos eles mas eles podem ser muito úteis para simplificar uma funcionalidade, melhorar a perfomance em nossa aplicação, então, eu gostaaria de explicar e dar alguns exeplos do uso de todos React Hooks.
 
 Nesse artigo estarei passando por todos os React Hooks.
 
@@ -224,7 +225,7 @@ export default function useUserContext() {
 ```
 
 ```javascript
-// App.js
+// YourAppTree.js
 import { UserContextProvider } from "~hooks/useUserContext";
 
 export default function App() {
@@ -317,14 +318,32 @@ export default function Parent() {
 
 ### React.memo
 
-Isso não é um React Hook mas você também pode usar o `React.memo` para evitar que todo componente filho seja rerenderizado desnecessariamente sempre que houver alguma atualização no componente pai.
+Você também pode usar _useCallback_ e _React.memo_ para evitar que todo componente filho seja rerenderizado desnecessariamente sempre que houver alguma atualização no componente pai.
 
 ```javascript
-function List({ item }) {
-  return <li>{item}</li>;
+function List({ item, onSelect }) {
+  return (
+    <li>
+      <button onClick={() => onSelect(item)}>Select {item}</button>
+    </li>
+  );
 }
 
-export default React.memo(List);
+const MemorizedList = React.memo(List);
+
+function App() {
+  const onSelectHandler = useCallback((selectedItem) => {
+    // Faz algo com selectedItem.
+  }, []);
+
+  return (
+    <ul>
+      {array.map((e) => (
+        <MemorizedList item={e} onSelect={onSelectHandler} />
+      ))}
+    </ul>
+  );
+}
 ```
 
 ## useLayoutEffect
@@ -381,10 +400,11 @@ import { useImperativeHandle, forwardRef, useEffect, useRef } from "react";
 
 const Input = forwardRef((props, parentRef) => {
   const childRef = useRef();
+  const someMethod = () => 1;
+
   useImperativeHandle(parentRef, () => ({
-    focus: () => {
-      childRef.current.focus();
-    },
+    focusOnChildInput: () => childRef.current.focus(),
+    callChildMethod: someMethod,
   }));
   return <input ref={childRef} />;
 });
@@ -393,7 +413,8 @@ const Form = () => {
   const ref = useRef();
   useEffect(() => {
     if (ref) {
-      ref.current.focus();
+      ref.current?.callChildMethod?.(); // 1
+      ref.current?.focusOnChildInput?.();
     }
   }, []);
 
@@ -404,8 +425,6 @@ const Form = () => {
   );
 };
 ```
-
-Dessa forma, o elemento pai pode ser capaz de interagir com o _ref_ do elemento filho.
 
 ## Documentação
 

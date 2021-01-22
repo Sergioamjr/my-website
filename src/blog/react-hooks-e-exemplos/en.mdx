@@ -1,0 +1,437 @@
+---
+title: Explaining all React Hooks with examples
+caption: Photo by Oliver Paaske on Unsplash
+path: /posts_en/explaining-all-react-hooks-with-examples
+translate: /explicando-todos-react-hooks-com-exemplos
+date: 2021-01-14
+image: images/thumbnail.jpg
+excerpt: React Hooks were released two years ago on React version 16.8. It's not so common to see the usage of all of them but they might be very useful to simplify a feature or improve the performance in our application.
+---
+
+React Hooks were released two years ago on React version 16.8. It's not so common to see the usage of all of them but they might be very useful to simplify a feature or improve the performance in our application, so, I'd like to explain and give some examples of usage of all React Hooks.
+
+In this post I'll cover all React Hooks:
+
+- useState.
+- useEffect.
+- useRef.
+- useContext.
+- useReducer.
+- useMemo.
+- useCallback.
+- useDebug.
+- useLayoutEffect.
+
+## useState
+
+The simplest and most used of React Hooks, _useState_ allows you to store any value in a function component, like _string, object, array, boolean, number, null_.
+
+It has the same functionality of _this.state_ in a React Class Component.
+
+You can define its value by passing a value directly or calling a method that accesses the previous value and returns the new value.
+
+```javascript
+import { useState } from "react";
+
+export default function Component() {
+  const [counter, setCounter] = useState(0);
+  return (
+    <>
+      <p>Clicks: {counter}</p>
+      <button onClick={() => setCounter((prev) => ++prev)}>Increase 1</button>
+    </>
+  );
+}
+```
+
+## useEffect
+
+_useEffect_ allows you to call a method during some moments in the component lifecycle:
+
+- On the first render.
+- When a watched value is updated.
+- When the component is unmounted.
+
+It's similar to the methods _componentDidMount, componentDidUpdate and componentWillUnmount_ in a Class Component.
+
+```javascript
+import { useEffect } from "react";
+
+export default function Component() {
+  const fetchSomething = (params) => {};
+  const onResizeScreenHandler = () => {};
+
+  useEffect(() => {
+    fetchSomething(filters);
+  }, [filters]);
+
+  useEffect(() => {
+    document.addEventlistener("resize", onResizeScreenHandler);
+    return () => document.removeEventlistener("resize", onResizeScreenHandler);
+  }, []);
+}
+```
+
+To call the function inside _useEffect_ once, let the second parameter, an array, empty.
+
+```javascript
+useEffect(fn, []);
+```
+
+To observe a value, add it in the second parameter.
+
+```javascript
+useEffect(() {
+  // Do something with updated x
+}, [x]);
+```
+
+The function that you return will be called when the component is unmounted.
+
+```javascript
+useEffect(() => {
+  return () => doSomething();
+}, []);
+```
+
+## useRef
+
+The _useRef_ hook lets you:
+
+- Access an element on the DOM.
+- Store an immutable value during the component's lifecycle.
+
+Its value is accessed by _.current_:
+
+```javascript
+const time = useRef(0);
+console.log(time.current); // 0;
+```
+
+### Accessing an element on the DOM.
+
+```javascript
+import { useRef, useEffect } from "react";
+
+export default function Component() {
+  const textRef = useRef(null);
+  useEffect(() => {
+    if (textRef) {
+      const elementWidth = textRef.current.offsetWidth;
+    }
+  }, [textRef]);
+
+  return <p ref={textRef}>Hello, React Hooks</p>;
+}
+```
+
+### Delay effect
+
+You can use _useRef_ to create a delay to call a method. For instance, wait x seconds to request something as soon the user finishes typing and not overload your API every time he types on deletes a letter.
+
+```javascript
+import { useRef, useEffect, useRef, useState } from "react";
+
+export default function Form() {
+  const [text, setText] = useState("");
+  const timeToCallSomething = useRef(null);
+
+  const fetchSomething = () => {
+    if (text) {
+      // Fetch an API.
+    }
+  };
+
+  useEffect(() => {
+    if (timeToCallSomething.current) {
+      clearInterval(timeToCallSomething.current);
+    }
+    timeToCallSomething.current = setTimeout(fetchSomething, 1000);
+    return () => clearInterval(timeToCallSomething.current);
+  }, [text]);
+
+  const onChangeHandler = ({ target: { value } }) => {
+    setText(value);
+  };
+
+  return <input value={text} onChange={onChangeHandler} />;
+}
+```
+
+### Passing a ref by props
+
+If you want to pass a ref to use in a child component, you need to use the method _React.forwardRef_ in the child component and receive the ref as the second parameter.
+
+```javascript
+import { useRef, useEffect, forwardRef } from "react";
+
+export default function Parent() {
+  const childRef = useRef(null);
+
+  return <Text ref={childRef} />;
+}
+
+const Text = forwardRef((props, ref) => {
+  return <p ref={ref}>Exemplo de texto</p>;
+});
+```
+
+## useReducer
+
+It's an alternative to the _useState_ hook and works like the _reducer_ in Redux. It watches a pre-defined _type_ and returns a new state depending on that _type_.
+
+```javascript
+function reducer(state, action) {
+  switch (action.type) {
+    case "increment":
+      return state + 1;
+    case "decrement":
+      return state - 1;
+    default:
+      return state;
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, 0);
+  return (
+    <>
+      Count: {state}
+      <button onClick={() => dispatch({ type: "decrement" })}>-</button>
+      <button onClick={() => dispatch({ type: "increment" })}>+</button>
+    </>
+  );
+}
+```
+
+## useContext
+
+The _useContext_ hook allows you to store and access a value anywhere within its hierarchy. It works like Redux, by the way, I already wrote an article showing [how to replace Redux by React Hooks](https://www.sergiojunior.com.br/posts_en/replacing-redux-with-react-hooks).
+
+It's useful when you often use a value and don't want to pass it to the children components by props.
+
+```javascript
+// hooks/useUserContext.js
+import { useContext, createContext } from "react";
+
+// Our context
+const UserContext = createContext({ name: "" });
+
+// The main component that receives a value and updates our context.
+export function UserContextProvider({ name, children }) {
+  return <UserContext.Provider value={name}>{children}</UserContext.Provider>;
+}
+
+// A custom hook to get the current value.
+export default function useUserContext() {
+  return useContext(UserContext);
+}
+```
+
+```javascript
+// App.js
+import { UserContextProvider } from "~hooks/useUserContext";
+
+export default function App() {
+  return (
+    <UserContextProvider value="John">
+      <YourAppTree />
+    </UserContextProvider>
+  );
+}
+```
+
+```javascript
+// YourAppTree.js
+import useUserContext from "~hooks/useUserContext";
+
+export default function YourAppTree() {
+  const userName = useUserContext(); // Initially the value will be "" and then John.
+  return <p>Hi, {userName}</p>;
+}
+```
+
+The next React Hooks, _useMemo_ and _useCallback_, are commonly used to solve performance issues or improve them in our application.
+
+## useMemo
+
+You can use _useMemo_ to save time and processing on the execution of a complex function.
+
+Imagine that you have a function that receives some parameters and does count with them that's expensive to process. What the _useMemo_ hook does is memorize these parameters and the returned value and whenever these parameters are equal again, it will return the previous value, without calculating it.
+
+```javascript
+import { useMemo } from "react";
+
+export default function Component() {
+  const value = useMemo(() => {
+    // Do something complex with x and y.
+  }, [x, y]);
+}
+```
+
+## useCallback
+
+Before explaining what the _useCallback_ does, I'd like to explain an advanced and important concept in React.
+
+React uses [Strict Equality Comparison](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Strict_equality) to compare the props or the observable values in a React Hook. If any of these values are different, it will update our component or call the method inside the React Hook.
+
+And you should know like Patrick does that things aren't so obvious in javascript with non-primitive values.
+
+![alt](https://dkrn4sk0rn31v.cloudfront.net/2020/03/31110910/4skcofasa1p01.png)
+
+Primitive values are _string, number and boolean_. _Array, object_ and _function_ aren't primitives, so, if you compare them, you'll get _false_:
+
+```javascript
+1 === 1; // true;
+"batman" === "batman"; // true;
+false === false; // true;
+
+{} === {}; // false;
+[] === []; // false;
+() => {} === () => {}; //false;
+```
+
+It will only return _true_ if it has the same reference, like a variable:
+
+```javascript
+const fn = () => {};
+fn === fn; // true;
+```
+
+So if you pass a function by props, React will update the component every time, even if the props haven't changed, because a function is different from a function.
+
+Therefore we use _useCallback_ to create a unique reference to a function and React knows that it's the same and avoids unnecessary updates.
+
+Its reference only will be different in case the parameters change.
+
+```javascript
+import { useCallback } from "react";
+
+export default function Parent() {
+  const onFetchAlwaysHandler = useCallback(() => {
+    // Its reference will change when a and b change.
+  }, [a, b]);
+
+  const onFetchOnceHandler = useCallback(() => {
+    // It will have the same reference.
+  }, []);
+
+  return <Approvad onFetchHandler={onFetchHandler} />;
+}
+```
+
+### Watch out
+
+If you use a function with _useCallback_ as a dependency of _useEffect_ that updates the _useCallback_ parameters, you can cause an infinite loop.
+
+### Improving our performance with React.memo
+
+You can use _useCallback_ and _React.memo_ to improve the performance in your application and avoid that the children components update whenever that's an update on the parent component.
+
+```javascript
+function List({ item, onSelect }) {
+  return (
+    <li>
+      <button onClick={() => onSelect(item)}>Select {item}</button>
+    </li>
+  );
+}
+
+const MemorizedList = React.memo(List);
+
+function App() {
+  const onSelectHandler = useCallback((selectedItem) => {
+    // Do something with selectedItem.
+  }, []);
+
+  return (
+    <ul>
+      {array.map((e) => (
+        <MemorizedList item={e} onSelect={onSelectHandler} />
+      ))}
+    </ul>
+  );
+}
+```
+
+## useLayoutEffect
+
+The hook _useLayoutEffect_ has the same functionality as _useEffect_, however, it will execute its function as soon the browser finishes mounting the dom.
+
+You can use this hook to read an element in the DOM or do something when the page loads.
+
+```javascript
+import { useState, useLayoutEffect } from "react";
+
+function Component() {
+  const [loadedDOM, setLoadedDOM] = useState(false);
+
+  useLayoutEffect(() => {
+    setLoadedDOM(true);
+    window.localstorage.getItem("...");
+  }, []);
+}
+```
+
+### SSR
+
+If you're using Server Side Render (NextJS), the React Hooks _useLayoutEffect_ and _useEffect_ won't work because they only run on the client-side. If you try, React will show you a warning on the console.
+
+You can use them to interact with the _localstorage_ which's a feature only in the client, for example.
+
+## useDebugValue
+
+The hook _useDebugValue_ can be used to show a label on the [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) extension inside a custom hook. It works like a console.log.
+
+```javascript
+import { useDebugValue, useState } from "react";
+
+function useUserStatus() {
+  const [isLogged, setIsLogged] = useState(false);
+
+  //...
+
+  useDebugValue(isLogged ? "Logged" : "Not logged");
+
+  return isLogged;
+}
+```
+
+## useImperativeHandle
+
+The _useImperativeHandle_ hook allows you to customize the ref value in a parent component through its child component. You can pass a DOM element, method, anything and be able to call it from the parent component. It must be used with the _React.forwardRef_ in the child component to receive the ref from the parent component.
+
+```javascript
+import { useImperativeHandle, forwardRef, useEffect, useRef } from "react";
+
+const Input = forwardRef((props, parentRef) => {
+  const childRef = useRef();
+  const someMethod = () => 1;
+
+  useImperativeHandle(parentRef, () => ({
+    focusOnChildInput: () => childRef.current.focus(),
+    callChildMethod: someMethod,
+  }));
+  return <input ref={childRef} />;
+});
+
+const Form = () => {
+  const ref = useRef();
+  useEffect(() => {
+    if (ref) {
+      ref.current?.callChildMethod?.(); // 1
+      ref.current?.focusOnChildInput?.();
+    }
+  }, []);
+
+  return (
+    <form>
+      <Input ref={ref} />
+    </form>
+  );
+};
+```
+
+## Documentation
+
+That's all, if you want to see more details or read about these React Hooks, please, take a look at the [official React documentation](https://pt-br.reactjs.org/docs/hooks-reference.html).
