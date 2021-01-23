@@ -45,6 +45,10 @@ const SEO = ({ description, lang, title, thumbnail, origin, href }) => {
       )}
 
       <meta property="og:site_name" content={site.siteMetadata.title} />
+
+      <link rel="preconnect" href="https://fonts.gstatic.com" />
+
+      <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet" />
     </Helmet>
   );
 };

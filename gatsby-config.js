@@ -49,17 +49,6 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-prefetch-google-fonts",
-      options: {
-        fonts: [
-          {
-            family: "Merriweather",
-            variants: ["300", "400", "700"],
-          },
-        ],
-      },
-    },
-    {
       resolve: "gatsby-plugin-load-script",
       options: {
         src: "https://sergiojunior-netlify.disqus.com/count.js",
