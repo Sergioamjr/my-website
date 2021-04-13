@@ -1,0 +1,102 @@
+---
+title: Especificidade no CSS
+caption: Foto de Pankaj Patel no Unsplash
+path: /especificidade-no-css
+date: 2021-04-13
+image: images/thumbnail.jpg
+excerpt: Especificidade do CSS é algo que todo desenvolvedor web já se deparou, mesmo que nunca tenha ouvido falar disso. Por exemplo, é comum adicionar um estilo no CSS, atualizar a página e... não funcionar. Daí você abre o inspetor, vê que seu estilo está lá, porém, está sendo sobrescrito por outra linha do CSS. […]
+---
+
+import CSSSpecificityCounter from "./CSSSpecificity";
+
+Pra ilustrar melhor o que é especificidade do CSS, antes de explicar eu gostaria de deixar uma pergunta. A resposta estará no final do post. Considerando o seguinte HTML e CSS, qual cor será aplicada?
+
+```html
+<p class="text" id="css-lang" style="color:red">
+  CSS is cool. Isn`t?
+</p>
+```
+
+```css
+.text {
+  color: blue;
+}
+
+#css-lang {
+  color: yellow;
+}
+
+html body p {
+  color: green;
+}
+
+p.text#css-lang {
+  color: pink;
+}
+```
+
+```
+(A) A cor será red;
+(B) A cor será blue;
+(C) A cor será yellow;
+(D) A cor será green;
+(E) A cor será pink;
+```
+
+## O que é especificidade no CSS?
+
+Especificidade do CSS é algo que todo desenvolvedor web já se deparou, mesmo que nunca tenha ouvido falar disso. Quem nunca adicionou um estilo no CSS, atualizou a página e... não funcionou. Daí você abre o inspetor, vê que seu estilo está lá, porém, está sendo sobreescrito por outra linha do CSS.
+
+Isso é por causa da especificidade do CSS.
+
+O navegador tem algumas regras pra calcular e decidir qual estilo do CSS aplicar, principalmente quando há estilos duplicados. Ele considera a especificidade do seletor que está sendo usado, como _classes, pseudo-classes, atributos, IDs e elementos_.
+
+```css
+.user #photo a {
+  // ...
+}
+```
+
+Cada um deles vale uma pontuação, é feita a soma e aplicado qual for maior.
+
+## Como é feito o cálculo?
+
+O navegador usa as seguintes pontuações:
+
+- Cada elemento do HTML, vale **0.0.0.1 ponto**. _(Ex. div ~ p = 0.0.0.2 pontos)_
+- Cada classe e pseudo-classe, valem **0.0.1.0 pontos**. _(Ex. .list .item:hover = 0.0.3.0 pontos)_
+- Cada ID, vale **0.1.0.0 pontos**. _(Ex. #header #menu = 0.2.0.0 pontos)_
+- Cada propriedade definida _inline_ no HTML, vale **1.0.0.0 pontos**. _(Ex. color="red" = 1.0.0.0 pontos)_
+- Podemos considerar que o _!important_ vale **1.0.0.0.0 pontos**.
+
+Basta lembrar da ordem e formato da pontução:
+
+```
+style inline > IDs > classes & pseudo-classes > elements
+
+0.0.0.0
+```
+
+## Exemplos
+
+- O seletor _header nav li.menu-item_ vale **1.3 pontos**, pois possui 3 elementos e 1 classe.
+
+- O seletor _#user p > span_ value **1.0.2 pontos** pois possui 1 ID e 2 elementos.
+
+- O seletor _body #menu .item:last-child_ vale **1.2.1 pontos**, pois possui 1 elemento 1 ID e 1 classes e 1 pseudo-classe.
+
+Para te ajudar a entender, eu desenvolvi essa calculadora que conta a pontuação do seletor escrito.
+
+<CSSSpecificityCounter />
+
+Porém, existem algumas considerações:
+
+- Caso os seletores possuem a mesma pontuação, o último que foi definido na folha de estilo será aplicado.
+- Os pseudo seletores _:not_ e _\*_ não valem nenhum ponto.
+- A soma não é decimal, por exemplo, 10 elementos não valem 1 classe, nesse caso sua pontuação seria **0.0.10**.
+
+## Resposta da pergunta inicial
+
+Como você deve ter entendido, o estilo inline vale mais do que qualquer combinação de classe, elementos e IDs, logo, a resposta é **A**.
+
+Agora que você já sabe como funciona a especificidade do CSS, nada de adicionar _!important_ pra resolver um conflito de CSS, ein? Adicionar um estilo inline no HTML ou ID no seletor CSS deve resolver tão bem quanto.

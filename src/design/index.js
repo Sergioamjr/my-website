@@ -55,7 +55,7 @@ export const xLargeMgBottom = css`
 export const text = css`
   color: var(--text);
   line-height: 1.8;
-  font-size: 16px;
+  font-size: 18px;
   ${secondaryFont};
   ${mgBottom};
   transition: color 0.3s ease;
